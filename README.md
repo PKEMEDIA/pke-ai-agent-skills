@@ -8,35 +8,51 @@ AI Agent Skills and Orchestrator for Pretty Kitty Entertainment — **live on Gr
 | --- | --- |
 | **skill-creator** | Scaffold + validate SKILL.md packages |
 | **skill-orchestrator** | Multi-skill sequential/parallel/DAG plans |
+| **pke-empire-os** | Master media empire + legal/production OS |
+| **voice-commander** | Make.com webhook automation for Kitty Empire OS |
 | **beast-mode** | Aggressive high-throughput execution profile |
 | **docx** | Document structure + Markdown/Word export |
 | **spicy-mode** | Grok spicy tone profile (iOS + web) |
 | **grok-build-ios** | iOS/web Grok Build optimization checklist |
 
-## Grok Build platform skills (doctrine)
+## Empire CLI automation (`scripts/`)
 
-Also paired in the Skill Command Center: design-ui, building-games, controls, generate2dsprite, generate2dmap, video2dsprite, imagine, auth, neon, multiplayer-p2p, threejs, game-asset-core, …
+| Script | Purpose |
+| --- | --- |
+| `empire-validate.sh` | Structural validate all skills in a root |
+| `oneshot-json.sh` | Headless `grok -p` → JSON |
+| `safe-ci-review.sh` | dontAsk + allowlist PR review |
+| `session-empire-nightly.sh` | Stateful weekly Empire OS summary |
 
-## Agents
+```bash
+export XAI_API_KEY=xai-...
+bash scripts/empire-validate.sh ~/.grok/skills
+bash scripts/safe-ci-review.sh "Review this PR"
+```
 
-- Grok Build: general-purpose, explore, plan
-- PKE: skill-creator-agent, skill-orchestrator-agent, beast-agent, docx-agent
-- SentientEmpire: sentient-concierge, sentient-orchestrator
+## Hooks (`hooks/`)
+
+- `post-tool-use-make.sh` + recipe — Grok Build PostToolUse → Make.com Voice Commander webhook (Automation Log / Legal / COVICEA / Content).
+- Set `MAKE_WEBHOOK_URL` in env; never commit secrets.
+
+## Bridge (`docs/`)
+
+- `sentient-empire-office-cli-bridge.md` — iOS/Mac Sentient app → edge helper → Grok Build CLI → Make/Notion.
 
 ## Install
 
 ```bash
-# Cursor project
-mkdir -p .cursor/skills
-cp -r skill-creator skill-orchestrator beast-mode docx spicy-mode grok-build-ios .cursor/skills/
-
-# Grok Build workspace
 mkdir -p .grok/skills
-cp -r skill-creator skill-orchestrator beast-mode docx spicy-mode grok-build-ios .grok/skills/
+cp -r skill-creator skill-orchestrator pke-empire-os voice-commander beast-mode docx spicy-mode grok-build-ios .grok/skills/
+
+mkdir -p ~/.grok/hooks
+cp hooks/post-tool-use-make.sh ~/.grok/hooks/ && chmod +x ~/.grok/hooks/post-tool-use-make.sh
 ```
 
 ## Compatibility
 
 agentskills.io · Cursor · Grok Build · Claude Code / Codex skill folders
 
-Optimized for **Grok Build on iOS app + web** with spicy mode and beast mode profiles.
+Optimized for **Grok Build on iOS app + web** with spicy mode, beast mode, and Empire OS automation.
+
+**Dry-run 2026-07-28**: local library 50/50 structural PASS via empire-validate.

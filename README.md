@@ -6,7 +6,7 @@ AI Agent Skills and Orchestrator for Pretty Kitty Entertainment — **live on Gr
 
 | Skill | Role |
 | --- | --- |
-| **skill-creator** | Scaffold + validate SKILL.md packages |
+| **skill-creator** | Scaffold + validate SKILL.md packages (lean + references/) |
 | **skill-orchestrator** | Multi-skill sequential/parallel/DAG plans |
 | **pke-empire-os** | Master media empire + legal/production OS |
 | **voice-commander** | Make.com webhook automation for Kitty Empire OS |
@@ -32,12 +32,14 @@ bash scripts/safe-ci-review.sh "Review this PR"
 
 ## Hooks (`hooks/`)
 
-- `post-tool-use-make.sh` + recipe — Grok Build PostToolUse → Make.com Voice Commander webhook (Automation Log / Legal / COVICEA / Content).
-- Set `MAKE_WEBHOOK_URL` in env; never commit secrets.
+- `post-tool-use-make.sh` + recipe — Grok Build PostToolUse → Make.com Voice Commander webhook
+- Auto-routes path hints to `legal` / `covicea` / `content` / `automation_log`
+- Set `MAKE_WEBHOOK_URL` in env; never commit secrets
 
-## Bridge (`docs/`)
+## Bridge (`docs/` + `deploy/`)
 
-- `sentient-empire-office-cli-bridge.md` — iOS/Mac Sentient app → edge helper → Grok Build CLI → Make/Notion.
+- `docs/sentient-empire-office-cli-bridge.md` — iOS/Mac Sentient → Compile Studio edge → Grok CLI → Make/Notion
+- `deploy/setup-grok-cli-bridge.sh` — install skills + hooks onto a Mac
 
 ## Install
 
@@ -47,6 +49,9 @@ cp -r skill-creator skill-orchestrator pke-empire-os voice-commander beast-mode 
 
 mkdir -p ~/.grok/hooks
 cp hooks/post-tool-use-make.sh ~/.grok/hooks/ && chmod +x ~/.grok/hooks/post-tool-use-make.sh
+
+# Or full Mac bridge:
+bash deploy/setup-grok-cli-bridge.sh
 ```
 
 ## Compatibility
@@ -55,4 +60,4 @@ agentskills.io · Cursor · Grok Build · Claude Code / Codex skill folders
 
 Optimized for **Grok Build on iOS app + web** with spicy mode, beast mode, and Empire OS automation.
 
-**Dry-run 2026-07-28**: local library 50/50 structural PASS via empire-validate.
+**Dry-run 2026-07-28**: local library **50/50 structural PASS** via empire-validate.

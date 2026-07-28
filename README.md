@@ -1,40 +1,42 @@
 # pke-ai-agent-skills
 
-AI Agent Skills and Orchestrator for Pretty Kitty Entertainment business operations. Multi-agent system for content house, mentorship, production etc.
+AI Agent Skills and Orchestrator for Pretty Kitty Entertainment — **live on Grok Build**.
 
-## Included Meta-Skills (Cursor / agentskills.io compatible)
+## Live skills (runnable engines)
 
-### skill-creator
-Create, scaffold, refine, and validate high-quality Agent Skills. Use this to turn workflows, domain knowledge, or processes into reusable skills that agents can discover and apply automatically.
+| Skill | Role |
+| --- | --- |
+| **skill-creator** | Scaffold + validate SKILL.md packages |
+| **skill-orchestrator** | Multi-skill sequential/parallel/DAG plans |
+| **beast-mode** | Aggressive high-throughput execution profile |
+| **docx** | Document structure + Markdown/Word export |
+| **spicy-mode** | Grok spicy tone profile (iOS + web) |
+| **grok-build-ios** | iOS/web Grok Build optimization checklist |
 
-### skill-orchestrator
-Orchestrate complex multi-step tasks by inventorying available skills, decomposing goals, matching skills to subtasks, generating structured plans (sequential / parallel / DAG), managing handoffs, and synthesizing results.
+## Grok Build platform skills (doctrine)
 
-## Quick Install for Cursor
+Also paired in the Skill Command Center: design-ui, building-games, controls, generate2dsprite, generate2dmap, video2dsprite, imagine, auth, neon, multiplayer-p2p, threejs, game-asset-core, …
+
+## Agents
+
+- Grok Build: general-purpose, explore, plan
+- PKE: skill-creator-agent, skill-orchestrator-agent, beast-agent, docx-agent
+- SentientEmpire: sentient-concierge, sentient-orchestrator
+
+## Install
 
 ```bash
-# Project-level (recommended)
+# Cursor project
 mkdir -p .cursor/skills
-cp -r skill-creator skill-orchestrator .cursor/skills/
+cp -r skill-creator skill-orchestrator beast-mode docx spicy-mode grok-build-ios .cursor/skills/
 
-# Or user-level (global)
-mkdir -p ~/.cursor/skills
-cp -r skill-creator skill-orchestrator ~/.cursor/skills/
+# Grok Build workspace
+mkdir -p .grok/skills
+cp -r skill-creator skill-orchestrator beast-mode docx spicy-mode grok-build-ios .grok/skills/
 ```
 
-After placing the folders, restart Agent chat or reload Cursor. Invoke with:
+## Compatibility
 
-- `/skill-creator`
-- `/skill-orchestrator`
+agentskills.io · Cursor · Grok Build · Claude Code / Codex skill folders
 
-or natural language that matches their descriptions.
-
-## How to Use
-
-1. Use **skill-creator** to build new domain skills (content production pipelines, mentorship workflows, media production standards, legal recovery processes, etc.).
-2. Use **skill-orchestrator** when you have a complex goal that benefits from coordinating multiple specialized skills.
-3. Iterate: create → test → improve → orchestrate.
-
-These skills follow the official Cursor Agent Skills format and the open [agentskills.io](https://agentskills.io) standard.
-
-Official Cursor docs: https://cursor.com/docs/skills
+Optimized for **Grok Build on iOS app + web** with spicy mode and beast mode profiles.

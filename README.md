@@ -19,7 +19,7 @@ AI Agent Skills and Orchestrator for Pretty Kitty Entertainment — **live on Gr
 
 | Script | Purpose |
 | --- | --- |
-| `empire-validate.sh` | Structural validate all skills in a root |
+| `empire-validate.sh` | Structural validate all skills in a root (no API key) |
 | `oneshot-json.sh` | Headless `grok -p` → JSON |
 | `safe-ci-review.sh` | dontAsk + allowlist PR review |
 | `session-empire-nightly.sh` | Stateful weekly Empire OS summary |
@@ -60,4 +60,4 @@ agentskills.io · Cursor · Grok Build · Claude Code / Codex skill folders
 
 Optimized for **Grok Build on iOS app + web** with spicy mode, beast mode, and Empire OS automation.
 
-**Dry-run 2026-07-28**: local library **50/50 structural PASS** via empire-validate.
+**Dry-run 2026-07-29**: empire skill library **50/50 structural PASS** via empire-validate.

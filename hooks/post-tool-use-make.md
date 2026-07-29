@@ -11,12 +11,12 @@ After successful tool use (file writes, key bash jobs), notify Make so Notion Au
 2. Copy the webhook URL → store as env `MAKE_WEBHOOK_URL` (never commit).
 3. Add a **Router** on `scenario` field:
    - `automation_log` → create page in Automation Log DB
-   - `legal` → Legal Tracker (Scenario 1)
+   - `legal` → Legal Tracker (Scenario 1) — confirmation filter required
    - `covicea` → COVICEA Visual Log (Scenario 2)
    - `content` → Content Strategy (Scenario 3)
    - `dashboard` → summary path (Scenario 4)
 4. End with **Webhook Response**: `{ "status": "ok", "notion_page_id": "..." }`
-5. Rate-limit Notion modules (~3 req/sec). Legal routes require confirmation filter.
+5. Rate-limit Notion modules (~3 req/sec).
 
 ## 2. Grok Build hook install
 
@@ -35,7 +35,17 @@ cp hooks/post-tool-use-make.sh .grok/hooks/
 chmod +x .grok/hooks/post-tool-use-make.sh
 ```
 
-## 3. Payload shape
+## 3. Auto-routing
+Hook inspects tool path hints:
+
+| Path contains | scenario |
+| --- | --- |
+| legal / affidavit / claim | legal |
+| covicea / Distraction / album | covicea |
+| content / calendar / episode | content |
+| (default) | automation_log |
+
+## 4. Payload shape
 
 ```json
 {
@@ -43,11 +53,11 @@ chmod +x .grok/hooks/post-tool-use-make.sh
   "scenario": "automation_log",
   "source": "grok-build-hook",
   "notion_db": "automation-log",
-  "data": { "tool": "Write", "status": "ok" }
+  "data": { "tool": "Write", "status": "ok", "path": "src/foo.ts" }
 }
 ```
 
-## 4. Security
+## 5. Security
 - Scope Make Gmail/Drive connections to labeled folders only.
 - Never put webhook URL in SKILL.md or public git.
 - Legal pages: human confirmation before create.

@@ -1,7 +1,8 @@
 # PKE Brand Skill Map
 
-**Status**: Production · exported 2026-07-29  
-**Owners**: skill-orchestrator · pke-face-lock · pke-official-black-mask
+**Status**: Production · export recovery 2026-07-29  
+**Owners**: skill-orchestrator · pke-face-lock · pke-official-black-mask  
+**Repo**: https://github.com/PKEMEDIA/pke-ai-agent-skills
 
 ## Skill map
 
@@ -9,9 +10,7 @@
 |---|---|
 | `pke-face-lock` | Official company face (freckles, copper braids, green-hazel eyes) |
 | `pke-official-black-mask` | Pure-black dense-spike leather bunny mask |
-| `spicy-male-erotic-prompt-optimizer` | Spicy Imagine prompt craft + recovery (iOS + web) |
-| `pretty-kitty-photorealism` | 5 locked talent models photoreal pipeline |
-| `skill-orchestrator` | Ecosystem health, validation, DPO handoff |
+| `skill-orchestrator` | Ecosystem health, validation, GitHub export recovery |
 
 ## Default generation order
 
@@ -37,11 +36,11 @@
 | Face lock miss | Re-insert full face lock block + refs |
 | Mask fail | Re-insert pure-black mask block |
 | Title clutter | Strip to single seal line |
-| Spicy moderation block | Artistic reframe → milder base → progressive edit → local ComfyUI after 2 fails |
+| GitHub push lock | Tree re-read → missing-only push → verify |
 
 ## Hard stops
 
 - Do not invent a second company face
 - Do not recolor the official mask
-- Legal-age consensual adults only
-- Do not claim Spicy is "on" if the active interface returned a policy block
+- Legal-age adults only for any talent imagery
+- Do not claim export complete if required paths missing

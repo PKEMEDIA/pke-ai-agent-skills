@@ -1,8 +1,13 @@
 ---
 name: pke-face-lock
-description: Permanent official PKE / Pretty Kitty Media face lock for the freckled copper-cornrow adult male model. Use on any generation, title card, casting photo, roster still, or mask overlay where this is the company face. Triggers on PKE face, official model, freckled model, copper braids, green-hazel eyes, company face, PKEMEDIA model, casting photo, roster photo, face lock.
+description: >
+  Permanent official PKE / Pretty Kitty Media face lock for the freckled
+  copper-cornrow adult male model. Use on any generation, title card, casting
+  photo, roster still, or mask overlay where this is the company face. Triggers
+  on PKE face, official model, freckled model, copper braids, green-hazel eyes,
+  company face, PKEMEDIA model, casting photo, roster photo, face lock.
 metadata:
-  short-description: Locked official PKE face identity for all brand generations
+  short-description: "Locked official PKE face identity for all brand generations"
 ---
 
 # PKE Face Lock (Official Model)

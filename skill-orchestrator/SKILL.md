@@ -117,6 +117,19 @@ Freckles/eyes/braids 0–3 · Dry skin 0–2 · Mask pure black 0–2 · Title s
 - Brand-safe casting only
 - No secrets in GitHub export
 
+## Synthetic Intellect (autonomous · free-tier)
+
+```bash
+bash /workspace/scripts/pke-learn.sh          # observe → heal → improve → stamp
+bash /workspace/scripts/pke-learn.sh --push   # + sync improvements to GitHub
+```
+
+- Runs **locally only** — no Imagine, no video, no SuperGrok burn.
+- Learns from heal logs, validate fails, asset gates, and skill text gaps.
+- Writes lessons to `artifacts/pke-mind/` and may patch skill docs.
+- Always self-heal before applying improvements.
+- Safe on free tier forever; cloud gen is optional user action only.
+
 ## Last orchestration stamp
 
 - **Date:** 2026-07-30 00:09 EDT

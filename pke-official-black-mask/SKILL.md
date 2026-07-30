@@ -59,3 +59,9 @@ Official PKE full-head black leather bunny mask: tall upright ears with continuo
 ## Pairing
 
 Use with `pke-face-lock` when a model wears the mask. Title text - Heavy Geometric Sans white **PKE PRESENTS** / **A PKE PRODUCTION**.
+
+## Free-tier
+
+- Keep the consolidated mask prompt block; do not regenerate variants cloud-side for learning.
+- Local Comfy + locked prompt = unlimited practice; cloud only for final title cards.
+

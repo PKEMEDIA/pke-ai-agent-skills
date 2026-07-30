@@ -76,3 +76,12 @@ plastic skin, beauty filter, over-smooth, sweat, water droplets, wet skin, wrong
 - Plastic / AI-smooth skin
 - Sweat or water droplets when user requested dry
 - Identity drift from the three reference angles
+
+## Free-tier efficiency (always on)
+
+- Prefer **one** locked prompt block; do not re-describe freckles three ways.
+- Attach existing refs from `public/pke/` instead of new Imagine gens when possible.
+- On free / low quota: use **ComfyUI local** (`artifacts/comfyui/pke-face-lock-base.json`) for volume.
+- Cloud Imagine only for final hero stills — never for exploratory loops.
+- Edit loops beat multi-variable first gens (saves SuperGrok Heavy).
+

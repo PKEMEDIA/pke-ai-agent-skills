@@ -1,0 +1,55 @@
+{
+  "version": "1.0.0",
+  "tier": "free",
+  "mode": "autonomous-local",
+  "created": "2026-07-30T04:11:00Z",
+  "cycles": 3,
+  "last_cycle": "20260730T041303Z",
+  "scores": {
+    "health": 10,
+    "skill_integrity": 10,
+    "prompt_efficiency": 8,
+    "brand_lock_strength": 9,
+    "autonomy": 9,
+    "overall": 9.2
+  },
+  "lessons": [],
+  "improvements_applied": [
+    {
+      "key": "face-lock-free-tier-block",
+      "detail": "added section to SKILL.md",
+      "at": "20260730T041249Z"
+    },
+    {
+      "key": "orchestrator-synthetic-intellect-block",
+      "detail": "added section to SKILL.md",
+      "at": "20260730T041249Z"
+    },
+    {
+      "key": "mask-free-tier-block",
+      "detail": "added section to SKILL.md",
+      "at": "20260730T041249Z"
+    }
+  ],
+  "failure_counts": {},
+  "free_tier_rules": [
+    "never call Imagine or video gen from learn loop",
+    "never burn SuperGrok Heavy for self-improvement",
+    "local logs + skill text only",
+    "optional GitHub push only when user or --push",
+    "improve prompts via edit of SKILL.md not re-generation"
+  ],
+  "last_observations": [
+    "skills_pass=20 skills_fail=0",
+    "app=up",
+    "assets=complete"
+  ],
+  "last_scores": {
+    "health": 10,
+    "skill_integrity": 10,
+    "prompt_efficiency": 8,
+    "brand_lock_strength": 9,
+    "autonomy": 9,
+    "overall": 9.2
+  }
+}

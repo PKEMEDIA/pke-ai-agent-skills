@@ -266,17 +266,25 @@ heal_github() {
     git config user.name "PKE Self-Heal"
     git add -A
     if git diff --cached --quiet; then
-      log "github=already-synced"
+      echo "SYNCED" > /tmp/pke-heal-gh-status
     else
       git commit -m "chore: self-heal sync $(date -u +%Y-%m-%dT%H:%MZ)"
       if git push origin main; then
-        log_action "github-pushed:$(git rev-parse --short HEAD)"
+        git rev-parse --short HEAD > /tmp/pke-heal-gh-status
       else
-        log_action "github-push-FAILED"
-        FAILS_AFTER=$((FAILS_AFTER + 1))
+        echo "PUSH_FAILED" > /tmp/pke-heal-gh-status
       fi
     fi
   )
+  ghst=$(cat /tmp/pke-heal-gh-status 2>/dev/null || echo FAIL)
+  if [ "$ghst" = "SYNCED" ]; then
+    log "github=already-synced"
+  elif [ "$ghst" = "PUSH_FAILED" ] || [ "$ghst" = "FAIL" ]; then
+    log_action "github-push-FAILED"
+    FAILS_AFTER=$((FAILS_AFTER + 1))
+  else
+    log_action "github-pushed:$ghst"
+  fi
   rm -rf "$tmp"
 }
 

@@ -1,15 +1,15 @@
 ---
 name: skill-orchestrator
-description: Orchestrate validate link and deploy PKE Pretty Kitty Media skills for Grok iOS web Imagine Build and GitHub connectors. Triggers on skill orchestrator, orchestrate skills, finalize skills, deploy skills, PKE skill map, lock skills, validate skill ecosystem, run skill health check, GitHub export, finish export, push lock, clean up skills.
+description: Orchestrate validate heal link and deploy PKE Pretty Kitty Media skills for Grok iOS web Imagine Build and GitHub connectors. Triggers on skill orchestrator, orchestrate skills, finalize skills, deploy skills, self heal, self-healing, PKE skill map, lock skills, validate skill ecosystem, run skill health check, GitHub export, finish export, push lock, clean up skills.
 metadata:
-  short-description: Orchestrate PKE skills for iOS web connectors
+  short-description: Orchestrate heal and deploy PKE skills
   platforms: grok-ios, grok-web, grok-imagine, grok-build, github-connector
-  version: "1.2.0"
+  version: "1.3.0"
 ---
 
 # Skill Orchestrator (PKE scope)
 
-Meta-skill for Pretty Kitty Media / PKE Films. Validates skills, Brand Guidelines app, Comfy local pack, and GitHub export. Works the same when the user is on **Grok iOS** or **web**.
+Meta-skill for Pretty Kitty Media / PKE Films. Validates, **self-heals**, deploys Brand Guidelines app, Comfy local pack, and GitHub export. Same on **Grok iOS** and **web**.
 
 ## PKE skill map
 
@@ -20,6 +20,36 @@ Meta-skill for Pretty Kitty Media / PKE Films. Validates skills, Brand Guideline
 | `skill-orchestrator` | This meta-skill |
 | `skill-creator` | Frontmatter validate / scaffold |
 | `skill-test-suite` | Full structural harness |
+
+## Self-healing (run first on any failure)
+
+**Command:**
+
+```bash
+bash /workspace/scripts/pke-self-heal.sh          # local heal
+bash /workspace/scripts/pke-self-heal.sh --push   # heal + GitHub sync
+```
+
+Also shipped at `skill-orchestrator/scripts/pke-self-heal.sh`.
+
+### Auto-repairs
+
+| Failure | Heal action |
+|---|---|
+| Skill validate fail (folded `description: >`, angle brackets, colon-space) | Rewrite plain scalar description |
+| Missing `pke-brand-map.md` | Restore canonical brand-map |
+| App down on :8080 | Run `startup.sh` (recreate if missing) |
+| Junk `export-fix/*.b64` / push-args | Delete |
+| Missing Comfy base but staging exists | Copy from `artifacts/github-export/` |
+| GitHub drift (`--push`) | Clone → copy brand pack → commit → push |
+
+### Self-heal loop (agent protocol)
+
+1. Run `pke-self-heal.sh`
+2. If `STATUS=HEALTHY` → stamp green
+3. If `STATUS=DEGRADED` → read heal log under `artifacts/heal-logs/` → manual fix remaining MISS assets → re-run
+4. Max 2 auto-heal passes per turn; never loop forever
+5. Binary face refs (`public/pke/IMG_*.jpg`) cannot be invented — restore from backup or user
 
 ## Ecosystems / connectors
 
@@ -58,6 +88,7 @@ Meta-skill for Pretty Kitty Media / PKE Films. Validates skills, Brand Guideline
 | Brand app | HTTP 200, visible content, clean console |
 | GitHub | Required export set on `main` |
 | No junk | No `export-fix/*.b64` or push-args leftovers |
+| Self-heal | `pke-self-heal.sh` exits 0 (HEALTHY) |
 
 ## GitHub export set
 
@@ -65,12 +96,14 @@ Meta-skill for Pretty Kitty Media / PKE Films. Validates skills, Brand Guideline
 - `pke-official-black-mask/SKILL.md`
 - `skill-orchestrator/SKILL.md`
 - `skill-orchestrator/references/pke-brand-map.md`
-- `comfyui/pke-face-lock-base.json` (optional companion)
+- `skill-orchestrator/scripts/pke-self-heal.sh`
+- `comfyui/pke-face-lock-base.json`
 - `README.md`
 
 ## Push-lock recovery
 
-1. Tree re-read → 2. Diff missing → 3. Single missing-only push → 4. Verify → max 2 attempts
+1. Tree re-read → 2. Diff missing → 3. Single missing-only push → 4. Verify → max 2 attempts  
+Or run `bash scripts/pke-self-heal.sh --push`.
 
 ## Quality scoring (ship ≥ 8)
 
@@ -86,6 +119,6 @@ Freckles/eyes/braids 0–3 · Dry skin 0–2 · Mask pure black 0–2 · Title s
 
 ## Last orchestration stamp
 
-- **Date:** 2026-07-30 00:03 EDT
-- **Actions:** Validate all skills; iOS/web/connector platform notes; cleanup export-fix junk; ship Comfy base; GitHub deploy
-- **Status:** PRODUCTION READY · VALIDATE GREEN · ECOSYSTEMS ALIGNED
+- **Date:** 2026-07-30 00:09 EDT
+- **Actions:** Self-heal harness installed; first run HEALTHY 19/19; no repairs needed
+- **Status:** PRODUCTION READY · SELF-HEAL GREEN · VALIDATE GREEN

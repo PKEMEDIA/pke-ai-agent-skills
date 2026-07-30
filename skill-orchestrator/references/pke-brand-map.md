@@ -50,3 +50,13 @@ Grok iOS · Grok web · Imagine · Build · GitHub connector · Local ComfyUI
 ## Recovery
 
 Push lock → tree re-read → missing-only push (max 2) → verify tree.
+
+
+## Self-heal
+
+```bash
+bash /workspace/scripts/pke-self-heal.sh
+bash /workspace/scripts/pke-self-heal.sh --push
+```
+
+Logs: `artifacts/heal-logs/heal-*.log`

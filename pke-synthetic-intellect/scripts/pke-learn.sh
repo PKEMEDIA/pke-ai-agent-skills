@@ -1,19 +1,45 @@
 #!/usr/bin/env bash
-# PKE Synthetic Intellect — autonomous local learning cycle (free-tier safe).
+# PKE Synthetic Intellect - autonomous local learning cycle (free-tier safe).
 # Usage:
-#   bash /workspace/scripts/pke-learn.sh
-#   bash /workspace/scripts/pke-learn.sh --push
+#   bash scripts/pke-learn.sh
+#   bash scripts/pke-learn.sh --push
 # Never calls Imagine / video. Only local files + optional GitHub.
 set -eu
 
-ROOT="${PKE_ROOT:-/workspace}"
-VALIDATE="${VALIDATE_SKILL:-/root/.grok/server-skills/skill-creator/scripts/validate-skill.sh}"
+# Root detection (App Builder /workspace, user home, or cwd)
+if [ -n "${PKE_ROOT:-}" ]; then
+  ROOT="$PKE_ROOT"
+elif [ -d /workspace/.grok/skills ]; then
+  ROOT=/workspace
+elif [ -d /home/workdir/.grok/skills ]; then
+  ROOT=/home/workdir
+else
+  ROOT="$(pwd)"
+fi
+
+# Prefer available validate-skill.sh
+if [ -z "${VALIDATE_SKILL:-}" ]; then
+  for cand in \
+    /root/.grok/skills/skill-creator/scripts/validate-skill.sh \
+    /root/.grok/server-skills/skill-creator/scripts/validate-skill.sh \
+    /home/workdir/.grok/skills/skill-creator/scripts/validate-skill.sh \
+    "$ROOT/.grok/skills/skill-creator/scripts/validate-skill.sh"
+  do
+    if [ -f "$cand" ]; then VALIDATE_SKILL="$cand"; break; fi
+  done
+fi
+VALIDATE="${VALIDATE_SKILL:-}"
+
 MIND="$ROOT/artifacts/pke-mind"
 HEAL="$ROOT/scripts/pke-self-heal.sh"
+# Fallback: orchestrator-bundled heal
+if [ ! -f "$HEAL" ] && [ -f "$ROOT/.grok/skills/skill-orchestrator/scripts/pke-self-heal.sh" ]; then
+  HEAL="$ROOT/.grok/skills/skill-orchestrator/scripts/pke-self-heal.sh"
+fi
 LOG_DIR="$MIND/cycles"
 STAMP=$(date -u +%Y%m%dT%H%M%SZ)
 PUSH=0
-[ "${1:-}" = "--push" ] && PUSH=1
+if [ "${1:-}" = "--push" ]; then PUSH=1; fi
 
 mkdir -p "$MIND" "$LOG_DIR" "$MIND/patches"
 LOG="$LOG_DIR/cycle-$STAMP.log"
@@ -36,10 +62,9 @@ else
 fi
 
 # ── 1. Observe ──
-python3 - "$ROOT" "$MIND" "$STAMP" "$LOG" <<'PY'
-import json, re, sys, hashlib
+python3 - "$ROOT" "$MIND" "$STAMP" "$LOG" "${VALIDATE:-}" <<'PY'
+import json, re, sys
 from pathlib import Path
-from datetime import datetime, timezone
 
 ROOT = Path(sys.argv[1])
 MIND = Path(sys.argv[2])
@@ -74,14 +99,27 @@ def improve(key, detail):
     print("IMPROVE:", key, "-", detail)
 
 # --- skill validation scan ---
-validate = Path("/root/.grok/server-skills/skill-creator/scripts/validate-skill.sh")
+validate = Path(sys.argv[5]) if len(sys.argv) > 5 and sys.argv[5] else Path("/root/.grok/skills/skill-creator/scripts/validate-skill.sh")
+if not validate.exists():
+    for cand in [
+        "/root/.grok/skills/skill-creator/scripts/validate-skill.sh",
+        "/root/.grok/server-skills/skill-creator/scripts/validate-skill.sh",
+        "/home/workdir/.grok/skills/skill-creator/scripts/validate-skill.sh",
+    ]:
+        if Path(cand).exists():
+            validate = Path(cand)
+            break
 skills_dir = ROOT / ".grok" / "skills"
 pass_n = fail_n = 0
 fail_names = []
+import subprocess
 for d in sorted(skills_dir.iterdir() if skills_dir.exists() else []):
     if not d.is_dir() or not (d / "SKILL.md").exists():
         continue
-    import subprocess
+    if not validate.exists():
+        fail_n += 1
+        fail_names.append(d.name)
+        continue
     r = subprocess.run([str(validate), str(d)], capture_output=True, text=True)
     if r.returncode == 0:
         pass_n += 1
@@ -286,27 +324,33 @@ PY
 # Re-validate brand skills after patches
 log "=== post-learn validate ==="
 PASS=0; FAIL=0
-for d in "$ROOT"/.grok/skills/pke-face-lock "$ROOT"/.grok/skills/pke-official-black-mask "$ROOT"/.grok/skills/skill-orchestrator "$ROOT"/.grok/skills/pke-synthetic-intellect; do
-  [ -d "$d" ] || continue
-  if "$VALIDATE" "$d" >/dev/null 2>&1; then
-    PASS=$((PASS+1)); log "OK $(basename $d)"
-  else
-    FAIL=$((FAIL+1)); log "FAIL $(basename $d)"; "$VALIDATE" "$d" 2>&1 | tee -a "$LOG" || true
-  fi
-done
+if [ -n "${VALIDATE:-}" ] && [ -f "$VALIDATE" ]; then
+  for d in "$ROOT"/.grok/skills/pke-face-lock "$ROOT"/.grok/skills/pke-official-black-mask "$ROOT"/.grok/skills/skill-orchestrator "$ROOT"/.grok/skills/pke-synthetic-intellect; do
+    [ -d "$d" ] || continue
+    if "$VALIDATE" "$d" >/dev/null 2>&1; then
+      PASS=$((PASS+1)); log "OK $(basename $d)"
+    else
+      FAIL=$((FAIL+1)); log "FAIL $(basename $d)"; "$VALIDATE" "$d" 2>&1 | tee -a "$LOG" || true
+    fi
+  done
+else
+  log "WARN: post-learn validate skipped (no validate-skill.sh)"
+fi
 
 # optional github push of mind + skill patches
 if [ "$PUSH" -eq 1 ] && command -v gh >/dev/null 2>&1; then
   tmp=/tmp/pke-learn-push-$$
   rm -rf "$tmp"
   gh repo clone PKEMEDIA/pke-ai-agent-skills "$tmp" -- --depth 1
-  mkdir -p "$tmp/pke-face-lock" "$tmp/pke-official-black-mask" "$tmp/skill-orchestrator/scripts" "$tmp/skill-orchestrator/references" "$tmp/pke-synthetic-intellect" "$tmp/mind"
+  mkdir -p "$tmp/pke-face-lock" "$tmp/pke-official-black-mask" "$tmp/skill-orchestrator/scripts" "$tmp/skill-orchestrator/references" "$tmp/pke-synthetic-intellect" "$tmp/mind" "$tmp/scripts"
   cp "$ROOT/.grok/skills/pke-face-lock/SKILL.md" "$tmp/pke-face-lock/"
   cp "$ROOT/.grok/skills/pke-official-black-mask/SKILL.md" "$tmp/pke-official-black-mask/"
   cp "$ROOT/.grok/skills/skill-orchestrator/SKILL.md" "$tmp/skill-orchestrator/"
   cp "$ROOT/.grok/skills/skill-orchestrator/references/pke-brand-map.md" "$tmp/skill-orchestrator/references/" 2>/dev/null || true
   cp "$ROOT/scripts/pke-self-heal.sh" "$tmp/skill-orchestrator/scripts/" 2>/dev/null || true
   cp "$ROOT/scripts/pke-learn.sh" "$tmp/skill-orchestrator/scripts/" 2>/dev/null || true
+  cp "$ROOT/scripts/pke-self-heal.sh" "$tmp/scripts/" 2>/dev/null || true
+  cp "$ROOT/scripts/pke-learn.sh" "$tmp/scripts/" 2>/dev/null || true
   if [ -d "$ROOT/.grok/skills/pke-synthetic-intellect" ]; then
     cp -r "$ROOT/.grok/skills/pke-synthetic-intellect/." "$tmp/pke-synthetic-intellect/" 2>/dev/null || true
   fi

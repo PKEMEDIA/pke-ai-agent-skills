@@ -1,10 +1,33 @@
 #!/usr/bin/env bash
-# PKE self-heal — detect gate failures, auto-repair, re-validate, report.
-# Usage: bash /workspace/scripts/pke-self-heal.sh [--push]
+# PKE self-heal - detect gate failures, auto-repair, re-validate, report.
+# Usage: bash scripts/pke-self-heal.sh [--push]
+# Env:   PKE_ROOT (auto-detected), VALIDATE_SKILL
 set -eu
 
-ROOT="${PKE_ROOT:-/workspace}"
-VALIDATE="${VALIDATE_SKILL:-/root/.grok/server-skills/skill-creator/scripts/validate-skill.sh}"
+# Root detection (App Builder /workspace, user home, or cwd)
+if [ -n "${PKE_ROOT:-}" ]; then
+  ROOT="$PKE_ROOT"
+elif [ -d /workspace/.grok/skills ]; then
+  ROOT=/workspace
+elif [ -d /home/workdir/.grok/skills ]; then
+  ROOT=/home/workdir
+else
+  ROOT="$(pwd)"
+fi
+
+# Prefer available validate-skill.sh
+if [ -z "${VALIDATE_SKILL:-}" ]; then
+  for cand in \
+    /root/.grok/skills/skill-creator/scripts/validate-skill.sh \
+    /root/.grok/server-skills/skill-creator/scripts/validate-skill.sh \
+    /home/workdir/.grok/skills/skill-creator/scripts/validate-skill.sh \
+    "$ROOT/.grok/skills/skill-creator/scripts/validate-skill.sh"
+  do
+    if [ -f "$cand" ]; then VALIDATE_SKILL="$cand"; break; fi
+  done
+fi
+VALIDATE="${VALIDATE_SKILL:-}"
+
 LOG_DIR="$ROOT/artifacts/heal-logs"
 STAMP=$(date -u +%Y%m%dT%H%M%SZ)
 LOG="$LOG_DIR/heal-$STAMP.log"
@@ -21,7 +44,7 @@ FAILS_BEFORE=0
 FAILS_AFTER=0
 
 log "=== PKE SELF-HEAL $STAMP ==="
-log "root=$ROOT push=$PUSH"
+log "root=$ROOT push=$PUSH validate=${VALIDATE:-MISSING}"
 
 fix_skill_frontmatter() {
   local sk="$1"
@@ -72,8 +95,8 @@ PY
 
 heal_skills() {
   local d name
-  if [ ! -f "$VALIDATE" ]; then
-    log "WARN: validate-skill.sh missing at $VALIDATE"
+  if [ -z "$VALIDATE" ] || [ ! -f "$VALIDATE" ]; then
+    log "WARN: validate-skill.sh missing - skip skill heal"
     return
   fi
   for d in "$ROOT"/.grok/skills/*/; do
@@ -171,10 +194,10 @@ heal_app() {
       FAILS_AFTER=$((FAILS_AFTER + 1))
     fi
   else
-    cat > "$ROOT/startup.sh" <<'EOF'
+    cat > "$ROOT/startup.sh" <<EOF
 #!/bin/sh
 set -eu
-cd /workspace
+cd "$ROOT"
 if curl -sf -o /dev/null --max-time 2 http://127.0.0.1:8080/; then
   exit 0
 fi
@@ -183,7 +206,12 @@ EOF
     chmod +x "$ROOT/startup.sh"
     sh "$ROOT/startup.sh" || true
     sleep 2
-    log_action "restored:startup.sh"
+    if curl -sf -o /dev/null --max-time 3 http://127.0.0.1:8080/; then
+      log_action "restored:startup.sh+app-up"
+    else
+      log_action "restored:startup.sh+app-still-down"
+      FAILS_AFTER=$((FAILS_AFTER + 1))
+    fi
   fi
 }
 
@@ -194,7 +222,8 @@ heal_junk() {
   fi
   local n
   n=$(find "$ROOT/artifacts" -maxdepth 2 \( -name '*.b64' -o -name 'github-push-args.json' -o -name 'args_oneline.json' \) 2>/dev/null | wc -l | tr -d ' ')
-  if [ "${n:-0}" -gt 0 ]; then
+  n=${n:-0}
+  if [ "$n" -gt 0 ] 2>/dev/null; then
     find "$ROOT/artifacts" -maxdepth 2 \( -name '*.b64' -o -name 'github-push-args.json' -o -name 'args_oneline.json' \) -delete
     log_action "removed:stray-export-artifacts($n)"
   fi
@@ -235,21 +264,45 @@ heal_github() {
   fi
   if ! command -v gh >/dev/null 2>&1; then
     log_action "github-skip:no-gh"
+    FAILS_AFTER=$((FAILS_AFTER + 1))
     return
   fi
   local tmp=/tmp/pke-self-heal-push-$$
   rm -rf "$tmp"
   if ! gh repo clone PKEMEDIA/pke-ai-agent-skills "$tmp" -- --depth 1; then
     log_action "github-clone-FAILED"
+    FAILS_AFTER=$((FAILS_AFTER + 1))
     return
   fi
-  mkdir -p "$tmp/pke-face-lock" "$tmp/pke-official-black-mask" "$tmp/skill-orchestrator/references" "$tmp/comfyui" "$tmp/skill-orchestrator/scripts"
-  cp "$ROOT/.grok/skills/pke-face-lock/SKILL.md" "$tmp/pke-face-lock/SKILL.md"
-  cp "$ROOT/.grok/skills/pke-official-black-mask/SKILL.md" "$tmp/pke-official-black-mask/SKILL.md"
-  cp "$ROOT/.grok/skills/skill-orchestrator/SKILL.md" "$tmp/skill-orchestrator/SKILL.md"
-  cp "$ROOT/.grok/skills/skill-orchestrator/references/pke-brand-map.md" "$tmp/skill-orchestrator/references/pke-brand-map.md"
+  mkdir -p "$tmp/pke-face-lock" "$tmp/pke-official-black-mask" "$tmp/skill-orchestrator/references" "$tmp/comfyui" "$tmp/skill-orchestrator/scripts" "$tmp/scripts"
+
+  # Guarded copies — missing sources must not abort under set -e
+  local copied=0
+  for pair in \
+    "$ROOT/.grok/skills/pke-face-lock/SKILL.md|$tmp/pke-face-lock/SKILL.md" \
+    "$ROOT/.grok/skills/pke-official-black-mask/SKILL.md|$tmp/pke-official-black-mask/SKILL.md" \
+    "$ROOT/.grok/skills/skill-orchestrator/SKILL.md|$tmp/skill-orchestrator/SKILL.md" \
+    "$ROOT/.grok/skills/skill-orchestrator/references/pke-brand-map.md|$tmp/skill-orchestrator/references/pke-brand-map.md"
+  do
+    src="${pair%%|*}"
+    dst="${pair#*|}"
+    if [ -f "$src" ]; then
+      cp "$src" "$dst"
+      copied=$((copied + 1))
+    else
+      log "WARN: skip missing source $src"
+    fi
+  done
+
   if [ -f "$ROOT/scripts/pke-self-heal.sh" ]; then
     cp "$ROOT/scripts/pke-self-heal.sh" "$tmp/skill-orchestrator/scripts/pke-self-heal.sh"
+    cp "$ROOT/scripts/pke-self-heal.sh" "$tmp/scripts/pke-self-heal.sh"
+    copied=$((copied + 1))
+  fi
+  if [ -f "$ROOT/scripts/pke-learn.sh" ]; then
+    cp "$ROOT/scripts/pke-learn.sh" "$tmp/skill-orchestrator/scripts/pke-learn.sh"
+    cp "$ROOT/scripts/pke-learn.sh" "$tmp/scripts/pke-learn.sh"
+    copied=$((copied + 1))
   fi
   if [ -f "$ROOT/artifacts/comfyui/pke-face-lock-base.json" ]; then
     cp "$ROOT/artifacts/comfyui/pke-face-lock-base.json" "$tmp/comfyui/"
@@ -260,6 +313,13 @@ heal_github() {
   if [ -f "$ROOT/artifacts/github-export/README.md" ]; then
     cp "$ROOT/artifacts/github-export/README.md" "$tmp/README.md"
   fi
+
+  if [ "$copied" -eq 0 ]; then
+    log_action "github-skip:nothing-to-copy"
+    rm -rf "$tmp"
+    return
+  fi
+
   (
     cd "$tmp"
     git config user.email "pke@media.local"
@@ -288,6 +348,7 @@ heal_github() {
   rm -rf "$tmp"
 }
 
+# run
 heal_skills
 heal_brand_map
 heal_app
@@ -297,23 +358,33 @@ heal_github
 
 PASS=0
 TOTAL=0
-for d in "$ROOT"/.grok/skills/*/; do
-  [ -d "$d" ] || continue
-  TOTAL=$((TOTAL + 1))
-  if "$VALIDATE" "$d" >/dev/null 2>&1; then PASS=$((PASS + 1)); fi
-done
+if [ -n "$VALIDATE" ] && [ -f "$VALIDATE" ]; then
+  for d in "$ROOT"/.grok/skills/*/; do
+    [ -d "$d" ] || continue
+    [ -f "$d/SKILL.md" ] || continue
+    TOTAL=$((TOTAL + 1))
+    if "$VALIDATE" "$d" >/dev/null 2>&1; then PASS=$((PASS + 1)); fi
+  done
+else
+  log "WARN: final validate skipped (no validate-skill.sh)"
+fi
 
 log "=== SUMMARY ==="
 log "skills $PASS/$TOTAL"
 log "fails_before_fix=$FAILS_BEFORE fails_remaining=$FAILS_AFTER"
 log "actions=${#ACTIONS[@]}"
-for a in "${ACTIONS[@]:-}"; do log " - $a"; done
+if [ ${#ACTIONS[@]} -gt 0 ]; then
+  for a in "${ACTIONS[@]}"; do log " - $a"; done
+else
+  log " - (none)"
+fi
 log "log_file=$LOG"
 
-if [ "$FAILS_AFTER" -eq 0 ] && [ "$PASS" -eq "$TOTAL" ]; then
-  log "STATUS=HEALTHY"
-  exit 0
-else
-  log "STATUS=DEGRADED"
-  exit 1
+if [ "$FAILS_AFTER" -eq 0 ]; then
+  if [ "$TOTAL" -eq 0 ] || [ "$PASS" -eq "$TOTAL" ]; then
+    log "STATUS=HEALTHY"
+    exit 0
+  fi
 fi
+log "STATUS=DEGRADED"
+exit 1

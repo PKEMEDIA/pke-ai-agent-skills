@@ -1,11 +1,22 @@
 # PKE Brand Map
 
+## Platforms
+
+Grok iOS · Grok web · Imagine · Build · GitHub connector · Local ComfyUI
+
 ## Gen order
 
 1. Load **pke-face-lock** (freckles, copper braids, green-hazel eyes, dry skin)
 2. If mask required → **pke-official-black-mask** (pure black dense pyramid spikes, full-grain leather)
-3. Title / motion tokens only: **PKE PRESENTS** or **A PKE PRODUCTION**
-4. Negatives: plastic skin, chrome spikes, sweat/water when dry, underage
+3. Title / motion tokens only - **PKE PRESENTS** or **A PKE PRODUCTION**
+4. Negatives - plastic skin, chrome spikes, sweat/water when dry, underage
+
+## FaceID vs OpenPose
+
+| Adapter | Role |
+|---|---|
+| FaceID | WHO — identity from face refs |
+| OpenPose | WHERE — limb layout from pose ref |
 
 ## Quality rubric (0–10, ship ≥ 8)
 
@@ -25,6 +36,7 @@
 | Face front | `public/pke/IMG_4441.jpg` |
 | Face window | `public/pke/IMG_4450.jpg` |
 | Casting deck | `artifacts/PKE-Face-Lock-Casting-Package.pptx` |
+| Comfy workflow | `artifacts/comfyui/pke-face-lock-base.json` |
 
 ## GitHub export set
 
@@ -32,6 +44,7 @@
 - `pke-official-black-mask/SKILL.md`
 - `skill-orchestrator/SKILL.md`
 - `skill-orchestrator/references/pke-brand-map.md`
+- `comfyui/pke-face-lock-base.json`
 - `README.md`
 
 ## Recovery

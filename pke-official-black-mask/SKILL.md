@@ -65,3 +65,22 @@ Use with `pke-face-lock` when a model wears the mask. Title text - Heavy Geometr
 - Keep the consolidated mask prompt block; do not regenerate variants cloud-side for learning.
 - Local Comfy + locked prompt = unlimited practice; cloud only for final title cards.
 
+
+## PKE agent ecosystem (always load)
+
+| Agent / skill | When |
+|---|---|
+| `pke-face-lock` | Company face / casting / roster |
+| `pke-official-black-mask` | Mask / title stills |
+| `skill-orchestrator` | Health, export, self-heal, deploy |
+| `pke-synthetic-intellect` | Free-tier autonomous learn cycle |
+| `skill-creator` | Validate after any SKILL.md edit |
+
+**Autonomous ops (local, free tier):**
+
+```bash
+bash /workspace/scripts/pke-self-heal.sh
+bash /workspace/scripts/pke-learn.sh
+```
+
+**Hard locks:** one company face · pure-black mask · title seals **PKE PRESENTS** / **A PKE PRODUCTION** only · no Imagine in learn loop.

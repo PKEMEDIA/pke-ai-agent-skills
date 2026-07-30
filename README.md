@@ -1,46 +1,58 @@
-# PKE AI Agent Skills
+# PKE AI Agent Skills — Full Ecosystem
 
-Official Pretty Kitty Media / PKE Films skill pack for **Grok iOS**, **Grok web**, Imagine, Build, and GitHub connectors.
+Official **Pretty Kitty Media / PKE Films** multi-agent skill pack for:
 
-## Skills
+- Grok **iOS** · **web** · **Imagine** (user-driven) · **Build**
+- **Free tier** autonomous learning (zero Imagine burn)
+- **GitHub** connectors · **Local ComfyUI**
 
-| Skill | Purpose |
+## Brand locks
+
+| Skill | Role |
 | --- | --- |
-| `pke-face-lock` | Locked company face (freckles, copper braids, green-hazel eyes) |
-| `pke-official-black-mask` | Locked pure-black spiked leather bunny mask |
-| `skill-orchestrator` | Health checks, export, recovery, platform map |
+| [`pke-face-lock`](./pke-face-lock/) | Company face (freckles, copper braids, green-hazel) |
+| [`pke-official-black-mask`](./pke-official-black-mask/) | Pure-black spiked leather mask |
 
-## Platforms
+## Meta agents
 
-- Grok iOS / web chat — skills trigger from short brand phrases
-- Grok Imagine — use prompt blocks; mild base → edit
-- Grok Build — Brand Guidelines app + `public/pke/` refs
-- Local ComfyUI — see `comfyui/pke-face-lock-base.json` (FaceID + OpenPose)
+| Skill | Role |
+| --- | --- |
+| [`skill-orchestrator`](./skill-orchestrator/) | Health, self-heal, export, deploy |
+| [`pke-synthetic-intellect`](./pke-synthetic-intellect/) | Always-learning free-tier mind |
+| [`skill-creator`](./skill-creator/) | Validate / scaffold |
 
-## Gen order
+## App Builder agents (ecosystem hooks)
 
-1. Face lock → 2. Mask if needed → 3. **PKE PRESENTS** / **A PKE PRODUCTION** → 4. Negatives
+All under [`agents/`](./agents/) — each skill includes a **PKE ecosystem hook** so Build agents stay aligned with brand locks.
 
-## Title seals only
+## Autonomous ops (free tier)
 
-- **PKE PRESENTS** (openers)
-- **A PKE PRODUCTION** (end cards)
-
-## Quality
-
-Ship threshold ≥ 8/10 (face match, dry skin, pure-black mask, title seal, clear space).
-
-## Repo layout
-
-```
-pke-face-lock/SKILL.md
-pke-official-black-mask/SKILL.md
-skill-orchestrator/SKILL.md
-skill-orchestrator/references/pke-brand-map.md
-comfyui/pke-face-lock-base.json
-README.md
+```bash
+bash scripts/pke-self-heal.sh
+bash scripts/pke-learn.sh
+bash scripts/pke-learn.sh --push
 ```
 
-## License / use
+- Local only for self-improvement
+- Memory: [`mind/state.json`](./mind/state.json), [`mind/lessons.md`](./mind/lessons.md)
+- Map: [`skill-orchestrator/references/pke-ecosystem-map.md`](./skill-orchestrator/references/pke-ecosystem-map.md)
 
-Brand-internal. Do not invent a second company face or recolor the official mask.
+## ComfyUI
+
+[`comfyui/pke-face-lock-base.json`](./comfyui/pke-face-lock-base.json) — FaceID + OpenPose
+
+## Title seals
+
+- **PKE PRESENTS**
+- **A PKE PRODUCTION**
+
+## Hard locks
+
+1. One company face  
+2. Pure-black mask (no chrome)  
+3. No Imagine inside learn/heal loops  
+4. Brand-safe casting only  
+
+## Deploy stamp
+
+Full ecosystem integration — all skills + agents wired — July 2026

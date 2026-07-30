@@ -4,7 +4,7 @@ description: Orchestrate validate heal link and deploy PKE Pretty Kitty Media sk
 metadata:
   short-description: Orchestrate heal and deploy PKE skills
   platforms: grok-ios, grok-web, grok-imagine, grok-build, github-connector
-  version: "1.3.0"
+  version: "1.4.0"
 ---
 
 # Skill Orchestrator (PKE scope)
@@ -132,6 +132,25 @@ bash /workspace/scripts/pke-learn.sh --push   # + sync improvements to GitHub
 
 ## Last orchestration stamp
 
-- **Date:** 2026-07-30 00:09 EDT
-- **Actions:** Self-heal harness installed; first run HEALTHY 19/19; no repairs needed
-- **Status:** PRODUCTION READY · SELF-HEAL GREEN · VALIDATE GREEN
+- **Date:** 2026-07-30 00:30 EDT
+- **Actions:** Full ecosystem deploy — ecosystem footers on all 20 skills; Brand app Agents section; startup heal; GitHub full pack
+- **Status:** PRODUCTION READY · ECOSYSTEM INTEGRATED · ALL AGENTS WIRED
+
+## PKE agent ecosystem (always load)
+
+| Agent / skill | When |
+|---|---|
+| `pke-face-lock` | Company face / casting / roster |
+| `pke-official-black-mask` | Mask / title stills |
+| `skill-orchestrator` | Health, export, self-heal, deploy |
+| `pke-synthetic-intellect` | Free-tier autonomous learn cycle |
+| `skill-creator` | Validate after any SKILL.md edit |
+
+**Autonomous ops (local, free tier):**
+
+```bash
+bash /workspace/scripts/pke-self-heal.sh
+bash /workspace/scripts/pke-learn.sh
+```
+
+**Hard locks:** one company face · pure-black mask · title seals **PKE PRESENTS** / **A PKE PRODUCTION** only · no Imagine in learn loop.

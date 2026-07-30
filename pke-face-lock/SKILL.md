@@ -85,3 +85,22 @@ plastic skin, beauty filter, over-smooth, sweat, water droplets, wet skin, wrong
 - Cloud Imagine only for final hero stills — never for exploratory loops.
 - Edit loops beat multi-variable first gens (saves SuperGrok Heavy).
 
+
+## PKE agent ecosystem (always load)
+
+| Agent / skill | When |
+|---|---|
+| `pke-face-lock` | Company face / casting / roster |
+| `pke-official-black-mask` | Mask / title stills |
+| `skill-orchestrator` | Health, export, self-heal, deploy |
+| `pke-synthetic-intellect` | Free-tier autonomous learn cycle |
+| `skill-creator` | Validate after any SKILL.md edit |
+
+**Autonomous ops (local, free tier):**
+
+```bash
+bash /workspace/scripts/pke-self-heal.sh
+bash /workspace/scripts/pke-learn.sh
+```
+
+**Hard locks:** one company face · pure-black mask · title seals **PKE PRESENTS** / **A PKE PRODUCTION** only · no Imagine in learn loop.

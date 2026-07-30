@@ -20,3 +20,13 @@
 - bash -n syntax OK
 - Brand skills validate OK
 - Remote scripts/ restored with full hardened bodies
+
+## Follow-up 2026-07-30 01:30 — learn --push harden
+
+| # | Severity | Bug | Fix |
+|---|---|---|---|
+| 11 | High | learn bare `gh repo clone` aborts cycle under set -e | Guarded with if ! clone; cycle continues |
+| 12 | High | learn bare brand SKILL `cp` aborts if missing | Guarded for-loop with [ -f ] |
+| 13 | Medium | learn git subshell nonzero aborts parent | Status file + `|| echo SUBSHELL_FAIL` |
+
+Now learn --push matches heal's soft-fail push contract.

@@ -1,15 +1,15 @@
 ---
 name: skill-orchestrator
-description: Orchestrate validate heal link and deploy PKE Pretty Kitty Media skills for Grok iOS web Imagine Build and GitHub connectors. Triggers on skill orchestrator, orchestrate skills, finalize skills, deploy skills, self heal, self-healing, distributed consensus, quorum heal, PKE skill map, lock skills, validate skill ecosystem, run skill health check, GitHub export, finish export, push lock, clean up skills.
+description: Orchestrate validate heal link and deploy PKE Pretty Kitty Media skills for Grok iOS web Imagine Build and GitHub connectors. Triggers on skill orchestrator, orchestrate skills, finalize skills, deploy skills, self heal, self-healing, PKE skill map, lock skills, validate skill ecosystem, run skill health check, GitHub export, finish export, push lock, clean up skills.
 metadata:
   short-description: Orchestrate heal and deploy PKE skills
   platforms: grok-ios, grok-web, grok-imagine, grok-build, github-connector
-  version: "1.5.0"
+  version: "1.4.0"
 ---
 
 # Skill Orchestrator (PKE scope)
 
-Meta-skill for Pretty Kitty Media / PKE Films. Validates, **self-heals with distributed consensus**, deploys Brand Guidelines app, Comfy local pack, and GitHub export. Same on **Grok iOS** and **web**.
+Meta-skill for Pretty Kitty Media / PKE Films. Validates, **self-heals**, deploys Brand Guidelines app, Comfy local pack, and GitHub export. Same on **Grok iOS** and **web**.
 
 ## PKE skill map
 
@@ -20,20 +20,6 @@ Meta-skill for Pretty Kitty Media / PKE Films. Validates, **self-heals with dist
 | `skill-orchestrator` | This meta-skill |
 | `skill-creator` | Frontmatter validate / scaffold |
 | `skill-test-suite` | Full structural harness |
-
-## Distributed consensus self-heal (v1.5)
-
-Prevents split-brain when multiple healers race the same target.
-
-```bash
-node scripts/consensus-self-heal.mjs          # unit suite + demo (6/6)
-node scripts/consensus-self-heal.mjs --json
-bash scripts/heal-lease.sh acquire <target> <holder> [ttl]
-bash scripts/heal-lease.sh release <target> <holder>
-```
-
-Phases: **PROBE → PROPOSE → VOTE → LEASE → COMMIT → VERIFY → RELEASE**  
-Quorum: majority of voters (default 5 → 3 ACK). Protocol: `skill-orchestrator/references/distributed-consensus-self-heal.md`.
 
 ## Self-healing (run first on any failure)
 
@@ -56,16 +42,14 @@ Also shipped at `skill-orchestrator/scripts/pke-self-heal.sh`.
 | Junk `export-fix/*.b64` / push-args | Delete |
 | Missing Comfy base but staging exists | Copy from `artifacts/github-export/` |
 | GitHub drift (`--push`) | Clone → copy brand pack → commit → push |
-| Multi-healer race | Consensus quorum + exclusive lease |
 
 ### Self-heal loop (agent protocol)
 
-1. Run consensus gate when multiple workers may heal (`consensus-self-heal.mjs` or `heal-lease.sh`)
-2. Run `pke-self-heal.sh`
-3. If `STATUS=HEALTHY` → stamp green
-4. If `STATUS=DEGRADED` → read heal log under `artifacts/heal-logs/` → manual fix remaining MISS assets → re-run
-5. Max 2 auto-heal passes per turn; never loop forever
-6. Binary face refs (`public/pke/IMG_*.jpg`) cannot be invented — restore from backup or user
+1. Run `pke-self-heal.sh`
+2. If `STATUS=HEALTHY` → stamp green
+3. If `STATUS=DEGRADED` → read heal log under `artifacts/heal-logs/` → manual fix remaining MISS assets → re-run
+4. Max 2 auto-heal passes per turn; never loop forever
+5. Binary face refs (`public/pke/IMG_*.jpg`) cannot be invented — restore from backup or user
 
 ## Ecosystems / connectors
 
@@ -95,7 +79,7 @@ Also shipped at `skill-orchestrator/scripts/pke-self-heal.sh`.
 ## Health check protocol
 
 | Gate | Pass |
-|---|---|---|
+|---|---|
 | Brand skills present | face-lock, black-mask, orchestrator |
 | Validate | `validate-skill.sh` OK on all workspace skills |
 | Face assets | `public/pke/IMG_4440.jpg` `IMG_4441.jpg` `IMG_4450.jpg` |
@@ -105,7 +89,6 @@ Also shipped at `skill-orchestrator/scripts/pke-self-heal.sh`.
 | GitHub | Required export set on `main` |
 | No junk | No `export-fix/*.b64` or push-args leftovers |
 | Self-heal | `pke-self-heal.sh` exits 0 (HEALTHY) |
-| Consensus | `consensus-self-heal.mjs` 6/6 unit tests |
 
 ## GitHub export set
 
@@ -113,12 +96,7 @@ Also shipped at `skill-orchestrator/scripts/pke-self-heal.sh`.
 - `pke-official-black-mask/SKILL.md`
 - `skill-orchestrator/SKILL.md`
 - `skill-orchestrator/references/pke-brand-map.md`
-- `skill-orchestrator/references/distributed-consensus-self-heal.md`
 - `skill-orchestrator/scripts/pke-self-heal.sh`
-- `skill-orchestrator/scripts/consensus-self-heal.mjs`
-- `skill-orchestrator/scripts/heal-lease.sh`
-- `scripts/consensus-self-heal.mjs`
-- `scripts/heal-lease.sh`
 - `comfyui/pke-face-lock-base.json`
 - `README.md`
 
@@ -154,9 +132,9 @@ bash /workspace/scripts/pke-learn.sh --push   # + sync improvements to GitHub
 
 ## Last orchestration stamp
 
-- **Date:** 2026-07-30 00:37 EDT
-- **Actions:** Distributed consensus self-heal (quorum + exclusive lease); engine 6/6 tests; lease helper for Mac Pro multi-process
-- **Status:** PRODUCTION READY · CONSENSUS SELF-HEAL LIVE · ECOSYSTEM INTEGRATED
+- **Date:** 2026-07-30 01:30 EDT
+- **Actions:** Health check HEALTHY 20/20; harden learn --push (guarded clone/cp/subshell status file matching heal); residual error-handling asymmetry closed
+- **Status:** PRODUCTION READY · HEALTHY · LEARN PUSH HARDENED
 
 ## PKE agent ecosystem (always load)
 
@@ -164,7 +142,7 @@ bash /workspace/scripts/pke-learn.sh --push   # + sync improvements to GitHub
 |---|---|
 | `pke-face-lock` | Company face / casting / roster |
 | `pke-official-black-mask` | Mask / title stills |
-| `skill-orchestrator` | Health, export, self-heal, consensus, deploy |
+| `skill-orchestrator` | Health, export, self-heal, deploy |
 | `pke-synthetic-intellect` | Free-tier autonomous learn cycle |
 | `skill-creator` | Validate after any SKILL.md edit |
 
@@ -172,7 +150,6 @@ bash /workspace/scripts/pke-learn.sh --push   # + sync improvements to GitHub
 
 ```bash
 bash /workspace/scripts/pke-self-heal.sh
-node /workspace/scripts/consensus-self-heal.mjs
 bash /workspace/scripts/pke-learn.sh
 ```
 

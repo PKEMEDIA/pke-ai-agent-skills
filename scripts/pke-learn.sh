@@ -337,40 +337,68 @@ else
   log "WARN: post-learn validate skipped (no validate-skill.sh)"
 fi
 
-# optional github push of mind + skill patches
+# optional github push of mind + skill patches (guarded under set -e)
 if [ "$PUSH" -eq 1 ] && command -v gh >/dev/null 2>&1; then
   tmp=/tmp/pke-learn-push-$$
   rm -rf "$tmp"
-  gh repo clone PKEMEDIA/pke-ai-agent-skills "$tmp" -- --depth 1
-  mkdir -p "$tmp/pke-face-lock" "$tmp/pke-official-black-mask" "$tmp/skill-orchestrator/scripts" "$tmp/skill-orchestrator/references" "$tmp/pke-synthetic-intellect" "$tmp/mind" "$tmp/scripts"
-  cp "$ROOT/.grok/skills/pke-face-lock/SKILL.md" "$tmp/pke-face-lock/"
-  cp "$ROOT/.grok/skills/pke-official-black-mask/SKILL.md" "$tmp/pke-official-black-mask/"
-  cp "$ROOT/.grok/skills/skill-orchestrator/SKILL.md" "$tmp/skill-orchestrator/"
-  cp "$ROOT/.grok/skills/skill-orchestrator/references/pke-brand-map.md" "$tmp/skill-orchestrator/references/" 2>/dev/null || true
-  cp "$ROOT/scripts/pke-self-heal.sh" "$tmp/skill-orchestrator/scripts/" 2>/dev/null || true
-  cp "$ROOT/scripts/pke-learn.sh" "$tmp/skill-orchestrator/scripts/" 2>/dev/null || true
-  cp "$ROOT/scripts/pke-self-heal.sh" "$tmp/scripts/" 2>/dev/null || true
-  cp "$ROOT/scripts/pke-learn.sh" "$tmp/scripts/" 2>/dev/null || true
-  if [ -d "$ROOT/.grok/skills/pke-synthetic-intellect" ]; then
-    cp -r "$ROOT/.grok/skills/pke-synthetic-intellect/." "$tmp/pke-synthetic-intellect/" 2>/dev/null || true
-  fi
-  # mind state without huge logs
-  cp "$MIND/state.json" "$tmp/mind/" 2>/dev/null || true
-  cp "$MIND/lessons.md" "$tmp/mind/" 2>/dev/null || true
-  (
-    cd "$tmp"
-    git config user.email "pke@media.local"
-    git config user.name "PKE Synthetic Intellect"
-    git add -A
-    if git diff --cached --quiet; then
-      log "github=already-synced"
-    else
-      git commit -m "chore: synthetic intellect cycle $STAMP (free-tier local learn)"
-      git push origin main
-      log "github=pushed:$(git rev-parse --short HEAD)"
+  if ! gh repo clone PKEMEDIA/pke-ai-agent-skills "$tmp" -- --depth 1; then
+    log "github=clone-FAILED (cycle continues)"
+  else
+    mkdir -p "$tmp/pke-face-lock" "$tmp/pke-official-black-mask" \
+      "$tmp/skill-orchestrator/scripts" "$tmp/skill-orchestrator/references" \
+      "$tmp/pke-synthetic-intellect" "$tmp/mind" "$tmp/scripts"
+    # Guarded copies — missing sources must not abort under set -e
+    for pair in \
+      "$ROOT/.grok/skills/pke-face-lock/SKILL.md|$tmp/pke-face-lock/SKILL.md" \
+      "$ROOT/.grok/skills/pke-official-black-mask/SKILL.md|$tmp/pke-official-black-mask/SKILL.md" \
+      "$ROOT/.grok/skills/skill-orchestrator/SKILL.md|$tmp/skill-orchestrator/SKILL.md" \
+      "$ROOT/.grok/skills/skill-orchestrator/references/pke-brand-map.md|$tmp/skill-orchestrator/references/pke-brand-map.md" \
+      "$ROOT/scripts/pke-self-heal.sh|$tmp/skill-orchestrator/scripts/pke-self-heal.sh" \
+      "$ROOT/scripts/pke-learn.sh|$tmp/skill-orchestrator/scripts/pke-learn.sh" \
+      "$ROOT/scripts/pke-self-heal.sh|$tmp/scripts/pke-self-heal.sh" \
+      "$ROOT/scripts/pke-learn.sh|$tmp/scripts/pke-learn.sh" \
+      "$MIND/state.json|$tmp/mind/state.json" \
+      "$MIND/lessons.md|$tmp/mind/lessons.md"
+    do
+      src="${pair%%|*}"
+      dst="${pair#*|}"
+      if [ -f "$src" ]; then
+        cp "$src" "$dst"
+      else
+        log "WARN: skip missing source $src"
+      fi
+    done
+    if [ -d "$ROOT/.grok/skills/pke-synthetic-intellect" ]; then
+      cp -r "$ROOT/.grok/skills/pke-synthetic-intellect/." "$tmp/pke-synthetic-intellect/" 2>/dev/null || true
     fi
-  )
-  rm -rf "$tmp"
+    (
+      cd "$tmp"
+      git config user.email "pke@media.local"
+      git config user.name "PKE Synthetic Intellect"
+      git add -A
+      if git diff --cached --quiet; then
+        echo "SYNCED" > /tmp/pke-learn-gh-status
+      else
+        git commit -m "chore: synthetic intellect cycle $STAMP (free-tier local learn)"
+        if git push origin main; then
+          git rev-parse --short HEAD > /tmp/pke-learn-gh-status
+        else
+          echo "PUSH_FAILED" > /tmp/pke-learn-gh-status
+        fi
+      fi
+    ) || echo "SUBSHELL_FAIL" > /tmp/pke-learn-gh-status
+    ghst=$(cat /tmp/pke-learn-gh-status 2>/dev/null || echo FAIL)
+    if [ "$ghst" = "SYNCED" ]; then
+      log "github=already-synced"
+    elif [ "$ghst" = "PUSH_FAILED" ] || [ "$ghst" = "FAIL" ] || [ "$ghst" = "SUBSHELL_FAIL" ]; then
+      log "github=push-FAILED (cycle continues)"
+    else
+      log "github=pushed:$ghst"
+    fi
+    rm -rf "$tmp"
+  fi
+elif [ "$PUSH" -eq 1 ]; then
+  log "github=skip:no-gh"
 fi
 
 log "STATUS=CYCLE_COMPLETE free_tier=1 imagine=0"

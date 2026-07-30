@@ -1,12 +1,8 @@
 ---
 name: pke-official-black-mask
-description: >
-  Locked official pure-black full-grain leather spiked bunny mask for all
-  PKE Films / Pretty Kitty Media content. Triggers on PKE mask, official mask,
-  black bunny mask, pretty kitty mask, spike mask, title card mask, pure black
-  spikes, leather mask texture.
+description: Locked official pure-black full-grain leather spiked bunny mask for all PKE Films / Pretty Kitty Media content. Triggers on PKE mask, official mask, black bunny mask, pretty kitty mask, spike mask, title card mask, pure black spikes, leather mask texture.
 metadata:
-  short-description: "Locked pure-black spiked leather PKE bunny mask prompt"
+  short-description: Locked pure-black spiked leather PKE bunny mask prompt
 ---
 
 # PKE Official Black Mask (Locked)

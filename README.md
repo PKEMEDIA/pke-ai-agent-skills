@@ -2,7 +2,7 @@
 
 AI Agent Skills and Orchestrator for Pretty Kitty Entertainment — **live on Grok Build**.
 
-## Brand lock skills (2026-07-29 export recovery)
+## Brand lock skills (2026-07-29 validate fix)
 
 | Skill | Role |
 | --- | --- |
@@ -42,4 +42,4 @@ cp -r skill-creator skill-orchestrator pke-empire-os voice-commander beast-mode 
 
 agentskills.io · Cursor · Grok Build · Claude Code / Codex skill folders
 
-**Export recovery 2026-07-29 23:23 EDT**: brand locks + orchestrator re-synced after parallel push lock.
+**Orchestration 2026-07-29 23:48 EDT**: skill-creator validate fixed (plain scalar frontmatter on face-lock + black-mask); brand-map restored; Brand Guidelines smoke green.

@@ -1,46 +1,39 @@
-# PKE Brand Skill Map
+# PKE Brand Map
 
-**Status**: Production · export recovery 2026-07-29  
-**Owners**: skill-orchestrator · pke-face-lock · pke-official-black-mask  
-**Repo**: https://github.com/PKEMEDIA/pke-ai-agent-skills
+## Gen order
 
-## Skill map
+1. Load **pke-face-lock** (freckles, copper braids, green-hazel eyes, dry skin)
+2. If mask required → **pke-official-black-mask** (pure black dense pyramid spikes, full-grain leather)
+3. Title / motion tokens only: **PKE PRESENTS** or **A PKE PRODUCTION**
+4. Negatives: plastic skin, chrome spikes, sweat/water when dry, underage
 
-| Skill | Role |
-|---|---|
-| `pke-face-lock` | Official company face (freckles, copper braids, green-hazel eyes) |
-| `pke-official-black-mask` | Pure-black dense-spike leather bunny mask |
-| `skill-orchestrator` | Ecosystem health, validation, GitHub export recovery |
-
-## Default generation order
-
-1. Load **pke-face-lock** identity block
-2. If mask required → load **pke-official-black-mask**
-3. Apply title seals: **PKE PRESENTS** / **A PKE PRODUCTION**
-4. Negatives: plastic skin, chrome spikes, sweat/water when dry requested, underage
-
-## Quality scoring (0–10, ship ≥ 8)
+## Quality rubric (0–10, ship ≥ 8)
 
 | Criterion | Points |
 |---|---|
-| Freckles + green-hazel eyes + copper braids match | 0–3 |
-| Dry natural skin (no plastic, no sweat if dry) | 0–2 |
-| Mask pure black dense spikes when worn (no chrome) | 0–2 |
-| Title hierarchy correct (single seal line) | 0–2 |
+| Freckles + green-hazel + copper braids | 0–3 |
+| Dry natural skin | 0–2 |
+| Mask pure black dense spikes (no chrome) | 0–2 |
+| Title hierarchy single seal line | 0–2 |
 | Composition / clear space | 0–1 |
 
-## Failure recovery
+## Assets
 
-| Class | Recovery |
+| Asset | Path |
 |---|---|
-| Face lock miss | Re-insert full face lock block + refs |
-| Mask fail | Re-insert pure-black mask block |
-| Title clutter | Strip to single seal line |
-| GitHub push lock | Tree re-read → missing-only push → verify |
+| Face ¾ | `public/pke/IMG_4440.jpg` |
+| Face front | `public/pke/IMG_4441.jpg` |
+| Face window | `public/pke/IMG_4450.jpg` |
+| Casting deck | `artifacts/PKE-Face-Lock-Casting-Package.pptx` |
 
-## Hard stops
+## GitHub export set
 
-- Do not invent a second company face
-- Do not recolor the official mask
-- Legal-age adults only for any talent imagery
-- Do not claim export complete if required paths missing
+- `pke-face-lock/SKILL.md`
+- `pke-official-black-mask/SKILL.md`
+- `skill-orchestrator/SKILL.md`
+- `skill-orchestrator/references/pke-brand-map.md`
+- `README.md`
+
+## Recovery
+
+Push lock → tree re-read → missing-only push (max 2) → verify tree.

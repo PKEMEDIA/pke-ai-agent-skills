@@ -46,10 +46,11 @@ Meta-skill for the Pretty Kitty Media / PKE Films brand ecosystem. Validates ski
 | Console clean | Browser smoke: no uncaught errors, visible content |
 | Title hierarchy | App + skills lock PKE PRESENTS / A PKE PRODUCTION only |
 | GitHub brand locks | Tree contains face-lock + black-mask + brand-map |
+| Structural validate | `validate-skill.sh` OK on brand skills |
 
 ## GitHub push-lock recovery (parallel agent fix)
 
-When `github___push_files` is rejected as "another agent already completed" or duplicate:
+When `github___push_files` is rejected as “another agent already completed” or duplicate:
 
 1. **Re-read tree** — recursive on `PKEMEDIA/pke-ai-agent-skills`
 2. **Diff** — list paths missing vs intended export set
@@ -67,7 +68,27 @@ Required export set (brand-safe):
 
 ## Quality scoring (0–10)
 
-Ship threshold ≥ 8. Face match 0–3, dry skin 0–2, mask pure black 0–2, title hierarchy 0–2, composition 0–1.
+| Criterion | Points |
+|---|---|
+| Freckles + green-hazel eyes + copper braids match | 0–3 |
+| Dry natural skin (no plastic, no sweat if dry) | 0–2 |
+| Mask pure black dense spikes when worn (no chrome) | 0–2 |
+| Title hierarchy correct (single seal line) | 0–2 |
+| Composition / clear space | 0–1 |
+
+**Ship threshold:** ≥ 8.
+
+## Failure classes & recovery
+
+| Class | Detect | Recovery |
+|---|---|---|
+| Face lock miss | Wrong eyes, missing freckles, braid color drift | Re-insert full face lock block |
+| Mask fail | Chrome spikes, patent plastic, sparse spikes | Re-insert pure-black mask block |
+| Title clutter | Redundant studio name under PRESENTS | Strip to single seal line |
+| Asset missing | 404 on public/pke refs | Restore face refs to public/pke |
+| App blank / console error | Smoke test fail | Fix routes; re-run browser smoke |
+| GitHub push lock | Parallel agent / duplicate rejection | Tree re-read → missing-only push → verify |
+| Validate fail | angle brackets or bad frontmatter | skill-creator rewrite plain scalar description |
 
 ## Hard stops
 
@@ -77,7 +98,18 @@ Ship threshold ≥ 8. Face match 0–3, dry skin 0–2, mask pure black 0–2, t
 - Brand-safe casting only
 - Do not claim GitHub export complete if required paths missing
 
+## Deliverables
+
+- Live Brand Guidelines app (preview)
+- Face lock skill + mask skill
+- Casting deck PPTX under `/workspace/artifacts/`
+- GitHub: [PKEMEDIA/pke-ai-agent-skills](https://github.com/PKEMEDIA/pke-ai-agent-skills)
+- This orchestrator health stamp
+
 ## Last orchestration stamp
 
-- **Date:** 2026-07-29 23:23 EDT — export lock recovery
-- **Status:** PRODUCTION · export recovery applied
+- **Date:** 2026-07-29 23:48 EDT — skill-creator validate fix + health re-run
+- **Actions:** Plain-scalar frontmatter on face-lock + black-mask; restored `references/pke-brand-map.md`; browser smoke green
+- **GitHub:** push brand-safe skill pack after validate
+- **Local:** Brand Guidelines live · assets OK · console clean
+- **Status:** PRODUCTION READY · VALIDATE GREEN

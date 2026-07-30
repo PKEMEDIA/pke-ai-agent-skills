@@ -3,15 +3,15 @@
   "tier": "free",
   "mode": "autonomous-local",
   "created": "2026-07-30T04:11:00Z",
-  "cycles": 3,
-  "last_cycle": "20260730T041303Z",
+  "cycles": 5,
+  "last_cycle": "20260730T055604Z",
   "scores": {
     "health": 10,
     "skill_integrity": 10,
     "prompt_efficiency": 8,
     "brand_lock_strength": 9,
-    "autonomy": 9,
-    "overall": 9.2
+    "autonomy": 10,
+    "overall": 9.4
   },
   "lessons": [],
   "improvements_applied": [
@@ -42,14 +42,17 @@
   "last_observations": [
     "skills_pass=20 skills_fail=0",
     "app=up",
-    "assets=complete"
+    "assets=complete",
+    "recent_heal_issues=2",
+    "heal_signal:ACTION: app-restart-FAILED",
+    "heal_signal:- app-restart-FAILED"
   ],
   "last_scores": {
     "health": 10,
     "skill_integrity": 10,
     "prompt_efficiency": 8,
     "brand_lock_strength": 9,
-    "autonomy": 9,
-    "overall": 9.2
+    "autonomy": 10,
+    "overall": 9.4
   }
 }

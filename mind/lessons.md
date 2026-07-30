@@ -38,3 +38,20 @@ Living document. Updated by `pke-learn.sh` every cycle. Free-tier safe (local on
 - obs: app=up
 - obs: assets=complete
 - improve: none (stable)
+
+### Cycle 4 — 20260730T043128Z
+- scores: {"health": 10, "skill_integrity": 10, "prompt_efficiency": 8, "brand_lock_strength": 9, "autonomy": 10, "overall": 9.4}
+- obs: skills_pass=20 skills_fail=0
+- obs: app=up
+- obs: assets=complete
+- improve: none (stable)
+
+### Cycle 5 — 20260730T055604Z
+- scores: {"health": 10, "skill_integrity": 10, "prompt_efficiency": 8, "brand_lock_strength": 9, "autonomy": 10, "overall": 9.4}
+- obs: skills_pass=20 skills_fail=0
+- obs: app=up
+- obs: assets=complete
+- obs: recent_heal_issues=2
+- obs: heal_signal:ACTION: app-restart-FAILED
+- obs: heal_signal:- app-restart-FAILED
+- improve: none (stable)

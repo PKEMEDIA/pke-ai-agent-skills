@@ -132,9 +132,9 @@ bash /workspace/scripts/pke-learn.sh --push   # + sync improvements to GitHub
 
 ## Last orchestration stamp
 
-- **Date:** 2026-07-30 01:55 EDT
-- **Actions:** FINALIZE — heal HEALTHY 20/20; learn cycle 5 overall 9.4; learn --push hardened; remote 8aa2623 verified; assets complete; Brand app up; free-tier lock intact
-- **Status:** FINALIZED · PRODUCTION READY · HEALTHY
+- **Date:** 2026-07-30 22:40 EDT
+- **Actions:** MAC-PRO-WAKE deploy attempt — installed skill pack to Build workspace; consensus 6/6 PASS; skills validate 27/27; face assets MISS (binary not inventable); Brand app not scaffolded this turn; public tunnel studio.covicea.com = CF 1033 origin offline; edge api.covicea.com up origin_reachable=false; dispatched Sentient Automation deploy_mac_pro=true + Stack Cohesion; heal STATUS=DEGRADED pending origin + face refs
+- **Status:** PARTIAL · WAITING_ORIGIN · SKILLS_OK · TUNNEL_DOWN
 
 
 ## PKE agent ecosystem (always load)

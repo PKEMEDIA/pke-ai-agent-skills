@@ -1,5 +1,19 @@
 # Performance Metrics Log
 
+## 2026-08-01 14:50 UTC — POLISH & DEPLOY (Mac Grok Build CLI host)
+- **Host**: macOS · `~/.grok/skills/skill-orchestrator` → `~/PKE/pke-ai-agent-skills/skill-orchestrator`
+- **Polish**: Mac-first live trees documented; bulk-validate-mac.sh ops path; stamp + deployment section LIVE
+- **Structural skills-live**: 52/52 OK (official validate-skill.sh)
+- **Structural repo-root PKE**: 16/16 OK
+- **WASM harness skills-live**: 52/52 Pass · ~46–54 ms · mode wasm v1 · WASI preview1 available
+- **Spicy error unit tests**: 15/15 PASS
+- **grok.com cross-check**: 50/50 remote user-skills present in skills-live; local-only: autonomous-ecosystem, pke-synthetic-intellect
+- **CLI deploy**: symlinks for skill-orchestrator, skill-creator, skill-test-suite, beast-mode, spicy-mode, grok-build-ios, docx, pke-empire-os, aleah-empire-os, voice-commander, face-lock stack, etc.
+- **Artifacts**: artifacts/validation-report-skills-live.json · user-skills-crosscheck.json · validation-deploy-report-2026-08-01.md
+- **Platform wall**: unchanged (weights/quotas)
+- **Status: PRODUCTION READY · POLISHED · DEPLOYED · LIVE ON CLI**
+
+
 ## 2026-08-01 08:01–08:15 UTC — DAILY RE-ORCHESTRATION + MULTI-AGENT MEETING (Grok lead · Lucas · Press · Voice of reason)
 - **Bulk-validate.sh**: Executed successfully. Pass: 64  Failures: 0 (Bundled 14 OK + Custom 50 OK). Server/workspace trees absent (skip).
 - **WASM harness**: 64/64 Pass in 13.63 ms. All structural-OK.

@@ -1,0 +1,532 @@
+{
+  "timestamp": "2026-08-01T14:58:13.177Z",
+  "mode": "wasm",
+  "wasmVersion": 1,
+  "wasmError": null,
+  "totalMs": 92.05,
+  "skillCount": 52,
+  "pass": 52,
+  "fail": 0,
+  "results": [
+    {
+      "name": "aave-assistant",
+      "path": "/Users/a1707/PKE/pke-ai-agent-skills/skills-live/aave-assistant",
+      "lines": 89,
+      "bytes": 8702,
+      "readMs": 0.241,
+      "wasmChecksum": 181,
+      "ok": true,
+      "issues": []
+    },
+    {
+      "name": "adult-creator-identifier",
+      "path": "/Users/a1707/PKE/pke-ai-agent-skills/skills-live/adult-creator-identifier",
+      "lines": 82,
+      "bytes": 4343,
+      "readMs": 0.197,
+      "wasmChecksum": 141,
+      "ok": true,
+      "issues": []
+    },
+    {
+      "name": "autonomous-ecosystem",
+      "path": "/Users/a1707/PKE/pke-ai-agent-skills/skills-live/autonomous-ecosystem",
+      "lines": 99,
+      "bytes": 6718,
+      "readMs": 0.22,
+      "wasmChecksum": 112,
+      "ok": true,
+      "issues": []
+    },
+    {
+      "name": "consistent-identity-batch-processor",
+      "path": "/Users/a1707/PKE/pke-ai-agent-skills/skills-live/consistent-identity-batch-processor",
+      "lines": 106,
+      "bytes": 4741,
+      "readMs": 0.16,
+      "wasmChecksum": 134,
+      "ok": true,
+      "issues": []
+    },
+    {
+      "name": "content-strategy-suite",
+      "path": "/Users/a1707/PKE/pke-ai-agent-skills/skills-live/content-strategy-suite",
+      "lines": 131,
+      "bytes": 9888,
+      "readMs": 0.205,
+      "wasmChecksum": 114,
+      "ok": true,
+      "issues": []
+    },
+    {
+      "name": "cover-song-studio-master",
+      "path": "/Users/a1707/PKE/pke-ai-agent-skills/skills-live/cover-song-studio-master",
+      "lines": 86,
+      "bytes": 5570,
+      "readMs": 0.143,
+      "wasmChecksum": 67,
+      "ok": true,
+      "issues": []
+    },
+    {
+      "name": "covicea-aloha-shade-ohana",
+      "path": "/Users/a1707/PKE/pke-ai-agent-skills/skills-live/covicea-aloha-shade-ohana",
+      "lines": 57,
+      "bytes": 9121,
+      "readMs": 0.159,
+      "wasmChecksum": 32,
+      "ok": true,
+      "issues": []
+    },
+    {
+      "name": "covicea-brand-assistant",
+      "path": "/Users/a1707/PKE/pke-ai-agent-skills/skills-live/covicea-brand-assistant",
+      "lines": 82,
+      "bytes": 6675,
+      "readMs": 0.141,
+      "wasmChecksum": 216,
+      "ok": true,
+      "issues": []
+    },
+    {
+      "name": "covicea-comfyui-consistency",
+      "path": "/Users/a1707/PKE/pke-ai-agent-skills/skills-live/covicea-comfyui-consistency",
+      "lines": 161,
+      "bytes": 12985,
+      "readMs": 0.203,
+      "wasmChecksum": 138,
+      "ok": true,
+      "issues": []
+    },
+    {
+      "name": "covicea-core",
+      "path": "/Users/a1707/PKE/pke-ai-agent-skills/skills-live/covicea-core",
+      "lines": 131,
+      "bytes": 18068,
+      "readMs": 0.355,
+      "wasmChecksum": 168,
+      "ok": true,
+      "issues": []
+    },
+    {
+      "name": "covicea-distraction-image-defaults",
+      "path": "/Users/a1707/PKE/pke-ai-agent-skills/skills-live/covicea-distraction-image-defaults",
+      "lines": 159,
+      "bytes": 13304,
+      "readMs": 2.015,
+      "wasmChecksum": 58,
+      "ok": true,
+      "issues": []
+    },
+    {
+      "name": "covicea-face-lock",
+      "path": "/Users/a1707/PKE/pke-ai-agent-skills/skills-live/covicea-face-lock",
+      "lines": 125,
+      "bytes": 10819,
+      "readMs": 0.207,
+      "wasmChecksum": 168,
+      "ok": true,
+      "issues": []
+    },
+    {
+      "name": "covicea-gym-mirror-selfie-retouch",
+      "path": "/Users/a1707/PKE/pke-ai-agent-skills/skills-live/covicea-gym-mirror-selfie-retouch",
+      "lines": 81,
+      "bytes": 8152,
+      "readMs": 0.16,
+      "wasmChecksum": 88,
+      "ok": true,
+      "issues": []
+    },
+    {
+      "name": "covicea-photoreal-workflow",
+      "path": "/Users/a1707/PKE/pke-ai-agent-skills/skills-live/covicea-photoreal-workflow",
+      "lines": 81,
+      "bytes": 5970,
+      "readMs": 0.138,
+      "wasmChecksum": 128,
+      "ok": true,
+      "issues": []
+    },
+    {
+      "name": "covicea-podcast-script-to-docx",
+      "path": "/Users/a1707/PKE/pke-ai-agent-skills/skills-live/covicea-podcast-script-to-docx",
+      "lines": 48,
+      "bytes": 3094,
+      "readMs": 0.112,
+      "wasmChecksum": 175,
+      "ok": true,
+      "issues": []
+    },
+    {
+      "name": "covicea-realistic-hair-skin-lighting",
+      "path": "/Users/a1707/PKE/pke-ai-agent-skills/skills-live/covicea-realistic-hair-skin-lighting",
+      "lines": 91,
+      "bytes": 11245,
+      "readMs": 0.169,
+      "wasmChecksum": 230,
+      "ok": true,
+      "issues": []
+    },
+    {
+      "name": "covicea-selfie-image-defaults",
+      "path": "/Users/a1707/PKE/pke-ai-agent-skills/skills-live/covicea-selfie-image-defaults",
+      "lines": 149,
+      "bytes": 13187,
+      "readMs": 0.162,
+      "wasmChecksum": 32,
+      "ok": true,
+      "issues": []
+    },
+    {
+      "name": "distraction-image-defaults",
+      "path": "/Users/a1707/PKE/pke-ai-agent-skills/skills-live/distraction-image-defaults",
+      "lines": 68,
+      "bytes": 4909,
+      "readMs": 0.162,
+      "wasmChecksum": 241,
+      "ok": true,
+      "issues": []
+    },
+    {
+      "name": "docx",
+      "path": "/Users/a1707/PKE/pke-ai-agent-skills/skills-live/docx",
+      "lines": 76,
+      "bytes": 5125,
+      "readMs": 0.125,
+      "wasmChecksum": 76,
+      "ok": true,
+      "issues": []
+    },
+    {
+      "name": "episode-bible",
+      "path": "/Users/a1707/PKE/pke-ai-agent-skills/skills-live/episode-bible",
+      "lines": 82,
+      "bytes": 4441,
+      "readMs": 0.126,
+      "wasmChecksum": 76,
+      "ok": true,
+      "issues": []
+    },
+    {
+      "name": "grok-local-app-web-integration",
+      "path": "/Users/a1707/PKE/pke-ai-agent-skills/skills-live/grok-local-app-web-integration",
+      "lines": 146,
+      "bytes": 14845,
+      "readMs": 0.173,
+      "wasmChecksum": 125,
+      "ok": true,
+      "issues": []
+    },
+    {
+      "name": "grok-sentient-editor",
+      "path": "/Users/a1707/PKE/pke-ai-agent-skills/skills-live/grok-sentient-editor",
+      "lines": 98,
+      "bytes": 4761,
+      "readMs": 0.131,
+      "wasmChecksum": 14,
+      "ok": true,
+      "issues": []
+    },
+    {
+      "name": "grok-usage-maximizer",
+      "path": "/Users/a1707/PKE/pke-ai-agent-skills/skills-live/grok-usage-maximizer",
+      "lines": 64,
+      "bytes": 4129,
+      "readMs": 0.12,
+      "wasmChecksum": 207,
+      "ok": true,
+      "issues": []
+    },
+    {
+      "name": "language-learning",
+      "path": "/Users/a1707/PKE/pke-ai-agent-skills/skills-live/language-learning",
+      "lines": 33,
+      "bytes": 2521,
+      "readMs": 0.11,
+      "wasmChecksum": 230,
+      "ok": true,
+      "issues": []
+    },
+    {
+      "name": "local-json-python-workflows",
+      "path": "/Users/a1707/PKE/pke-ai-agent-skills/skills-live/local-json-python-workflows",
+      "lines": 90,
+      "bytes": 6109,
+      "readMs": 0.124,
+      "wasmChecksum": 92,
+      "ok": true,
+      "issues": []
+    },
+    {
+      "name": "local-nsfw-comfyui",
+      "path": "/Users/a1707/PKE/pke-ai-agent-skills/skills-live/local-nsfw-comfyui",
+      "lines": 124,
+      "bytes": 14162,
+      "readMs": 0.196,
+      "wasmChecksum": 14,
+      "ok": true,
+      "issues": []
+    },
+    {
+      "name": "mirror-selfie-corrector",
+      "path": "/Users/a1707/PKE/pke-ai-agent-skills/skills-live/mirror-selfie-corrector",
+      "lines": 57,
+      "bytes": 5777,
+      "readMs": 7.917,
+      "wasmChecksum": 9,
+      "ok": true,
+      "issues": []
+    },
+    {
+      "name": "negative-prompt-library",
+      "path": "/Users/a1707/PKE/pke-ai-agent-skills/skills-live/negative-prompt-library",
+      "lines": 55,
+      "bytes": 5804,
+      "readMs": 0.218,
+      "wasmChecksum": 25,
+      "ok": true,
+      "issues": []
+    },
+    {
+      "name": "paralegal-assistant",
+      "path": "/Users/a1707/PKE/pke-ai-agent-skills/skills-live/paralegal-assistant",
+      "lines": 89,
+      "bytes": 10408,
+      "readMs": 0.181,
+      "wasmChecksum": 8,
+      "ok": true,
+      "issues": []
+    },
+    {
+      "name": "pdf",
+      "path": "/Users/a1707/PKE/pke-ai-agent-skills/skills-live/pdf",
+      "lines": 47,
+      "bytes": 3094,
+      "readMs": 0.123,
+      "wasmChecksum": 138,
+      "ok": true,
+      "issues": []
+    },
+    {
+      "name": "pdf-form-filler",
+      "path": "/Users/a1707/PKE/pke-ai-agent-skills/skills-live/pdf-form-filler",
+      "lines": 147,
+      "bytes": 8804,
+      "readMs": 0.171,
+      "wasmChecksum": 163,
+      "ok": true,
+      "issues": []
+    },
+    {
+      "name": "photoreal-hair-anisotropic-master",
+      "path": "/Users/a1707/PKE/pke-ai-agent-skills/skills-live/photoreal-hair-anisotropic-master",
+      "lines": 98,
+      "bytes": 9008,
+      "readMs": 2.65,
+      "wasmChecksum": 107,
+      "ok": true,
+      "issues": []
+    },
+    {
+      "name": "photoreal-skin-master",
+      "path": "/Users/a1707/PKE/pke-ai-agent-skills/skills-live/photoreal-skin-master",
+      "lines": 77,
+      "bytes": 7470,
+      "readMs": 0.267,
+      "wasmChecksum": 21,
+      "ok": true,
+      "issues": []
+    },
+    {
+      "name": "photoreal-skin-sss-master",
+      "path": "/Users/a1707/PKE/pke-ai-agent-skills/skills-live/photoreal-skin-sss-master",
+      "lines": 59,
+      "bytes": 5830,
+      "readMs": 0.161,
+      "wasmChecksum": 73,
+      "ok": true,
+      "issues": []
+    },
+    {
+      "name": "photoreal-undetectable-portrait-master",
+      "path": "/Users/a1707/PKE/pke-ai-agent-skills/skills-live/photoreal-undetectable-portrait-master",
+      "lines": 151,
+      "bytes": 12870,
+      "readMs": 0.292,
+      "wasmChecksum": 67,
+      "ok": true,
+      "issues": []
+    },
+    {
+      "name": "pk-svwo-v1-0",
+      "path": "/Users/a1707/PKE/pke-ai-agent-skills/skills-live/pk-svwo-v1-0",
+      "lines": 82,
+      "bytes": 11887,
+      "readMs": 0.229,
+      "wasmChecksum": 215,
+      "ok": true,
+      "issues": []
+    },
+    {
+      "name": "pke-synthetic-intellect",
+      "path": "/Users/a1707/PKE/pke-ai-agent-skills/skills-live/pke-synthetic-intellect",
+      "lines": 155,
+      "bytes": 6341,
+      "readMs": 4.299,
+      "wasmChecksum": 131,
+      "ok": true,
+      "issues": []
+    },
+    {
+      "name": "pkemedia-grok-video-pipeline",
+      "path": "/Users/a1707/PKE/pke-ai-agent-skills/skills-live/pkemedia-grok-video-pipeline",
+      "lines": 73,
+      "bytes": 6116,
+      "readMs": 0.277,
+      "wasmChecksum": 149,
+      "ok": true,
+      "issues": []
+    },
+    {
+      "name": "pretty-kitty-model-management",
+      "path": "/Users/a1707/PKE/pke-ai-agent-skills/skills-live/pretty-kitty-model-management",
+      "lines": 68,
+      "bytes": 4795,
+      "readMs": 0.198,
+      "wasmChecksum": 10,
+      "ok": true,
+      "issues": []
+    },
+    {
+      "name": "pretty-kitty-photorealism",
+      "path": "/Users/a1707/PKE/pke-ai-agent-skills/skills-live/pretty-kitty-photorealism",
+      "lines": 94,
+      "bytes": 9073,
+      "readMs": 0.128,
+      "wasmChecksum": 119,
+      "ok": true,
+      "issues": []
+    },
+    {
+      "name": "remote-skill-orchestrator",
+      "path": "/Users/a1707/PKE/pke-ai-agent-skills/skills-live/remote-skill-orchestrator",
+      "lines": 103,
+      "bytes": 15216,
+      "readMs": 0.127,
+      "wasmChecksum": 126,
+      "ok": true,
+      "issues": []
+    },
+    {
+      "name": "rvc-voice-production",
+      "path": "/Users/a1707/PKE/pke-ai-agent-skills/skills-live/rvc-voice-production",
+      "lines": 109,
+      "bytes": 6451,
+      "readMs": 0.104,
+      "wasmChecksum": 78,
+      "ok": true,
+      "issues": []
+    },
+    {
+      "name": "skill-creator",
+      "path": "/Users/a1707/PKE/pke-ai-agent-skills/skills-live/skill-creator",
+      "lines": 97,
+      "bytes": 5926,
+      "readMs": 0.099,
+      "wasmChecksum": 70,
+      "ok": true,
+      "issues": []
+    },
+    {
+      "name": "skill-orchestrator",
+      "path": "/Users/a1707/PKE/pke-ai-agent-skills/skills-live/skill-orchestrator",
+      "lines": 184,
+      "bytes": 11800,
+      "readMs": 0.188,
+      "wasmChecksum": 133,
+      "ok": true,
+      "issues": []
+    },
+    {
+      "name": "skill-test-suite",
+      "path": "/Users/a1707/PKE/pke-ai-agent-skills/skills-live/skill-test-suite",
+      "lines": 150,
+      "bytes": 13502,
+      "readMs": 0.537,
+      "wasmChecksum": 165,
+      "ok": true,
+      "issues": []
+    },
+    {
+      "name": "skills-learned-script",
+      "path": "/Users/a1707/PKE/pke-ai-agent-skills/skills-live/skills-learned-script",
+      "lines": 66,
+      "bytes": 5103,
+      "readMs": 0.18,
+      "wasmChecksum": 244,
+      "ok": true,
+      "issues": []
+    },
+    {
+      "name": "spicy-male-erotic-prompt-optimizer",
+      "path": "/Users/a1707/PKE/pke-ai-agent-skills/skills-live/spicy-male-erotic-prompt-optimizer",
+      "lines": 106,
+      "bytes": 12220,
+      "readMs": 0.457,
+      "wasmChecksum": 98,
+      "ok": true,
+      "issues": []
+    },
+    {
+      "name": "upscayl-workflow-assistant",
+      "path": "/Users/a1707/PKE/pke-ai-agent-skills/skills-live/upscayl-workflow-assistant",
+      "lines": 60,
+      "bytes": 3572,
+      "readMs": 0.139,
+      "wasmChecksum": 1,
+      "ok": true,
+      "issues": []
+    },
+    {
+      "name": "vogue-photo-editing",
+      "path": "/Users/a1707/PKE/pke-ai-agent-skills/skills-live/vogue-photo-editing",
+      "lines": 136,
+      "bytes": 17827,
+      "readMs": 0.166,
+      "wasmChecksum": 161,
+      "ok": true,
+      "issues": []
+    },
+    {
+      "name": "voice-commander",
+      "path": "/Users/a1707/PKE/pke-ai-agent-skills/skills-live/voice-commander",
+      "lines": 57,
+      "bytes": 3597,
+      "readMs": 0.123,
+      "wasmChecksum": 110,
+      "ok": true,
+      "issues": []
+    },
+    {
+      "name": "voice-reference-protocol",
+      "path": "/Users/a1707/PKE/pke-ai-agent-skills/skills-live/voice-reference-protocol",
+      "lines": 153,
+      "bytes": 17756,
+      "readMs": 0.184,
+      "wasmChecksum": 139,
+      "ok": true,
+      "issues": []
+    },
+    {
+      "name": "youtube-stem-voice-production",
+      "path": "/Users/a1707/PKE/pke-ai-agent-skills/skills-live/youtube-stem-voice-production",
+      "lines": 108,
+      "bytes": 5906,
+      "readMs": 0.22,
+      "wasmChecksum": 27,
+      "ok": true,
+      "issues": []
+    }
+  ]
+}

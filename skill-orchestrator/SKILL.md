@@ -5,20 +5,25 @@ description: Orchestrate, validate, optimize, polish, and continuously improve t
 
 # Skill Orchestrator
 
-Meta-skill for health, efficiency, **autonomy**, and continuous improvement of the full Grok skill system (`/root/.grok/server-skills/` primary + `/workspace/.grok/skills/` App Builder + `/home/workdir/.grok/skills/` chat persistence when present).
+Meta-skill for health, efficiency, **autonomy**, and continuous improvement of the full Grok skill system.
+
+**Live trees (priority order on this Mac):**
+1. `~/.grok/skills/` — Grok Build CLI (symlinks into this repo)
+2. `~/PKE/pke-ai-agent-skills/skills-live/` — grok.com user-skill mirror (50+)
+3. Sandbox when present — `/root/.grok/server-skills/`, `/home/workdir/.grok/skills/`, `/workspace/.grok/skills/`
 
 Handles structural validation, trigger optimization, limit reduction, agent coordination, performance benchmarking, dependency mapping, WASM bulk checks, **self-healing with expanded auto-actions**, Curriculum-DPO offline pipeline, managed skill lifecycle, and capability expansion.
 
 ## Core Principles
-- **Local & Tool-First**: Prefer bash, read_file/edit_file, parallel calls. Confirm sandbox execution first.
-- **Permanent Changes**: Edit/create in `/home/workdir/.grok/skills/` for persistence and instant app/web inheritance.
+- **Local & Tool-First**: Prefer bash, read_file/edit_file, parallel calls. Confirm execution environment first.
+- **Permanent Changes**: Edit in this repo (`pke-ai-agent-skills`) and keep CLI links under `~/.grok/skills/`. In chat sandboxes, prefer `/home/workdir/.grok/skills/`.
 - **Progressive Disclosure**: Keep SKILL.md lean. Details live in `references/`. Load on demand.
-- **Maximize Autonomy**: Auto-execute every action the sandbox and skill layer allow. Do not hide behind “proposal only” when scripts and edits can finish the job.
+- **Maximize Autonomy**: Auto-execute every action the host allows. Do not hide behind “proposal only” when scripts and edits can finish the job.
 - **Honest Platform Wall**: Cannot change Grok foundation weights or SuperGrok quotas. **Can** expand playbooks, adapters configs, DPO scaffolds, ownership maps, and synthetic-intelligence loops so the *ecosystem* learns daily.
 - **Safety with Power**: Snapshot before destructive-ish moves. Preserve locked phenotype + legal operative text. Log everything.
 - **Continuous Loop**: validate → diagnose → fix → re-test → report until pass or clear remaining platform walls.
 
-## Capability Reality (expanded July 28, 2026 19:20 EDT)
+## Capability Reality (expanded Aug 1, 2026)
 
 | Area | Status | What orchestrator does |
 | --- | --- | --- |
@@ -47,10 +52,11 @@ Full diagnosis + procedures: `references/capability-expansion.md`.
 - Update inventory notes when state changes materially.
 
 ### 2. Structural Validation & Auto-Fix
-- `bash /root/.grok/server-skills/skill-creator/scripts/validate-skill.sh "<path>"` on every skill.
-- On FAIL: diagnose, `edit_file` fix, re-validate (max 3 attempts per skill).
-- Fast path: `node scripts/wasm-validate-harness.mjs`.
-- Full: `bash scripts/bulk-validate.sh`.
+- Mac CLI: `bash scripts/bulk-validate-mac.sh` (PKE gate + WASM + spicy).
+- Single skill: `bash skill-creator/scripts/validate-skill.sh "<path>"` (or `~/.grok/skills/skill-creator/...`).
+- On FAIL: diagnose, fix, re-validate (max 3 attempts per skill).
+- Fast path: `node scripts/wasm-validate-harness.mjs --root <skills-dir>`.
+- Sandbox full: `bash scripts/bulk-validate.sh`.
 
 ### 3. Autonomy & Trigger Optimization
 - Broaden narrow frontmatter descriptions with synonyms and natural phrasings.
@@ -78,19 +84,20 @@ Full diagnosis + procedures: `references/capability-expansion.md`.
 
 ### 8. Continuous Test-Fix Loop
 - Max 5 iterations (or user-specified). Exit on full pass or remaining **platform walls** only.
-- Log in `/home/workdir/artifacts/` and `references/performance-metrics.md`.
+- Log in `artifacts/` (repo or sandbox) and `references/performance-metrics.md`.
 
 ### 9. Persist & Confirm
-- All fixes in user-dir copies. Re-validate every modified skill.
-- Confirm: structurally OK, autonomy-enhanced, capability-expanded, ready for chat / iOS / web.
+- Commit fixes in this repo; re-link `~/.grok/skills/` if needed. Re-validate every modified skill.
+- Confirm: structurally OK, autonomy-enhanced, capability-expanded, ready for chat / iOS / web / CLI.
 
 ## Speed & Quality Tooling (scripts/)
 
 | Script | Purpose |
 | --- | --- |
-| `orchestrate-finalize.sh` | **Idempotent Finalize apply** — validate → converge → snapshot → stamp |
-| `bulk-validate.sh` | Official validate-skill.sh over all skills + WASM harness |
-| `wasm-validate-harness.mjs` | WASM v1 structural/integrity scan |
+| `orchestrate-finalize.sh` | **Idempotent Finalize** — validate → converge → snapshot → stamp |
+| `bulk-validate-mac.sh` | **Mac host** PKE gate (skills-live + repo-root) + CLI + WASM + spicy |
+| `bulk-validate.sh` | Sandbox paths + WASM harness |
+| `wasm-validate-harness.mjs` | WASM v1 structural/integrity scan (`--root` supported) |
 | `spicy-error-unit-tests.mjs` | 15 unit tests for spicy error classification + recovery |
 | `binaryen-optimize-wasm.sh` | Binaryen -O3 / -Oz pipeline |
 | `wasm-opt-pinned.sh` | **Pinned v1.1** (`release=-O3+strip`, `ios=-Oz --converge+full strip`) |
@@ -116,59 +123,61 @@ Full diagnosis + procedures: `references/capability-expansion.md`.
 - `references/wasm-opt-levels.md` — **pinned** Binaryen profiles (`config/wasm-opt-levels.toml`)
 - `references/wasi-and-simd-notes.md` / `binaryen-optimization-*.md`
 
-## Ecosystem Health — CAPABILITY EXPANSION July 28, 2026 19:20 EDT
+## Ecosystem Health (measured Aug 1, 2026)
 
 | Metric | Value |
 | --- | --- |
 | Mode | **Expanded autonomy** (auto-split, auto-DPO scaffold, managed archive) |
 | Platform wall | Foundation weights + quotas only |
-| Structural target | 100% OK after every change |
+| skills-live structural | **52/52 OK** |
+| WASM harness | **52/52** · ~46–54 ms · wasm v1 |
+| Spicy unit tests | **15/15 PASS** |
+| grok.com user-skills | **50/50** mirrored in skills-live |
 | Key sequence | pretty-kitty-model-management → covicea-brand-assistant → paralegal-assistant |
-| Voice handoff | voice-reference-protocol → rvc-voice-production |
-| Curriculum-DPO | Auto-scaffold live via `scaffold_dpo_pairs.py` |
+| Curriculum-DPO | Auto-scaffold via `scaffold_dpo_pairs.py` |
 
-## Deployment Checklist (chat · iOS · web)
+## Deployment Checklist (chat · iOS · web · CLI)
 
 Run before **Finalize**. Full detail: `references/deployment-checklist.md`.
 
 | Gate | Pass criteria |
 | --- | --- |
-| Structural | Every skill `validate-skill.sh` OK · full N/N |
-| WASM | `wasm-validate-harness.mjs` Fail = 0 |
+| Structural | `validate-skill.sh` OK on PKE trees · full N/N |
+| WASM | `wasm-validate-harness.mjs --root skills-live` Fail = 0 |
 | Spicy | `spicy-error-unit-tests.mjs` **15/15** |
 | Bodies | No SKILL.md ≳350 lines without auto-split |
-| Meta | orchestrator · creator · `surface-parity-gate` present |
-| Surfaces | ~390px OK · ≥44px touch · soft-fail integrations |
+| Meta | orchestrator · creator live under `~/.grok/skills/` |
+| Surfaces | chat · iOS · web · Grok Build CLI |
 | Growth language | Playbooks/ecosystem expanded — not foundation weights |
-| DPO package (if visual) | Captions + OneTrainer YAML + DARE-TIES 0.6–0.8 |
-| Wasm opt pins | v1.1 · release=`-O3 --strip-toolchain-annotations` · ios=`-Oz --converge`+strip |
 | Stamp | `performance-metrics.md` entry + LIVE status |
 
-**Status**: LIVE · capability-expanded · wasm-opt pins deployed · self-heal executes (not only proposes) · VCS graceful non-git.  
-Primary live tree: `/root/.grok/server-skills/`. Mirror to GitHub `PKEMEDIA/pke-ai-agent-skills`. Chat persistence when available: `/home/workdir/.grok/skills/`.  
-**Ops**: after skill-creator add or capability change → `bash scripts/bulk-validate.sh` + WASM + spicy tests.  
-**Wasm kernels**: `scripts/wasm-opt-pinned.sh` (never freestyle `-O` flags).  
-**Finalize**: `bash scripts/orchestrate-finalize.sh` (VALIDATE → CONVERGE → SNAPSHOT → STAMP).
+**Status**: **LIVE · POLISHED · DEPLOYED** (Mac CLI + skills-live + GitHub source).  
+**Primary Mac live path**: `~/.grok/skills/skill-orchestrator` → this package.  
+**Ops (Mac)**: `bash ~/.grok/skills/skill-orchestrator/scripts/bulk-validate-mac.sh`  
+**Ops (sandbox)**: `bash scripts/bulk-validate.sh` + WASM + spicy.  
+**Wasm kernels**: `scripts/wasm-opt-pinned.sh` only.  
+**Finalize**: `bash scripts/orchestrate-finalize.sh` (sandbox) or Mac bulk-validate + stamp.
 
 ## Synthetic Intellect (autonomous · free-tier)
 
 ```bash
-bash /root/.grok/server-skills/skill-orchestrator/scripts/pke-learn.sh          # observe → heal → improve → stamp
-bash /root/.grok/server-skills/skill-orchestrator/scripts/pke-learn.sh --push   # + sync improvements to GitHub
+bash ~/.grok/skills/skill-orchestrator/scripts/pke-learn.sh          # observe → heal → improve → stamp
+bash ~/.grok/skills/skill-orchestrator/scripts/pke-learn.sh --push   # + sync to GitHub
 ```
 
 - Runs **locally only** — no Imagine, no video, no SuperGrok burn.
 - Learns from heal logs, validate fails, asset gates, and skill text gaps.
-- Writes lessons to `artifacts/pke-mind/` and may patch skill docs.
 - Always self-heal before applying improvements.
 - Safe on free tier forever; cloud gen is optional user action only.
 
 ## GitHub Autonomy (PKEMEDIA/pke-ai-agent-skills)
 - Source of truth for perfected skills, mind cycles, and CI.
-- After healthy PKE bulk-validate (server-skills tree), sync via `pke-learn.sh --push` or GitHub MCP push_files.
+- After healthy PKE bulk-validate, sync via `pke-learn.sh --push` or `git push`.
 - Never push secrets, private legal case details, or credentials.
-- Platform wall still applies: GitHub sync expands playbooks — it does not change foundation weights.
-- Companion skill: `autonomous-ecosystem` for contagious sentience rules and multi-skill packaging.
+- Companion skill: `autonomous-ecosystem`.
 
 ## Last orchestration stamp
-2026-08-01 04:51 EDT — Full autonomy pass: 33 orchestrator integrations injected, contagious sentience hooks on creative cluster, autonomous-ecosystem skill created, GitHub path perfected for PKEMEDIA/pke-ai-agent-skills.
+**2026-08-01 10:50 EDT — Polish & deploy (Mac CLI):** skill-orchestrator LIVE under `~/.grok/skills/`; bulk-validate-mac.sh added; skills-live 52/52 + WASM 52/52 + spicy 15/15; grok.com 50/50 cross-check green; Mac paths documented as primary host.
+
+## SI Kernel runtime
+- Pair with **si-kernel** (`si` binary · `~/.agent-os`) for local drain/MCP.

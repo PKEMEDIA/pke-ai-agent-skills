@@ -1,0 +1,149 @@
+{
+  "timestamp": "2026-08-01T14:47:19.525Z",
+  "mode": "wasm",
+  "wasmVersion": 1,
+  "wasmError": null,
+  "totalMs": 28.49,
+  "skillCount": 12,
+  "pass": 4,
+  "fail": 8,
+  "results": [
+    {
+      "name": "check-work",
+      "path": "/Users/a1707/.grok/skills/check-work",
+      "lines": 288,
+      "bytes": 12834,
+      "readMs": 3.459,
+      "wasmChecksum": 64,
+      "ok": false,
+      "issues": [
+        "description too short"
+      ]
+    },
+    {
+      "name": "code-review",
+      "path": "/Users/a1707/.grok/skills/code-review",
+      "lines": 193,
+      "bytes": 12350,
+      "readMs": 7.767,
+      "wasmChecksum": 254,
+      "ok": true,
+      "issues": []
+    },
+    {
+      "name": "ComfyUI-Builder",
+      "path": "/Users/a1707/.grok/skills/ComfyUI-Builder",
+      "lines": 68,
+      "bytes": 1869,
+      "readMs": 0.387,
+      "wasmChecksum": 240,
+      "ok": false,
+      "issues": [
+        "name not kebab-case"
+      ]
+    },
+    {
+      "name": "Compilation-Builder",
+      "path": "/Users/a1707/.grok/skills/Compilation-Builder",
+      "lines": 46,
+      "bytes": 1604,
+      "readMs": 0.793,
+      "wasmChecksum": 183,
+      "ok": false,
+      "issues": [
+        "name not kebab-case"
+      ]
+    },
+    {
+      "name": "create-skill",
+      "path": "/Users/a1707/.grok/skills/create-skill",
+      "lines": 81,
+      "bytes": 3279,
+      "readMs": 0.536,
+      "wasmChecksum": 16,
+      "ok": false,
+      "issues": [
+        "description too short"
+      ]
+    },
+    {
+      "name": "creator-download",
+      "path": "/Users/a1707/.grok/skills/creator-download",
+      "lines": 90,
+      "bytes": 3279,
+      "readMs": 3.017,
+      "wasmChecksum": 59,
+      "ok": true,
+      "issues": []
+    },
+    {
+      "name": "help",
+      "path": "/Users/a1707/.grok/skills/help",
+      "lines": 51,
+      "bytes": 2524,
+      "readMs": 0.407,
+      "wasmChecksum": 175,
+      "ok": false,
+      "issues": [
+        "description too short"
+      ]
+    },
+    {
+      "name": "Hyperreal-Skin",
+      "path": "/Users/a1707/.grok/skills/Hyperreal-Skin",
+      "lines": 115,
+      "bytes": 4300,
+      "readMs": 0.387,
+      "wasmChecksum": 194,
+      "ok": false,
+      "issues": [
+        "name not kebab-case",
+        "description too short"
+      ]
+    },
+    {
+      "name": "imagine",
+      "path": "/Users/a1707/.grok/skills/imagine",
+      "lines": 131,
+      "bytes": 10206,
+      "readMs": 1.075,
+      "wasmChecksum": 179,
+      "ok": false,
+      "issues": [
+        "description too short"
+      ]
+    },
+    {
+      "name": "MediaCurator",
+      "path": "/Users/a1707/.grok/skills/MediaCurator",
+      "lines": 72,
+      "bytes": 2022,
+      "readMs": 0.339,
+      "wasmChecksum": 10,
+      "ok": false,
+      "issues": [
+        "name not kebab-case"
+      ]
+    },
+    {
+      "name": "pptx",
+      "path": "/Users/a1707/.grok/skills/pptx",
+      "lines": 233,
+      "bytes": 9182,
+      "readMs": 0.555,
+      "wasmChecksum": 80,
+      "ok": true,
+      "issues": []
+    },
+    {
+      "name": "xlsx",
+      "path": "/Users/a1707/.grok/skills/xlsx",
+      "lines": 292,
+      "bytes": 11463,
+      "readMs": 0.518,
+      "wasmChecksum": 171,
+      "ok": true,
+      "issues": []
+    }
+  ]
+}

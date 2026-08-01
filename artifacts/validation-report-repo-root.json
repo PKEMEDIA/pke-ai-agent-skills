@@ -1,0 +1,172 @@
+{
+  "timestamp": "2026-08-01T14:47:18.746Z",
+  "mode": "wasm",
+  "wasmVersion": 1,
+  "wasmError": null,
+  "totalMs": 32.87,
+  "skillCount": 16,
+  "pass": 16,
+  "fail": 0,
+  "results": [
+    {
+      "name": "aleah-empire-os",
+      "path": "/Users/a1707/PKE/pke-ai-agent-skills/aleah-empire-os",
+      "lines": 60,
+      "bytes": 2031,
+      "readMs": 2.359,
+      "wasmChecksum": 133,
+      "ok": true,
+      "issues": []
+    },
+    {
+      "name": "autonomous-ecosystem",
+      "path": "/Users/a1707/PKE/pke-ai-agent-skills/autonomous-ecosystem",
+      "lines": 99,
+      "bytes": 6718,
+      "readMs": 0.46,
+      "wasmChecksum": 112,
+      "ok": true,
+      "issues": []
+    },
+    {
+      "name": "beast-mode",
+      "path": "/Users/a1707/PKE/pke-ai-agent-skills/beast-mode",
+      "lines": 31,
+      "bytes": 1319,
+      "readMs": 0.42,
+      "wasmChecksum": 148,
+      "ok": true,
+      "issues": []
+    },
+    {
+      "name": "covicea-pke-podcast-studio",
+      "path": "/Users/a1707/PKE/pke-ai-agent-skills/covicea-pke-podcast-studio",
+      "lines": 65,
+      "bytes": 5071,
+      "readMs": 0.376,
+      "wasmChecksum": 240,
+      "ok": true,
+      "issues": []
+    },
+    {
+      "name": "docx",
+      "path": "/Users/a1707/PKE/pke-ai-agent-skills/docx",
+      "lines": 29,
+      "bytes": 1101,
+      "readMs": 0.418,
+      "wasmChecksum": 137,
+      "ok": true,
+      "issues": []
+    },
+    {
+      "name": "grok-build-ios",
+      "path": "/Users/a1707/PKE/pke-ai-agent-skills/grok-build-ios",
+      "lines": 33,
+      "bytes": 1208,
+      "readMs": 0.439,
+      "wasmChecksum": 69,
+      "ok": true,
+      "issues": []
+    },
+    {
+      "name": "pk-svwo-v1-0",
+      "path": "/Users/a1707/PKE/pke-ai-agent-skills/pk-svwo-v1-0",
+      "lines": 82,
+      "bytes": 11887,
+      "readMs": 0.546,
+      "wasmChecksum": 215,
+      "ok": true,
+      "issues": []
+    },
+    {
+      "name": "pke-empire-os",
+      "path": "/Users/a1707/PKE/pke-ai-agent-skills/pke-empire-os",
+      "lines": 56,
+      "bytes": 5167,
+      "readMs": 2.87,
+      "wasmChecksum": 84,
+      "ok": true,
+      "issues": []
+    },
+    {
+      "name": "pke-face-lock",
+      "path": "/Users/a1707/PKE/pke-ai-agent-skills/pke-face-lock",
+      "lines": 107,
+      "bytes": 4629,
+      "readMs": 0.376,
+      "wasmChecksum": 88,
+      "ok": true,
+      "issues": []
+    },
+    {
+      "name": "pke-official-black-mask",
+      "path": "/Users/a1707/PKE/pke-ai-agent-skills/pke-official-black-mask",
+      "lines": 87,
+      "bytes": 3510,
+      "readMs": 0.32,
+      "wasmChecksum": 158,
+      "ok": true,
+      "issues": []
+    },
+    {
+      "name": "pke-synthetic-intellect",
+      "path": "/Users/a1707/PKE/pke-ai-agent-skills/pke-synthetic-intellect",
+      "lines": 155,
+      "bytes": 6341,
+      "readMs": 0.323,
+      "wasmChecksum": 131,
+      "ok": true,
+      "issues": []
+    },
+    {
+      "name": "skill-creator",
+      "path": "/Users/a1707/PKE/pke-ai-agent-skills/skill-creator",
+      "lines": 97,
+      "bytes": 5926,
+      "readMs": 0.737,
+      "wasmChecksum": 70,
+      "ok": true,
+      "issues": []
+    },
+    {
+      "name": "skill-orchestrator",
+      "path": "/Users/a1707/PKE/pke-ai-agent-skills/skill-orchestrator",
+      "lines": 175,
+      "bytes": 11796,
+      "readMs": 2.758,
+      "wasmChecksum": 3,
+      "ok": true,
+      "issues": []
+    },
+    {
+      "name": "skill-test-suite",
+      "path": "/Users/a1707/PKE/pke-ai-agent-skills/skill-test-suite",
+      "lines": 150,
+      "bytes": 13502,
+      "readMs": 3.064,
+      "wasmChecksum": 165,
+      "ok": true,
+      "issues": []
+    },
+    {
+      "name": "spicy-mode",
+      "path": "/Users/a1707/PKE/pke-ai-agent-skills/spicy-mode",
+      "lines": 28,
+      "bytes": 1093,
+      "readMs": 0.654,
+      "wasmChecksum": 144,
+      "ok": true,
+      "issues": []
+    },
+    {
+      "name": "voice-commander",
+      "path": "/Users/a1707/PKE/pke-ai-agent-skills/voice-commander",
+      "lines": 57,
+      "bytes": 3597,
+      "readMs": 0.657,
+      "wasmChecksum": 110,
+      "ok": true,
+      "issues": []
+    }
+  ]
+}

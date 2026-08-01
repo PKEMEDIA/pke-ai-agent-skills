@@ -55,5 +55,65 @@
     "dependency graph reports 126 soft cycles from name-mention scanning (not true runtime cycles)",
     "no single swarm scheduler UI until Autonomy OS Swarm tab"
   ],
-  "recommendation": "Wire consensus engine into pke-self-heal before archive/bulk rewrite/GitHub push; surface swarm layers in control center"
+  "recommendation": "Wire consensus engine into pke-self-heal before archive/bulk rewrite/GitHub push; surface swarm layers in control center",
+  "consensus_algorithms": {
+    "investigated_at": "2026-08-01T09:04:26.051326+00:00",
+    "engine_tests": "6/6 PASS",
+    "chosen": "Raft-lite lease consensus (heal-scoped)",
+    "not_chosen": [
+      "full Raft log RSM",
+      "classic Paxos",
+      "Multi-Paxos",
+      "PBFT",
+      "HotStuff"
+    ],
+    "why": "Heals need agreement + exclusivity, not continuous log replication; crash fault model not Byzantine",
+    "comparison": [
+      {
+        "name": "Paxos",
+        "fault": "crash",
+        "nodes": "2f+1",
+        "fit": "too complex for one-shot heals"
+      },
+      {
+        "name": "Multi-Paxos",
+        "fault": "crash",
+        "nodes": "2f+1",
+        "fit": "overkill without log RSM need"
+      },
+      {
+        "name": "Raft",
+        "fault": "crash",
+        "nodes": "2f+1",
+        "fit": "borrow quorum/leader/term; skip full log"
+      },
+      {
+        "name": "PBFT",
+        "fault": "byzantine",
+        "nodes": "3f+1",
+        "fit": "wrong threat model for internal healers"
+      },
+      {
+        "name": "Raft-lite lease (PKE)",
+        "fault": "crash/offline",
+        "nodes": "2f+1",
+        "fit": "optimal for exclusive heal actions"
+      }
+    ],
+    "phases": [
+      "PROBE",
+      "PROPOSE",
+      "VOTE",
+      "LEASE",
+      "COMMIT",
+      "VERIFY",
+      "RELEASE"
+    ],
+    "quorum": "floor(N/2)+1",
+    "default_n": 5,
+    "acks_needed": 3,
+    "proposal_ttl_ms": 30000,
+    "lease_ttl_ms": 60000,
+    "insight": "Creative swarm wants diversity; heal swarm wants one action. Different algorithms per layer."
+  }
 }

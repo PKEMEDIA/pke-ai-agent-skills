@@ -21,6 +21,7 @@
 | #5 | Podcast Studio | same commit | **~12 s** |
 | #6–9 | Skill CI | autonomy / swarm / consensus / heal | **13–14 s** |
 | #10 | Skill CI | FINALIZE 2026-08-01 (ea57204) | **~11 s** |
+| #11 | Skill CI | perf(ci): fix parallel aggregation (bf28b9e) | **~8 s** |
 
 Cold-start variance on `ubuntu-latest` explains remaining jitter; no second job/checkout overhead remains.
 
@@ -54,7 +55,14 @@ Cold-start variance on `ubuntu-latest` explains remaining jitter; no second job/
 | `CI_VALIDATE_JOBS=4` (parallel, post-fix) | **~2.3 s** |
 | Prior CI step (parallel + sequential re-run) | **≈ 5 s** |
 
-Expected CI validate step after fix: **~2–2.5 s** (vs 5 s). Total job dominated by setup/checkout variance.
+### Measured on GitHub Actions — run 30697670855 (sha bf28b9e)
+
+| Step | Before (run 30696912757) | After (aggregation fix) |
+| --- | --- | --- |
+| CI validate skills | ≈ **5 s** | ≈ **2 s** (SKILLS_FOUND=83, PASS=83) |
+| Total job | ≈ **11 s** | ≈ **8 s** |
+
+Validate step ~09.08→10.87 UTC (≈1.8 s wall). Job is now mostly setup + checkout variance.
 
 ## Caching investigation (2026-08-01)
 

@@ -78,6 +78,25 @@ warn() { printf '  WARN %s\n' "$*"; }
 info() { printf '  ·    %s\n' "$*"; }
 
 echo "=== PKE ECOSYSTEM INJECT $STAMP ==="
+
+# Consensus gate (same as CI) — fail-fast before mutating local Grok surfaces
+if [ -f "$ROOT/scripts/consensus-gate.sh" ] && command -v node >/dev/null 2>&1; then
+  echo ""
+  echo "=== 0/6 Consensus heal gate ==="
+  # gate-only on inject (heal path soft); full suite still available via consensus-gate.sh
+  if ! bash "$ROOT/scripts/consensus-gate.sh" --gate-only; then
+    echo "ERROR: consensus gate failed — abort inject" >&2
+    exit 1
+  fi
+elif [ -f "$ROOT/scripts/consensus-self-heal.mjs" ] && command -v node >/dev/null 2>&1; then
+  echo ""
+  echo "=== 0/6 Consensus heal gate (engine direct) ==="
+  node "$ROOT/scripts/consensus-self-heal.mjs" --gate || {
+    echo "ERROR: consensus gate failed — abort inject" >&2
+    exit 1
+  }
+fi
+
 echo "ROOT=$ROOT"
 echo "SKILLS_ROOT=$SKILLS_ROOT"
 echo "mode=$([ "$COPY" -eq 1 ] && echo copy || echo symlink)"

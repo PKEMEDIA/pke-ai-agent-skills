@@ -1,5 +1,6 @@
 # PKE AI Agent Skills — continuous validate + consensus/idempotency heal gate
 # Optimized for speed: single job · shallow · path-filtered · parallel validate · lightweight consensus
+# No actions/cache · checkout@v5 (Node 24) · wall-time one-liner
 name: PKE Skill CI
 
 on:
@@ -47,7 +48,8 @@ jobs:
     timeout-minutes: 8
     steps:
       - name: Checkout (shallow)
-        uses: actions/checkout@v4
+        # v5 runs on Node 24 — silences Node 20 deprecation from actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 1
 
@@ -61,26 +63,18 @@ jobs:
           chmod +x covicea-pke-podcast-studio/scripts/*.sh 2>/dev/null || true
 
       - name: Consensus heal gate (Raft-lite + stamp registry)
-        # Lightweight: --gate ~40ms readiness; then unit suite + idempotency demos (sub-second).
-        # No multi-job, no cache, no thrash — keep free-tier wall low.
-        run: |
-          set -euo pipefail
-          ENGINE="skill-orchestrator/scripts/consensus-self-heal.mjs"
-          test -f "$ENGINE"
-          # Prefer root scripts mirror if present and newer-path used by Mac paste
-          if [ -f scripts/consensus-self-heal.mjs ]; then
-            ENGINE="scripts/consensus-self-heal.mjs"
-          fi
-          echo "=== consensus --gate ==="
-          node "$ENGINE" --gate
-          echo "=== consensus unit suite + idempotency demos ==="
-          node "$ENGINE"
-          echo "CONSENSUS_ENGINE=HEALTHY"
+        # Shared Mac/CI entrypoint — same as terminal deploy + Super Mind
+        run: bash scripts/consensus-gate.sh
 
       - name: CI validate skills (parallel)
         env:
           CI_VALIDATE_JOBS: "4"
-        run: bash scripts/ci-validate-skills.sh
+        run: |
+          set -euo pipefail
+          t0=$(python3 -c 'import time; print(int(time.time()*1000))')
+          bash scripts/ci-validate-skills.sh
+          t1=$(python3 -c 'import time; print(int(time.time()*1000))')
+          bash scripts/ci-record-validate-ms.sh $((t1 - t0))
 
       - name: Podcast studio local gate
         run: bash covicea-pke-podcast-studio/scripts/validate-local.sh
@@ -99,8 +93,11 @@ jobs:
             mind/state.json \
             config/permanent-activation.json \
             scripts/ci-validate-skills.sh \
+            scripts/consensus-gate.sh \
+            scripts/ci-wall-summary.sh \
             skill-orchestrator/scripts/consensus-self-heal.mjs \
             skill-orchestrator/scripts/pke-self-heal.sh \
+            skill-orchestrator/scripts/consensus-gate.sh \
             skill-orchestrator/references/heal-idempotency.md
           do
             test -f "$p" && echo "OK $p" || { echo "MISSING $p"; exit 1; }
@@ -108,16 +105,6 @@ jobs:
           grep -q 'covicea-pke-podcast-studio' config/permanent-activation.json
           echo "permanent activation stamp OK"
 
-      - name: Upload validation summary
+      - name: Wall-time summary
         if: always()
-        run: |
-          mkdir -p artifacts
-          {
-            echo "run_id=${{ github.run_id }}"
-            echo "sha=${{ github.sha }}"
-            echo "ref=${{ github.ref }}"
-            echo "event=${{ github.event_name }}"
-            echo "timestamp=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
-            echo "consensus=gate+unit-suite"
-          } > artifacts/ci-summary.txt
-          cat artifacts/ci-summary.txt
+        run: bash scripts/ci-wall-summary.sh

@@ -24,15 +24,20 @@ mkdir -p ~/PKE && cd ~/PKE
 gh repo clone PKEMEDIA/pke-ai-agent-skills || (cd pke-ai-agent-skills && git pull)
 cd pke-ai-agent-skills
 export PKE_ROOT="$PWD"
+# Same consensus entrypoint as Skill CI (gate + 13/13 suite + wall timing)
+bash scripts/consensus-gate.sh
 bash scripts/pke-self-heal.sh
 CI_VALIDATE_JOBS=4 bash scripts/ci-validate-skills.sh
 bash covicea-pke-podcast-studio/scripts/validate-local.sh
 bash scripts/pke-learn.sh
 # bash scripts/pke-learn.sh --push  # or commit+push from working tree
+# One-liner wall badge (gate/suite/validate if recorded):
+# bash scripts/ci-wall-summary.sh
 ```
 
 ## Mac portability (this deploy)
 
+- `scripts/consensus-gate.sh` — shared CI/Mac/Super Mind gate (Raft-lite + stamps)
 - `scripts/ci-validate-skills.sh` — portable xargs (no GNU `-a`)
 - `scripts/pke-self-heal.sh` — repo `skill-creator` validate path, `.grok/skills` symlinks, soft face-ref misses, skills-only root skip
 - Face JPGs under `public/pke/` optional for free-tier text learn

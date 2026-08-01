@@ -17,6 +17,19 @@ if [ -z "$VALIDATOR" ]; then
   echo "ERROR: validate-skill.sh not found"; exit 2
 fi
 
+# Consensus gate — same entrypoint as PKE Skill CI / Super Mind deploy
+GATE_SH=""
+for cand in   "${REPO_ROOT}/scripts/consensus-gate.sh"   "${REPO_ROOT}/skill-orchestrator/scripts/consensus-gate.sh"
+do
+  if [ -f "$cand" ]; then GATE_SH="$cand"; break; fi
+done
+if [ -n "$GATE_SH" ]; then
+  echo "=== Consensus heal gate (Mac terminal) ==="
+  # Full gate+suite like CI so Mac deploy matches GitHub
+  bash "$GATE_SH" || { echo "ERROR: consensus gate failed"; exit 1; }
+  echo ""
+fi
+
 echo "=== Bulk Skill Validation (Mac) ==="
 echo "Timestamp: $(date)"
 echo "Validator: $VALIDATOR"

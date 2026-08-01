@@ -24,6 +24,12 @@
 ## Local Mac
 
 ```bash
+bash scripts/consensus-gate.sh     # preferred
+bash scripts/ci-wall-summary.sh
+```
+
+
+```bash
 export PKE_ROOT="$HOME"
 cd "$HOME/pke-ai-agent-skills"
 node scripts/consensus-self-heal.mjs --gate

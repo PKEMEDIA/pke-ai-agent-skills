@@ -1,6 +1,6 @@
 # PKE Skill CI — Speed Optimization
 
-**Stamp:** 2026-08-01 · Optimized · Measured · FINALIZED · Caching investigated · Aggregation fixed · **Consensus gate wired**
+**Stamp:** 2026-08-01 · Optimized · Measured · FINALIZED · Caching investigated · Aggregation fixed · **Consensus gate wired** · **Mac shared entry** · **checkout@v5** · **wall-time badge**
 
 ## Before → After (measured)
 
@@ -99,6 +99,44 @@ gh run list --workflow="PKE Podcast Studio" --limit 3
 gh run view <id>
 ```
 
+
+## Shared Mac / Super Mind entry (2026-08-01)
+
+`scripts/consensus-gate.sh` is the **single entrypoint** used by:
+
+| Surface | Mode |
+| --- | --- |
+| GitHub Skill CI | gate + full 13/13 suite |
+| Mac terminal deploy (`FULL-DEPLOY.md`) | gate + suite |
+| Super Mind runbook | gate + suite |
+| `inject-ecosystem.sh` | `--gate-only` (fail-fast before mutate) |
+| `deploy/setup-grok-cli-bridge.sh` | gate + suite |
+| `bulk-validate-mac.sh` | gate + suite |
+| `pke-self-heal.sh` | `--gate-only` at START |
+
+### Wall-time one-liner
+
+CI writes `artifacts/ci-timing.json` + `artifacts/ci-summary.txt`:
+
+```text
+wall: gate=47ms suite=60ms consensus=107ms validate=1800ms core=1907ms status=HEALTHY
+```
+
+Local:
+
+```bash
+bash scripts/consensus-gate.sh
+# … run validate …
+bash scripts/ci-record-validate-ms.sh 1800   # optional
+bash scripts/ci-wall-summary.sh
+```
+
+Also emitted into the GitHub Actions **job summary** table (gate / suite / validate / core).
+
+### Checkout Node 24
+
+`actions/checkout@v5` (both workflows) — silences Node 20 deprecation forced-run warnings. No behavior change to path filters / shallow depth.
+
 ## Status
 
-**OPTIMIZED · MEASURED · FINALIZED · CACHING INVESTIGATED · NO CACHE · AGGREGATION FIXED · TRUE PARALLEL · SINGLE-JOB · SHALLOW · PATH-FILTERED · CONSENSUS GATE LIVE · IDEMPOTENCY STAMPS · LIVE**
+**OPTIMIZED · MEASURED · FINALIZED · CACHING INVESTIGATED · NO CACHE · AGGREGATION FIXED · TRUE PARALLEL · SINGLE-JOB · SHALLOW · PATH-FILTERED · CONSENSUS GATE LIVE · MAC/CI SHARED · WALL BADGE · CHECKOUT@v5 · IDEMPOTENCY STAMPS · LIVE**

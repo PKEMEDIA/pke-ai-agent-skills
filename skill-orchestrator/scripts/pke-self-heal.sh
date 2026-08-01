@@ -179,9 +179,16 @@ log "=== PKE SELF-HEAL $STAMP ==="
 log "root=$ROOT push=$PUSH force=$FORCE validate=${VALIDATE:-MISSING}"
 
 # ── Consensus + idempotency gate (START — not dead after exit) ──
-# Use --gate (lightweight) so full unit suite is not re-run on every heal pass.
+# Prefer shared scripts/consensus-gate.sh --gate-only (same entrypoint as CI/Mac deploy).
+# Fall back to engine --gate --json for stamp capture.
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-if [ -f "$SCRIPT_DIR/consensus-self-heal.mjs" ] && command -v node >/dev/null 2>&1; then
+if [ -f "$SCRIPT_DIR/consensus-gate.sh" ] && command -v node >/dev/null 2>&1; then
+  if CONSENSUS_ARTIFACTS="$STAMP_DIR" bash "$SCRIPT_DIR/consensus-gate.sh" --gate-only >"$STAMP_DIR/last-consensus.out" 2>"$STAMP_DIR/last-consensus.err"; then
+    log "consensus_gate=ok (via consensus-gate.sh)"
+  else
+    log "consensus_gate=warn (consensus-gate.sh non-zero; continuing with local idempotency)"
+  fi
+elif [ -f "$SCRIPT_DIR/consensus-self-heal.mjs" ] && command -v node >/dev/null 2>&1; then
   if node "$SCRIPT_DIR/consensus-self-heal.mjs" --gate --json >"$STAMP_DIR/last-consensus.json" 2>"$STAMP_DIR/last-consensus.err"; then
     log "consensus_gate=ok (idempotency ready)"
   else

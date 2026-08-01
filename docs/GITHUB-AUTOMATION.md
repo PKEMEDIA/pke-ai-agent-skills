@@ -38,12 +38,15 @@ Related private stacks (not skill CI targets):
 ### 1. `PKE Skill CI` — `.github/workflows/pke-skill-ci.yml`
 - Triggers: push/PR to main · manual dispatch  
 - Jobs (single):  
-  1. **Consensus heal gate** — `consensus-self-heal.mjs --gate` + 13/13 unit suite + idempotency demos  
+  1. **Consensus heal gate** — `scripts/consensus-gate.sh` (`--gate` + 13/13 suite)  
   2. Parallel skill validate (`scripts/ci-validate-skills.sh`)  
   3. Podcast local gate  
   4. Brand pack + permanent activation + engine presence stamps  
 - Script: `scripts/ci-validate-skills.sh`  
 - Engine: `skill-orchestrator/scripts/consensus-self-heal.mjs` (mirrored at `scripts/`)  
+- Shared gate: `scripts/consensus-gate.sh` (Mac terminal + Super Mind + CI)  
+- Wall badge: `scripts/ci-wall-summary.sh` → `artifacts/ci-summary.txt`  
+- Checkout: `actions/checkout@v5` (Node 24; no Node 20 deprecation)  
 - Heal: `skill-orchestrator/scripts/pke-self-heal.sh` (mirrored at `scripts/`)
 
 ### 2. `PKE Podcast Studio` — `.github/workflows/pke-podcast-studio.yml`
@@ -55,9 +58,13 @@ Related private stacks (not skill CI targets):
 ```bash
 git clone https://github.com/PKEMEDIA/pke-ai-agent-skills.git
 cd pke-ai-agent-skills
-node skill-orchestrator/scripts/consensus-self-heal.mjs --gate
-node skill-orchestrator/scripts/consensus-self-heal.mjs   # 13/13 + demos
+# Preferred (shared Mac + CI entrypoint — timings → artifacts/ci-timing.json)
+bash scripts/consensus-gate.sh
+# Equivalent raw engine:
+# node skill-orchestrator/scripts/consensus-self-heal.mjs --gate
+# node skill-orchestrator/scripts/consensus-self-heal.mjs   # 13/13 + demos
 bash scripts/ci-validate-skills.sh
+bash scripts/ci-wall-summary.sh   # wall: gate=…ms suite=…ms validate=…ms
 bash covicea-pke-podcast-studio/scripts/validate-local.sh
 bash skill-creator/scripts/validate-skill.sh covicea-pke-podcast-studio
 bash scripts/pke-self-heal.sh
@@ -108,4 +115,4 @@ React live as co-host
 
 ## Status
 
-**ENABLED · PERMANENT · CI LIVE · CONSENSUS GATE LIVE · IDEMPOTENCY STAMPS · PODCAST STUDIO ONLINE · SPICY DEFAULT**
+**ENABLED · PERMANENT · CI LIVE · CONSENSUS GATE LIVE · MAC/CI SHARED ENTRY · WALL-TIME BADGE · CHECKOUT@v5 · IDEMPOTENCY STAMPS · PODCAST STUDIO ONLINE · SPICY DEFAULT**

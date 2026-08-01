@@ -20,10 +20,12 @@ A Super Mind is not a bigger prompt — it is **orchestrated specialists + layer
 ## Run
 
 ```bash
-bash scripts/pke-self-heal.sh
+bash scripts/consensus-gate.sh     # same as Skill CI (gate + suite + wall)
+bash scripts/pke-self-heal.sh      # uses --gate-only via consensus-gate.sh
 bash scripts/pke-learn.sh
 bash scripts/pke-learn.sh --push   # optional publish
 bash scripts/ci-validate-skills.sh
+bash scripts/ci-wall-summary.sh    # one-liner: gate/suite/validate ms
 ```
 
 ## Deep docs

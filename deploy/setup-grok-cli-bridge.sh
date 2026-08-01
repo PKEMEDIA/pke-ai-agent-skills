@@ -45,6 +45,18 @@ else
 fi
 chmod +x "$INSTALL_ROOT/scripts/"*.sh 2>/dev/null || true
 
+echo "==> Consensus heal gate (same as Skill CI)"
+if [[ -x "$INSTALL_ROOT/scripts/consensus-gate.sh" ]] || [[ -f "$INSTALL_ROOT/scripts/consensus-gate.sh" ]]; then
+  bash "$INSTALL_ROOT/scripts/consensus-gate.sh" || {
+    echo "  WARN: consensus gate failed — continuing deploy so operator can inspect"
+  }
+elif [[ -f "$INSTALL_ROOT/scripts/consensus-self-heal.mjs" ]]; then
+  node "$INSTALL_ROOT/scripts/consensus-self-heal.mjs" --gate || true
+  node "$INSTALL_ROOT/scripts/consensus-self-heal.mjs" || true
+else
+  echo "  skip consensus — engine not in pack yet"
+fi
+
 echo "==> Dry-run structural validate (if validate-skill.sh present)"
 if [[ -x "$SKILLS_ROOT/skill-creator/scripts/validate-skill.sh" ]] || [[ -x "$INSTALL_ROOT/skill-creator/scripts/validate-skill.sh" ]]; then
   VALIDATE_SCRIPT="${VALIDATE_SCRIPT:-$INSTALL_ROOT/skill-creator/scripts/validate-skill.sh}" \

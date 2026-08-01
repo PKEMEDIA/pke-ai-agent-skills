@@ -1,16 +1,35 @@
 # PKE AI Agent Skills — continuous validate + self-heal gate
-# Tailored for PKEMEDIA/pke-ai-agent-skills (skill pack, not a Node app)
+# Optimized for speed: single job · shallow · path-filtered · parallel validate
 name: PKE Skill CI
 
 on:
   push:
     branches: [main, master]
+    paths:
+      - '**/SKILL.md'
+      - 'scripts/**'
+      - 'config/**'
+      - 'mind/**'
+      - 'skill-creator/**'
+      - 'skill-orchestrator/**'
+      - 'covicea-pke-podcast-studio/**'
+      - '.github/workflows/pke-skill-ci.yml'
+      - 'README.md'
   pull_request:
     branches: [main, master]
+    paths:
+      - '**/SKILL.md'
+      - 'scripts/**'
+      - 'config/**'
+      - 'mind/**'
+      - 'skill-creator/**'
+      - 'skill-orchestrator/**'
+      - 'covicea-pke-podcast-studio/**'
+      - '.github/workflows/pke-skill-ci.yml'
   workflow_dispatch:
     inputs:
       reason:
-        description: Manual trigger reason
+        description: "Manual trigger reason"
         required: false
         default: ad-hoc-validate
 
@@ -22,13 +41,15 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  validate-skills:
-    name: Validate all skills
+  validate:
+    name: Validate skills + brand pack
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 8
     steps:
-      - name: Checkout
+      - name: Checkout (shallow)
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
 
       - name: Make scripts executable
         run: |
@@ -37,39 +58,15 @@ jobs:
           chmod +x skill-orchestrator/scripts/*.sh 2>/dev/null || true
           chmod +x covicea-pke-podcast-studio/scripts/*.sh 2>/dev/null || true
 
-      - name: CI validate skills
+      - name: CI validate skills (parallel)
+        env:
+          CI_VALIDATE_JOBS: "4"
         run: bash scripts/ci-validate-skills.sh
 
       - name: Podcast studio local gate
         run: bash covicea-pke-podcast-studio/scripts/validate-local.sh
 
-      - name: Permanent activation stamp check
-        run: |
-          test -f config/permanent-activation.json
-          test -f mind/state.json
-          grep -q 'covicea-pke-podcast-studio' config/permanent-activation.json
-          echo "permanent activation stamp OK"
-
-      - name: Upload validation summary
-        if: always()
-        run: |
-          mkdir -p artifacts
-          {
-            echo "run_id=${{ github.run_id }}"
-            echo "sha=${{ github.sha }}"
-            echo "ref=${{ github.ref }}"
-            echo "event=${{ github.event_name }}"
-            echo "timestamp=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
-          } > artifacts/ci-summary.txt
-          cat artifacts/ci-summary.txt
-
-  brand-pack-presence:
-    name: Brand pack presence
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    steps:
-      - uses: actions/checkout@v4
-      - name: Required paths
+      - name: Brand pack + permanent activation stamps
         run: |
           set -e
           for p in \
@@ -86,3 +83,18 @@ jobs:
           do
             test -f "$p" && echo "OK $p" || { echo "MISSING $p"; exit 1; }
           done
+          grep -q 'covicea-pke-podcast-studio' config/permanent-activation.json
+          echo "permanent activation stamp OK"
+
+      - name: Upload validation summary
+        if: always()
+        run: |
+          mkdir -p artifacts
+          {
+            echo "run_id=${{ github.run_id }}"
+            echo "sha=${{ github.sha }}"
+            echo "ref=${{ github.ref }}"
+            echo "event=${{ github.event_name }}"
+            echo "timestamp=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          } > artifacts/ci-summary.txt
+          cat artifacts/ci-summary.txt

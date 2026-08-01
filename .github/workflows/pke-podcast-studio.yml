@@ -13,11 +13,19 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: pke-podcast-studio-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   studio-validate:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout (shallow)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
       - name: Spec validate
         run: bash skill-creator/scripts/validate-skill.sh covicea-pke-podcast-studio
       - name: Local studio gate

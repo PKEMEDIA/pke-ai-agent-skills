@@ -1,0 +1,88 @@
+# PKE AI Agent Skills — continuous validate + self-heal gate
+# Tailored for PKEMEDIA/pke-ai-agent-skills (skill pack, not a Node app)
+name: PKE Skill CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: Manual trigger reason
+        required: false
+        default: ad-hoc-validate
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pke-skill-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-skills:
+    name: Validate all skills
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Make scripts executable
+        run: |
+          chmod +x scripts/*.sh 2>/dev/null || true
+          chmod +x skill-creator/scripts/*.sh 2>/dev/null || true
+          chmod +x skill-orchestrator/scripts/*.sh 2>/dev/null || true
+          chmod +x covicea-pke-podcast-studio/scripts/*.sh 2>/dev/null || true
+
+      - name: CI validate skills
+        run: bash scripts/ci-validate-skills.sh
+
+      - name: Podcast studio local gate
+        run: bash covicea-pke-podcast-studio/scripts/validate-local.sh
+
+      - name: Permanent activation stamp check
+        run: |
+          test -f config/permanent-activation.json
+          test -f mind/state.json
+          grep -q 'covicea-pke-podcast-studio' config/permanent-activation.json
+          echo "permanent activation stamp OK"
+
+      - name: Upload validation summary
+        if: always()
+        run: |
+          mkdir -p artifacts
+          {
+            echo "run_id=${{ github.run_id }}"
+            echo "sha=${{ github.sha }}"
+            echo "ref=${{ github.ref }}"
+            echo "event=${{ github.event_name }}"
+            echo "timestamp=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          } > artifacts/ci-summary.txt
+          cat artifacts/ci-summary.txt
+
+  brand-pack-presence:
+    name: Brand pack presence
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Required paths
+        run: |
+          set -e
+          for p in \
+            pke-face-lock/SKILL.md \
+            pke-official-black-mask/SKILL.md \
+            skill-orchestrator/SKILL.md \
+            skill-creator/SKILL.md \
+            covicea-pke-podcast-studio/SKILL.md \
+            pke-synthetic-intellect/SKILL.md \
+            README.md \
+            mind/state.json \
+            config/permanent-activation.json \
+            scripts/ci-validate-skills.sh
+          do
+            test -f "$p" && echo "OK $p" || { echo "MISSING $p"; exit 1; }
+          done

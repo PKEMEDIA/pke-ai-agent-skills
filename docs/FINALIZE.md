@@ -1,20 +1,21 @@
 # PKE Skill Pack — FINALIZE
 
 **Date:** 2026-08-01  
-**Status:** FINALIZED · PRODUCTION READY · HEALTHY · PODCAST STUDIO LIVE
+**Status:** FINALIZED · PRODUCTION READY · HEALTHY · PODCAST STUDIO **PERMANENT** · **GITHUB CI LIVE**
 
 ## Gates (all green)
 
 | Gate | Result |
 |---|---|
 | Self-heal | HEALTHY (prior) · scripts present |
-| Synthetic learn | cycle 8 · overall 9.6 · imagine=0 |
-| Skill validate | covicea-pke-podcast-studio OK (62 lines) |
+| Synthetic learn | cycle 9 · overall 9.7 · imagine=0 |
+| Skill validate | covicea-pke-podcast-studio OK |
 | Brand locks | face-lock · black-mask · orchestrator · synthetic-intellect |
-| **Podcast Studio** | **DEPLOYED** Magentic hybrid · spicy · SocialATS |
+| **Podcast Studio** | **PERMANENT ONLINE** Magentic hybrid · spicy · SocialATS |
+| GitHub Actions | pke-skill-ci + pke-podcast-studio ENABLED |
+| Permanent registry | config/permanent-activation.json |
 | Comfy base | pke-face-lock-base.json |
-| GitHub main | podcast studio commit + stamp |
-| Scripts | heal · learn · validate-local (studio) |
+| Scripts | heal · learn · ci-validate-skills · validate-local |
 
 ## Hard locks (permanent)
 
@@ -33,11 +34,12 @@ Produce episode on [topic]
 React live as co-host
 ```
 
-Skill: `covicea-pke-podcast-studio/` · docs: `docs/PODCAST-STUDIO-DEPLOY.md`
+Skill: `covicea-pke-podcast-studio/` · docs: `docs/PODCAST-STUDIO-DEPLOY.md` · automation: `docs/GITHUB-AUTOMATION.md`
 
 ## Ops
 
 ```bash
+bash scripts/ci-validate-skills.sh
 bash scripts/pke-self-heal.sh
 bash scripts/pke-learn.sh
 bash covicea-pke-podcast-studio/scripts/validate-local.sh
@@ -45,4 +47,4 @@ bash covicea-pke-podcast-studio/scripts/validate-local.sh
 
 ## Ecosystems wired
 
-Grok iOS · Grok web · Imagine (manual) · Grok Build · GitHub `PKEMEDIA/pke-ai-agent-skills` · Notion Empire OS · Local ComfyUI
+Grok iOS · Grok web · Imagine (manual) · Grok Build · GitHub `PKEMEDIA/pke-ai-agent-skills` + **Actions CI** · Notion Empire OS · Local ComfyUI

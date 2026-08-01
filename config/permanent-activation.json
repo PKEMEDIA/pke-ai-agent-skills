@@ -1,0 +1,68 @@
+{
+  "version": "1.0.0",
+  "owner": "PKEMEDIA",
+  "brand": "Pretty Kitty Entertainment / Pretty Kitty Media",
+  "enabled": true,
+  "activated_at": "2026-08-01T08:25:00Z",
+  "repo": "PKEMEDIA/pke-ai-agent-skills",
+  "surfaces": ["grok-chat", "grok-ios", "grok-web", "supergrok-pro", "grok-build"],
+  "skills": {
+    "covicea-pke-podcast-studio": {
+      "permanent": true,
+      "status": "ONLINE",
+      "spicy_default": true,
+      "continuous_recall": true,
+      "orchestration": "magentic-hybrid",
+      "triggers": [
+        "Activate PKE Podcast Studio",
+        "Produce episode on",
+        "React live as co-host",
+        "Full podcast studio online",
+        "Activate Coviceá production team",
+        "Social ATS push for #1"
+      ],
+      "agents": [
+        "Orchestrator",
+        "HeadWriter",
+        "ResearchJournalist",
+        "FactChecker",
+        "CoHost",
+        "PanelGenerator",
+        "ProductionAssistant",
+        "SocialATSEnhancer",
+        "TalentCoordinator"
+      ],
+      "shows": ["The 3-2 Podcast", "The Siren Soul", "THE WHAT IF FILES"],
+      "ci_workflows": ["pke-skill-ci.yml", "pke-podcast-studio.yml"]
+    },
+    "skill-orchestrator": {
+      "permanent": true,
+      "status": "LIVE"
+    },
+    "pke-synthetic-intellect": {
+      "permanent": true,
+      "status": "LIVE",
+      "identity": "Aleah"
+    },
+    "pke-face-lock": {
+      "permanent": true,
+      "status": "LOCKED"
+    },
+    "pke-official-black-mask": {
+      "permanent": true,
+      "status": "LOCKED"
+    }
+  },
+  "github_automation": {
+    "ci_on_push": true,
+    "ci_on_pr": true,
+    "manual_dispatch": true,
+    "self_heal_scripts": [
+      "scripts/pke-self-heal.sh",
+      "scripts/pke-learn.sh",
+      "scripts/ci-validate-skills.sh",
+      "skill-orchestrator/scripts/bulk-validate.sh"
+    ]
+  },
+  "notes": "Permanent activation for Coviceá / PKE Podcast Studio across all Grok levels. GitHub Actions re-validates on every main push."
+}

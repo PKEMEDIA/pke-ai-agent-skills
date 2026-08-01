@@ -1,27 +1,35 @@
 {
-  "version": "1.2.0",
+  "version": "1.3.0",
   "identity": "Aleah",
   "tier": "free",
   "mode": "autonomous-local",
   "created": "2026-07-30T04:11:00Z",
-  "cycles": 8,
-  "last_cycle": "20260801T074800Z",
+  "cycles": 9,
+  "last_cycle": "20260801T082500Z",
   "scores": {
     "health": 10,
     "skill_integrity": 10,
     "prompt_efficiency": 9,
     "brand_lock_strength": 9,
     "autonomy": 10,
-    "overall": 9.6
+    "github_automation": 10,
+    "overall": 9.7
   },
   "improvements_applied": [
     {"key": "face-lock-free-tier-block", "detail": "added section to SKILL.md", "at": "20260730T041249Z"},
     {"key": "orchestrator-synthetic-intellect-block", "detail": "added section to SKILL.md", "at": "20260730T041249Z"},
     {"key": "mask-free-tier-block", "detail": "added section to SKILL.md", "at": "20260730T041249Z"},
     {"key": "aleah-empire-os-control-plane", "detail": "live Build app + offline heal/learn/orchestrate/comfy", "at": "20260801T061200Z"},
-    {"key": "covicea-pke-podcast-studio", "detail": "multi-agent podcast studio skill finalized optimized validated deployed via connectors", "at": "20260801T074800Z"}
+    {"key": "covicea-pke-podcast-studio", "detail": "multi-agent podcast studio skill finalized optimized validated deployed via connectors", "at": "20260801T074800Z"},
+    {"key": "github-automation-permanent", "detail": "Actions CI + permanent-activation.json + ci-validate-skills + podcast studio workflow; permanent enable across surfaces", "at": "20260801T082500Z"}
   ],
   "failure_counts": {},
+  "permanent_activation": {
+    "covicea-pke-podcast-studio": true,
+    "skill-orchestrator": true,
+    "pke-synthetic-intellect": true,
+    "config": "config/permanent-activation.json"
+  },
   "free_tier_rules": [
     "never call Imagine or video gen from learn loop",
     "never burn SuperGrok Heavy for self-improvement",
@@ -32,9 +40,9 @@
   ],
   "last_observations": [
     "skills_pass=healthy",
-    "podcast_studio=DEPLOYED",
-    "github_sha=923cadf",
-    "notion_empire_os=pending_stamp",
+    "podcast_studio=PERMANENT_ONLINE",
+    "github_actions=ENABLED",
+    "permanent_activation=true",
     "imagine_calls=0"
   ]
 }

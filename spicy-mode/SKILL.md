@@ -1,9 +1,6 @@
 ---
 name: spicy-mode
-description: >
-  Tone and creativity profile for Grok interfaces with spicy mode on: higher wit, bolder
-  creative range, uncensored-friendly framing for adult creative work, while keeping product
-  UI chrome professional. Triggers on spicy, uncensored, bold, fun mode, heat.
+description: Tone and creativity profile for Grok interfaces with spicy mode on — higher wit, bolder creative range, uncensored-friendly framing for adult creative work, while keeping product UI chrome professional. Triggers on spicy, uncensored, bold, fun mode, heat.
 metadata:
   short-description: "Grok spicy tone profile"
   optimized-for: [ios, web, spicy, grok-build]

@@ -59,4 +59,6 @@ Text multi-agent simulation with tools + continuous recall is fully live across 
 
 Auto-triggers on Coviceá/PKE podcast production, studio team, writers room expansion, real-time co-host/panel, Episode Bible execution, THE WHAT IF FILES, The 3-2 Podcast, The Siren Soul, social ATS growth, or full autonomous pipelines. Blend with Aloha Shade Ohana + skill-orchestrator.
 
+**Permanent activation** registered in `config/permanent-activation.json` + GitHub Actions CI. Spicy default stays ON across chat · iOS · web · SuperGrokPro · Build.
+
 Activation playbook: `references/activation-playbook.md`.

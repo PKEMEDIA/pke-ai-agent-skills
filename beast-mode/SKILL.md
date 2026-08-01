@@ -1,10 +1,6 @@
 ---
 name: beast-mode
-description: >
-  Maximum-throughput agent execution profile for Grok Build and multi-skill runs: high
-  parallelization, auto-validate, auto-create missing skills, fail-fast recovery, full
-  synthesis reports. Use when the user says beast mode, full send, aggressive, or wants
-  maximum velocity on ambitious builds. Triggers on beast mode, max power, full send.
+description: Maximum-throughput agent execution profile for Grok Build and multi-skill runs with high parallelization, auto-validate, auto-create missing skills, fail-fast recovery, and full synthesis reports. Use when the user says beast mode, full send, aggressive, or wants maximum velocity on ambitious builds. Triggers on beast mode, max power, full send.
 metadata:
   short-description: "Aggressive multi-step execution profile"
   optimized-for: [ios, web, grok-build, spicy]

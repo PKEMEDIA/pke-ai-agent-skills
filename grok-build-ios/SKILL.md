@@ -1,9 +1,6 @@
 ---
 name: grok-build-ios
-description: >
-  Optimize and validate Grok Build apps for the iOS Grok app and web client: mobile viewports,
-  touch targets, safe areas, live preview contract, HMR continuity, production build render
-  checks, and skill technique coverage. Triggers on ios, iphone, mobile, grok build optimize.
+description: Optimize and validate Grok Build apps for the iOS Grok app and web client including mobile viewports, touch targets, safe areas, live preview contract, HMR continuity, production build render checks, and skill technique coverage. Triggers on ios, iphone, mobile, grok build optimize.
 metadata:
   short-description: "iOS + web Grok Build optimizer"
   optimized-for: [ios, web, grok-build]

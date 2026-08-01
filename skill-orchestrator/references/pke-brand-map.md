@@ -2,7 +2,7 @@
 
 ## Platforms
 
-Grok iOS · Grok web · Imagine · Build · GitHub connector · Local ComfyUI
+Grok iOS · Grok web · Imagine · Build · GitHub connector · GitHub Actions CI · Local ComfyUI
 
 ## Gen order
 
@@ -28,6 +28,16 @@ Grok iOS · Grok web · Imagine · Build · GitHub connector · Local ComfyUI
 | Title hierarchy single seal line | 0–2 |
 | Composition / clear space | 0–1 |
 
+## Podcast / voice brand (permanent)
+
+| Item | Spec |
+|---|---|
+| Host | Coviceá — Aloha Shade Ohana |
+| Shows | The 3-2 Podcast · The Siren Soul · THE WHAT IF FILES |
+| Studio skill | **covicea-pke-podcast-studio** (permanent · spicy) |
+| Claim rule | **allegedly** + FactChecker on tea/conspiracy |
+| Growth | SocialATSEnhancer · clip-first · queer POC sex-positive niche |
+
 ## Assets
 
 | Asset | Path |
@@ -44,19 +54,23 @@ Grok iOS · Grok web · Imagine · Build · GitHub connector · Local ComfyUI
 - `pke-official-black-mask/SKILL.md`
 - `skill-orchestrator/SKILL.md`
 - `skill-orchestrator/references/pke-brand-map.md`
+- `covicea-pke-podcast-studio/SKILL.md`
+- `config/permanent-activation.json`
 - `comfyui/pke-face-lock-base.json`
 - `README.md`
+- `.github/workflows/pke-skill-ci.yml`
+- `.github/workflows/pke-podcast-studio.yml`
 
 ## Recovery
 
-Push lock → tree re-read → missing-only push (max 2) → verify tree.
-
+Push lock → tree re-read → missing-only push (max 2) → verify tree → Actions green.
 
 ## Self-heal
 
 ```bash
-bash /workspace/scripts/pke-self-heal.sh
-bash /workspace/scripts/pke-self-heal.sh --push
+bash scripts/pke-self-heal.sh
+bash scripts/pke-self-heal.sh --push
+bash scripts/ci-validate-skills.sh
 ```
 
 Logs: `artifacts/heal-logs/heal-*.log`

@@ -1,9 +1,6 @@
 ---
 name: docx
-description: >
-  Structure professional documents and export Markdown plus Word-compatible HTML/DOC packages
-  from skill outputs, orchestration plans, and validation reports. Use for playbooks, runbooks,
-  executive summaries, and skill inventory docs. Triggers on docx, document, report, word, playbook.
+description: Structure professional documents and export Markdown plus Word-compatible HTML/DOC packages from skill outputs, orchestration plans, and validation reports. Use for playbooks, runbooks, executive summaries, and skill inventory docs. Triggers on docx, document, report, word, playbook.
 metadata:
   short-description: "Document structure + export"
   optimized-for: [ios, web, grok-build]

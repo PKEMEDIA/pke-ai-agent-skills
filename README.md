@@ -4,7 +4,7 @@ Official **Pretty Kitty Media / PKE Films** multi-agent skill pack for:
 
 - Grok **iOS** · **web** · **Imagine** (user-driven) · **Build**
 - **Free tier** autonomous learning (zero Imagine burn)
-- **GitHub** connectors · **Notion** Empire OS · **Local ComfyUI**
+- **GitHub** connectors · **GitHub Actions CI** · **Notion** Empire OS · **Local ComfyUI**
 
 ## Brand locks
 
@@ -21,13 +21,22 @@ Official **Pretty Kitty Media / PKE Films** multi-agent skill pack for:
 | [`pke-synthetic-intellect`](./pke-synthetic-intellect/) | Always-learning free-tier mind |
 | [`skill-creator`](./skill-creator/) | Validate / scaffold |
 
-## Podcast production (NEW — 2026-08-01)
+## Podcast production (PERMANENT · 2026-08-01)
 
 | Skill | Role |
 | --- | --- |
-| [`covicea-pke-podcast-studio`](./covicea-pke-podcast-studio/) | Full multi-agent studio: writers, journalists, fact-checkers, co-host, panels, SocialATS · Magentic hybrid orchestration · Episode Bible · spicy · continuous recall |
+| [`covicea-pke-podcast-studio`](./covicea-pke-podcast-studio/) | Full multi-agent studio: writers, journalists, fact-checkers, co-host, panels, SocialATS · Magentic hybrid orchestration · Episode Bible · spicy · continuous recall · **permanent activation** |
 
-**Activate:** `Activate PKE Podcast Studio` · Deploy stamp: [`docs/PODCAST-STUDIO-DEPLOY.md`](./docs/PODCAST-STUDIO-DEPLOY.md)
+**Activate:** `Activate PKE Podcast Studio` · Deploy: [`docs/PODCAST-STUDIO-DEPLOY.md`](./docs/PODCAST-STUDIO-DEPLOY.md) · Automation: [`docs/GITHUB-AUTOMATION.md`](./docs/GITHUB-AUTOMATION.md)
+
+## GitHub automation (ENABLED)
+
+| Workflow | File | Purpose |
+| --- | --- | --- |
+| PKE Skill CI | [`.github/workflows/pke-skill-ci.yml`](./.github/workflows/pke-skill-ci.yml) | Validate all skills on push/PR |
+| PKE Podcast Studio | [`.github/workflows/pke-podcast-studio.yml`](./.github/workflows/pke-podcast-studio.yml) | Studio DNA + permanent enable gates |
+| CI script | [`scripts/ci-validate-skills.sh`](./scripts/ci-validate-skills.sh) | Repo-native validator |
+| Permanent registry | [`config/permanent-activation.json`](./config/permanent-activation.json) | Online forever stamp |
 
 ---
 
@@ -47,7 +56,7 @@ cd pke-ai-agent-skills
    - `pke-face-lock/SKILL.md`
    - `pke-official-black-mask/SKILL.md`
    - `skill-orchestrator/SKILL.md`
-   - `covicea-pke-podcast-studio/SKILL.md` (podcast)
+   - `covicea-pke-podcast-studio/SKILL.md` (podcast — permanent)
    - `pke-synthetic-intellect/SKILL.md` (optional autonomy)
 3. Attach face refs when generating: company face stills (`IMG_4440`, `IMG_4441`, `IMG_4450`) and mask ref when needed.
 4. Triggers (examples): `skill-orchestrator`, `self heal`, `Activate PKE Podcast Studio`, `PKE PRESENTS`, face-lock / mask keywords.
@@ -65,6 +74,7 @@ npm run dev   # binds 0.0.0.0:8080
 ### 4. Autonomous ops (free tier — local only)
 
 ```bash
+bash scripts/ci-validate-skills.sh
 bash scripts/pke-self-heal.sh
 bash scripts/pke-self-heal.sh --push
 bash scripts/pke-learn.sh
@@ -81,8 +91,9 @@ Load [`comfyui/pke-face-lock-base.json`](./comfyui/pke-face-lock-base.json).
 | Gate | Pass |
 | --- | --- |
 | Self-heal | `STATUS=HEALTHY` exit 0 |
-| Validate | All `SKILL.md` pass `validate-skill.sh` |
-| Podcast studio | `validate-local.sh` OK |
+| Validate | All `SKILL.md` pass `validate-skill.sh` / CI |
+| Podcast studio | `validate-local.sh` OK + permanent stamp |
+| GitHub Actions | PKE Skill CI green on main |
 | Learn | `imagine_calls=0` |
 
 Full checklist: [`docs/FINALIZE.md`](./docs/FINALIZE.md)
@@ -108,7 +119,8 @@ Full checklist: [`docs/FINALIZE.md`](./docs/FINALIZE.md)
 
 - [`mind/state.json`](./mind/state.json)  
 - [`mind/lessons.md`](./mind/lessons.md)  
+- [`config/permanent-activation.json`](./config/permanent-activation.json)  
 
 ## Deploy stamp
 
-**FINALIZED** — production ready · healthy · **podcast studio LIVE** — 2026-08-01
+**FINALIZED** — production ready · healthy · **podcast studio PERMANENT** · **GitHub Actions ENABLED** — 2026-08-01

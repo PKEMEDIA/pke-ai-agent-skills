@@ -1,0 +1,80 @@
+# Coviceá / PKE Podcast Studio — dedicated CI + permanent enable gate
+name: PKE Podcast Studio
+
+on:
+  push:
+    branches: [main, master]
+    paths:
+      - 'covicea-pke-podcast-studio/**'
+      - 'config/permanent-activation.json'
+      - 'scripts/ci-validate-skills.sh'
+      - '.github/workflows/pke-podcast-studio.yml'
+  pull_request:
+    paths:
+      - 'covicea-pke-podcast-studio/**'
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: validate | activate-stamp
+        required: false
+        default: validate
+
+permissions:
+  contents: read
+
+jobs:
+  studio-validate:
+    name: Studio validate + activation
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Executable bits
+        run: chmod +x covicea-pke-podcast-studio/scripts/*.sh scripts/*.sh skill-creator/scripts/*.sh 2>/dev/null || true
+
+      - name: Spec validate
+        run: bash skill-creator/scripts/validate-skill.sh covicea-pke-podcast-studio
+
+      - name: Local studio gate
+        run: bash covicea-pke-podcast-studio/scripts/validate-local.sh
+
+      - name: Required references
+        run: |
+          for f in orchestration-patterns.md episode-bible.md activation-playbook.md; do
+            test -f "covicea-pke-podcast-studio/references/$f"
+            echo "OK references/$f"
+          done
+
+      - name: DNA + agent keywords
+        run: |
+          SKILL=covicea-pke-podcast-studio/SKILL.md
+          for kw in 'Aloha Shade Ohana' '@Orchestrator' '@FactChecker' '@CoHost' '@SocialATSEnhancer' 'Episode Bible' 'Spicy'; do
+            grep -q "$kw" "$SKILL" || { echo "missing: $kw"; exit 1; }
+            echo "OK keyword: $kw"
+          done
+
+      - name: Permanent enable registry
+        run: |
+          python3 - <<'PY'
+import json
+from pathlib import Path
+p = Path('config/permanent-activation.json')
+data = json.loads(p.read_text())
+assert data.get('enabled') is True
+skills = data.get('skills') or {}
+studio = skills.get('covicea-pke-podcast-studio') or {}
+assert studio.get('permanent') is True
+assert studio.get('spicy_default') is True
+assert 'Activate PKE Podcast Studio' in (studio.get('triggers') or [])
+print('permanent enable OK', studio.get('status'))
+PY
+
+      - name: Activation report
+        run: |
+          echo "### PKE Podcast Studio"
+          echo "status=ONLINE"
+          echo "spicy=ACTIVE"
+          echo "permanent=true"
+          echo "surfaces=chat,iOS,web,SuperGrokPro,Build"
+          echo "sha=${{ github.sha }}"

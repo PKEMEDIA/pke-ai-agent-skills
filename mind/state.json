@@ -1,96 +1,46 @@
 {
-  "version": "2.0.0",
-  "identity": "Aleah",
-  "tier": "free",
-  "mode": "super-mind-autonomous-local",
-  "created": "2026-07-30T04:11:00Z",
-  "cycles": 12,
-  "last_cycle": "20260801T135612Z",
+  "version": "1.0.0",
+  "cycles": 1,
   "scores": {
-    "health": 10,
     "skill_integrity": 10,
-    "prompt_efficiency": 10,
-    "brand_lock_strength": 9,
-    "autonomy": 10,
-    "github_automation": 10,
-    "ci_speed": 10,
-    "super_mind": 10,
-    "overall": 9.9
+    "health": 2,
+    "prompt_efficiency": 7,
+    "brand_lock_strength": 6,
+    "autonomy": 7,
+    "overall": 6.4
   },
-  "improvements_applied": [
-    {
-      "key": "face-lock-free-tier-block",
-      "detail": "added section to SKILL.md",
-      "at": "20260730T041249Z"
-    },
-    {
-      "key": "orchestrator-synthetic-intellect-block",
-      "detail": "added section to SKILL.md",
-      "at": "20260730T041249Z"
-    },
-    {
-      "key": "mask-free-tier-block",
-      "detail": "added section to SKILL.md",
-      "at": "20260730T041249Z"
-    },
-    {
-      "key": "aleah-empire-os-control-plane",
-      "detail": "live Build app + offline heal/learn/orchestrate/comfy",
-      "at": "20260801T061200Z"
-    },
-    {
-      "key": "covicea-pke-podcast-studio",
-      "detail": "multi-agent podcast studio skill finalized optimized validated deployed via connectors",
-      "at": "20260801T074800Z"
-    },
-    {
-      "key": "github-automation-permanent",
-      "detail": "Actions CI + permanent-activation.json + ci-validate-skills + podcast studio workflow; permanent enable across surfaces",
-      "at": "20260801T082500Z"
-    },
-    {
-      "key": "full-deploy-2026-08-01",
-      "detail": "Full multi-surface deploy: GitHub CI green, permanent activation, Build inject, Notion/Drive stamps, FULL-DEPLOY.md",
-      "at": "20260801T083000Z"
-    },
-    {
-      "key": "ci-speed-optimize",
-      "detail": "Single-job Skill CI, shallow checkout, path filters, parallel validate, CI-SPEED.md; measured ~9-14s",
-      "at": "20260801T083700Z"
-    },
-    {
-      "key": "finalize-2026-08-01",
-      "detail": "FINALIZE stamp: all gates green, CI speed measured, podcast permanent spicy, mind cycle 11 overall 9.9",
-      "at": "20260801T110000Z"
-    },
-    {
-      "key": "super-mind-architecture-v2",
-      "detail": "Learned techniques; expanded Super Mind L5 architecture + efficiency playbook; polished pke-synthetic-intellect v2; optimized parallel CI aggregation already live",
-      "at": "20260801T135612Z"
-    }
-  ],
-  "failure_counts": {},
-  "permanent_activation": {
-    "covicea-pke-podcast-studio": true,
-    "skill-orchestrator": true,
-    "pke-synthetic-intellect": true,
-    "config": "config/permanent-activation.json"
+  "lessons": [],
+  "improvements_applied": [],
+  "failure_counts": {
+    "app": 1,
+    "assets": 7
   },
   "free_tier_rules": [
     "never call Imagine or video gen from learn loop",
     "never burn SuperGrok Heavy for self-improvement",
-    "local logs + skill text only",
-    "optional GitHub push only when user or --push",
-    "improve prompts via edit of SKILL.md not re-generation",
-    "credit-aware routing: offline/local first"
+    "local logs + skill text only"
   ],
+  "tier": "free",
+  "mode": "autonomous-local",
+  "last_cycle": "20260801T140449Z",
   "last_observations": [
-    "super_mind=LIVE_L5",
-    "techniques_learned=COMPLETE",
-    "efficiency_playbook=LOCKED",
-    "ci_validate_parallel=TRUE_AUTHORITATIVE",
-    "imagine_calls=0",
-    "free_tier=forever",
-    "overall=9.9"
-  ]
+    "skills_pass=17 skills_fail=0",
+    "app=down:<urlopen error [Errno 111] Connection refused>",
+    "missing_assets=public/pke/IMG_4440.jpg,public/pke/IMG_4441.jpg,public/pke/IMG_4450.jpg,artifacts/comfyui/pke-face-lock-base.json,.grok/skills/pke-face-lock/SKILL.md,.grok/skills/pke-official-black-mask/SKILL.md,.grok/skills/skill-orchestrator/SKILL.md",
+    "recent_heal_issues=7",
+    "heal_signal:MISS /workspace/public/pke/IMG_4450.jpg",
+    "heal_signal:MISS /workspace/artifacts/comfyui/pke-face-lock-base.json",
+    "heal_signal:MISS /workspace/.grok/skills/pke-face-lock/SKILL.md",
+    "heal_signal:MISS /workspace/.grok/skills/pke-official-black-mask/SKILL.md",
+    "heal_signal:MISS /workspace/.grok/skills/skill-orchestrator/SKILL.md",
+    "top_failure_classes=assets:7,app:1"
+  ],
+  "last_scores": {
+    "skill_integrity": 10,
+    "health": 2,
+    "prompt_efficiency": 7,
+    "brand_lock_strength": 6,
+    "autonomy": 7,
+    "overall": 6.4
+  }
 }

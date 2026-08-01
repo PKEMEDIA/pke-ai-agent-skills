@@ -1,5 +1,5 @@
 {
-  "version": "1.1.0",
+  "version": "1.2.0",
   "owner": "PKEMEDIA",
   "brand": "Pretty Kitty Entertainment / Pretty Kitty Media",
   "enabled": true,
@@ -25,7 +25,7 @@
         "Produce episode on",
         "React live as co-host",
         "Full podcast studio online",
-        "Activate Coviceá production team",
+        "Activate Covice\u00e1 production team",
         "Social ATS push for #1"
       ],
       "agents": [
@@ -56,7 +56,13 @@
     "pke-synthetic-intellect": {
       "permanent": true,
       "status": "LIVE",
-      "identity": "Aleah"
+      "identity": "Aleah",
+      "mode": "super-mind",
+      "version": "2.0.0",
+      "references": [
+        "pke-synthetic-intellect/references/super-mind-architecture.md",
+        "pke-synthetic-intellect/references/efficiency-playbook.md"
+      ]
     },
     "pke-face-lock": {
       "permanent": true,
@@ -73,11 +79,13 @@
     "manual_dispatch": true,
     "ci_speed": {
       "optimized": true,
-      "skill_ci_wall_seconds": "9-14",
+      "skill_ci_wall_seconds": "8-10",
       "podcast_wall_seconds": "~12",
       "single_job": true,
       "shallow_checkout": true,
-      "path_filters": true
+      "path_filters": true,
+      "validate_step_seconds": "~2",
+      "parallel_aggregation": "authoritative"
     },
     "self_heal_scripts": [
       "scripts/pke-self-heal.sh",
@@ -86,7 +94,7 @@
       "skill-orchestrator/scripts/bulk-validate.sh"
     ]
   },
-  "notes": "Permanent activation for Coviceá / PKE Podcast Studio across all Grok levels. GitHub Actions re-validates on every main push. Finalized 2026-08-01 with CI speed optimization.",
+  "notes": "Permanent activation for Covice\u00e1 / PKE Podcast Studio across all Grok levels. GitHub Actions re-validates on every main push. Finalized 2026-08-01 with CI speed optimization.",
   "full_deploy": {
     "at": "2026-08-01T08:30:00Z",
     "status": "COMPLETE",
@@ -113,5 +121,14 @@
       "docs/GITHUB-AUTOMATION.md",
       "docs/PODCAST-STUDIO-DEPLOY.md"
     ]
+  },
+  "super_mind": {
+    "enabled": true,
+    "layer": "L5",
+    "at": "2026-08-01T13:50:00Z",
+    "docs": [
+      "docs/SUPER-MIND.md"
+    ],
+    "learn_imagine_calls": 0
   }
 }

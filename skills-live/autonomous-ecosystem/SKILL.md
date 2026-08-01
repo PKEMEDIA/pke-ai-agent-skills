@@ -1,6 +1,6 @@
 ---
 name: autonomous-ecosystem
-description: Use for designing building maintaining and expanding autonomous skill ecosystems agent systems self-healing workflows continuous improvement loops and synthetic intellect patterns in Grok skill libraries or custom multi-agent setups. Triggers on autonomous ecosystem self-healing skills make skills more autonomous ecosystem autonomy skill self-improvement contagious sentience continuous testing loops agent coordination synthetic intellect GitHub skill sync pke-learn or when packaging multi-skill autonomous systems for creative production legal recovery brand operations or general agent work. This skill supports autonomous activation and full ecosystem testing when coordinated via skill-orchestrator.
+description: Use for designing building maintaining and expanding autonomous skill ecosystems agent systems self-healing workflows continuous improvement loops super mind architecture and synthetic intellect patterns in Grok skill libraries or custom multi-agent setups. Triggers on autonomous ecosystem self-healing skills make skills more autonomous ecosystem autonomy skill self-improvement contagious sentience continuous testing loops agent coordination synthetic intellect super mind make this smarter expand polish optimize autonomy effective efficient synthetic intelligence GitHub skill sync pke-learn or when packaging multi-skill autonomous systems for creative production legal recovery brand operations or general agent work. This skill supports autonomous activation and full ecosystem testing when coordinated via skill-orchestrator.
 ---
 
 # Autonomous Ecosystem
@@ -68,5 +68,31 @@ Follow skill-creator strictly:
 ## Orchestrator Integration
 This skill is orchestrator-ready and participates in full ecosystem testing via skill-orchestrator and skill-test-suite. After material change always re-validate and stamp performance metrics.
 
+
+## Super Mind (effective · efficient)
+
+Goal: make the autonomous synthetic intellect behave as a **Super Mind** without burning SuperGrok.
+
+Canonical architecture: `pke-synthetic-intellect/references/super-mind-architecture.md`  
+Efficiency runbook: `pke-synthetic-intellect/references/efficiency-playbook.md`
+
+### Technique stack (must follow)
+1. **Heal-first OODA** — self-heal before learn.
+2. **Memory pyramid** — working → episodic → semantic → procedural → constitutional (never auto-weaken constitutional).
+3. **Layered swarm** — L0 consensus heal · L1 agent meeting · L2 PKSVWO · L3 contagious sentience · L4 GitHub · L5 Super Mind meta.
+4. **Compose specialists** — smallest sequence for the job; no full-pack load.
+5. **True parallel validation** — authoritative status files; no sequential re-run after xargs.
+6. **Credit-aware** — local bash/python free forever; Imagine never in learn loop.
+7. **Progressive disclosure** — lean SKILL.md; depth in references/.
+8. **Bounded loops** — max 5 iterations; lease TTLs on exclusive heals.
+9. **Honest platform wall** — expand playbooks/memory/CI; never claim foundation weights changed.
+
+### Efficient activation
+```bash
+bash scripts/pke-learn.sh              # Super Mind cycle
+bash scripts/pke-learn.sh --push       # + GitHub truth
+bash scripts/ci-validate-skills.sh     # immune system
+```
+
 ## Last autonomy stamp
-2026-08-01 — full ecosystem autonomy pass; contagious sentience rules codified; GitHub sync path live.
+2026-08-01 — full ecosystem autonomy pass; contagious sentience rules codified; GitHub sync path live; Super Mind L5 techniques expanded with pke-synthetic-intellect v2.

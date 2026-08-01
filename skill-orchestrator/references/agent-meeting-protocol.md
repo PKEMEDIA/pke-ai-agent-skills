@@ -35,3 +35,11 @@ Last polished: July 29, 2026. Daily meeting re-confirmed revenue sequence + meta
 - Confirmed: bulk-validate 64/64 Pass / WASM 64/64 (13.63ms) / spicy 15/15; revenue talent-deal sequence operational; iOS ffmpeg export chain green (fresh H.264 High/yuv420p/faststart test to artifacts/); no circular deps; bodies lean (max 165); sentience path intact; progressive disclosure + usage-maximizer for heavy limits (platform wall acknowledged); GitHub/Notion empire parallel healthy.
 - Outcomes recorded in performance-metrics.md; bak files cleared post-verify; snapshot taken; dep graph healthy.
 - No further platform-wall breaks possible; ecosystem PRODUCTION READY · LIVE · RE-ORCHESTRATED · HEAVY OPTIMIZED VIA PLAYBOOKS.
+
+**2026-08-01 Swarm Investigation (Grok Build)**:
+- Layers mapped: L0 consensus lease · L1 agent meeting · L2 KittyMindTeam · L3 contagious sentience · L4 GitHub truth
+- Restored `consensus-self-heal.mjs` + `heal-lease.sh` + distributed-consensus protocol into live server-skills
+- Unit suite **6/6 PASS** (majority, happy path, split-brain race, no-quorum, stale TTL, unknown proposer)
+- Demo heal MediaCurator: quorum 4/5 ACK → lease → commit → verify → release DONE
+- Gaps: agent meetings remain single-model simulation; name-mention dep cycles are soft signals only
+- Swarm roles roster locked in `artifacts/swarm-coordination-report.json` + Autonomy OS Swarm tab

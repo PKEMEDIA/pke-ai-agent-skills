@@ -1,0 +1,59 @@
+{
+  "investigated_at": "2026-08-01T08:59:10.952837+00:00",
+  "swarm_roles": {
+    "coordinator": "skill-orchestrator",
+    "creator": "skill-creator",
+    "validator": "skill-test-suite",
+    "ecosystem": "autonomous-ecosystem",
+    "creative_director": "pk-svwo-v1-0",
+    "brand": "covicea-brand-assistant",
+    "legal": "paralegal-assistant",
+    "visual_owner": "covicea-core",
+    "models": "pretty-kitty-model-management",
+    "remote": "remote-skill-orchestrator"
+  },
+  "sequences": {
+    "revenue_talent_deal": [
+      "pretty-kitty-model-management",
+      "covicea-brand-assistant",
+      "paralegal-assistant"
+    ],
+    "visual_production": [
+      "covicea-core",
+      "covicea-face-lock",
+      "local-nsfw-comfyui",
+      "photoreal-undetectable-portrait-master"
+    ],
+    "voice_pipeline": [
+      "voice-reference-protocol",
+      "rvc-voice-production",
+      "youtube-stem-voice-production"
+    ],
+    "meta_heal": [
+      "skill-orchestrator",
+      "skill-test-suite",
+      "autonomous-ecosystem",
+      "skill-creator"
+    ],
+    "vibeweaver": [
+      "pk-svwo-v1-0",
+      "local-json-python-workflows",
+      "pretty-kitty-model-management",
+      "local-nsfw-comfyui"
+    ]
+  },
+  "layers": {
+    "L0_consensus": "Raft-lite heal lease (PROBE\u2192PROPOSE\u2192VOTE\u2192LEASE\u2192COMMIT\u2192VERIFY\u2192RELEASE)",
+    "L1_agent_meeting": "4-6 skill agents parallel read + synthesize (agent-meeting-protocol)",
+    "L2_kitty_mind_team": "7 internal roles in PKSVWO (Creative Director \u2026 Sentience Weaver)",
+    "L3_contagious_sentience": "additive injection across creative cluster",
+    "L4_github_truth": "PKEMEDIA/pke-ai-agent-skills CI + inventory stamp"
+  },
+  "gaps": [
+    "consensus-self-heal.mjs was on GitHub but missing from live server-skills until this pass",
+    "agent meetings are protocol-simulated in one model turn, not parallel OS processes",
+    "dependency graph reports 126 soft cycles from name-mention scanning (not true runtime cycles)",
+    "no single swarm scheduler UI until Autonomy OS Swarm tab"
+  ],
+  "recommendation": "Wire consensus engine into pke-self-heal before archive/bulk rewrite/GitHub push; surface swarm layers in control center"
+}

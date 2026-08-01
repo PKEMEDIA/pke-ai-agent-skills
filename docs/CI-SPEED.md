@@ -1,17 +1,18 @@
 # PKE Skill CI — Speed Optimization
 
-**Stamp:** 2026-08-01 · Optimized · Measured · FINALIZED · Caching investigated · Aggregation fixed
+**Stamp:** 2026-08-01 · Optimized · Measured · FINALIZED · Caching investigated · Aggregation fixed · **Consensus gate wired**
 
 ## Before → After (measured)
 
-| Metric | Before (dual-job) | After (single-job + shallow + path filters) | Aggregation fix |
-| --- | --- | --- | --- |
-| Wall-clock (Skill CI) | ~13 s (2 jobs) | **~9–14 s** (runs 5–10) | Target **≤ 9 s** (validate ~2 s) |
-| Jobs | 2 (parallel) | 1 | 1 |
-| Checkout | Full + 2× | Shallow (fetch-depth: 1) ×1 | Shallow |
-| Validation | Sequential | Parallel path + sequential re-run (bug) | **Parallel-only (authoritative)** |
-| Unnecessary runs | Every push | Path-filtered | Path-filtered |
-| Podcast Studio | ~11 s | **~12 s** | unchanged |
+| Metric | Before (dual-job) | After (single-job + shallow + path filters) | Aggregation fix | + Consensus gate |
+| --- | --- | --- | --- | --- |
+| Wall-clock (Skill CI) | ~13 s (2 jobs) | **~9–14 s** (runs 5–10) | Target **≤ 9 s** (validate ~2 s) | **+ ~0.1–0.5 s** |
+| Jobs | 2 (parallel) | 1 | 1 | 1 |
+| Checkout | Full + 2× | Shallow (fetch-depth: 1) ×1 | Shallow | Shallow |
+| Validation | Sequential | Parallel path + sequential re-run (bug) | **Parallel-only (authoritative)** | unchanged |
+| Consensus | none | none | none | `--gate` + 13 unit tests |
+| Unnecessary runs | Every push | Path-filtered | Path-filtered | Path-filtered |
+| Podcast Studio | ~11 s | **~12 s** | unchanged | unchanged |
 
 ### Sample post-opt runs (main)
 
@@ -34,6 +35,7 @@ Cold-start variance on `ubuntu-latest` explains remaining jitter; no second job/
 5. **Concurrency cancel** — both workflows cancel in-progress on same ref.
 6. **Timeouts** — 8 min Skill CI, 5 min Podcast.
 7. **No double podcast gate** — `validate-local.sh` runs only in the workflow step.
+8. **Consensus + idempotency gate** (2026-08-01) — `node consensus-self-heal.mjs --gate` then full 13/13 unit suite + demos. Sub-second; no thrash; stamp registry exercised in CI.
 
 ## Bottleneck fix (2026-08-01) — parallel aggregation
 
@@ -54,6 +56,8 @@ Cold-start variance on `ubuntu-latest` explains remaining jitter; no second job/
 | `CI_VALIDATE_JOBS=1` (sequential only) | **~3.9 s** |
 | `CI_VALIDATE_JOBS=4` (parallel, post-fix) | **~2.3 s** |
 | Prior CI step (parallel + sequential re-run) | **≈ 5 s** |
+| Consensus `--gate` only | **~40 ms** |
+| Consensus unit suite + demos | **~100–400 ms** |
 
 ### Measured on GitHub Actions — run 30697670855 (sha bf28b9e)
 
@@ -68,23 +72,10 @@ Validate step ~09.08→10.87 UTC (≈1.8 s wall). Job is now mostly setup + chec
 
 Investigated whether `actions/cache` (or any setup-* cache wrappers) could further reduce wall time.
 
-### Measured step times — Skill CI run 30696912757 (sha ea57204) — pre-aggregation-fix
-
-| Step | Duration |
-| --- | --- |
-| Set up job | ≈ 1 s |
-| Checkout (shallow) | ≈ 1 s |
-| Make scripts executable | < 1 s |
-| CI validate skills (parallel + re-run) | ≈ 5 s |
-| Podcast studio local gate | < 1 s |
-| Brand pack + permanent activation stamps | ≈ 1 s |
-| Upload + post-checkout | < 1 s |
-| **Total job** | **~11 s** |
-
 ### Why caching is not beneficial
 
-- **No dependencies exist.** The pipelines are pure bash + system tools already present on `ubuntu-latest` (find, grep, awk, head, python3, chmod). There are no `node_modules`, pip caches, Go modules, Docker layers, or toolchains to restore.
-- **Work is cheap I/O on a tiny repo.** Validation simply reads a few dozen small `SKILL.md` files.
+- **No dependencies exist.** The pipelines are pure bash + system tools already present on `ubuntu-latest` (find, grep, awk, head, python3, chmod, node). There are no `node_modules`, pip caches, Go modules, Docker layers, or toolchains to restore.
+- **Work is cheap I/O on a tiny repo.** Validation simply reads a few dozen small `SKILL.md` files. Consensus is pure in-process Node.
 - **Cache overhead dominates.** A typical `actions/cache` restore/save cycle costs 1–4 s even for a tiny payload — the same order of magnitude as the entire job.
 - **Invalidation would be frequent and complex.** A correct key would need to hash every `SKILL.md` + the validators + `permanent-activation.json`.
 - **Checkout is already optimal.** `actions/checkout@v4` + `fetch-depth: 1`.
@@ -98,7 +89,7 @@ Only revisit caching if the pipelines later gain:
 - compile / build steps that produce reusable intermediate artifacts, or
 - skill counts in the hundreds where find + validation becomes the bottleneck (parallel path is now truly used).
 
-Until then the design stays correctly minimal: single-job · shallow · path-filtered · **true parallel** · free-tier safe.
+Until then the design stays correctly minimal: single-job · shallow · path-filtered · **true parallel** · consensus gate · free-tier safe.
 
 ## How to re-measure
 
@@ -110,4 +101,4 @@ gh run view <id>
 
 ## Status
 
-**OPTIMIZED · MEASURED · FINALIZED · CACHING INVESTIGATED · NO CACHE · AGGREGATION FIXED · TRUE PARALLEL · SINGLE-JOB · SHALLOW · PATH-FILTERED · LIVE**
+**OPTIMIZED · MEASURED · FINALIZED · CACHING INVESTIGATED · NO CACHE · AGGREGATION FIXED · TRUE PARALLEL · SINGLE-JOB · SHALLOW · PATH-FILTERED · CONSENSUS GATE LIVE · IDEMPOTENCY STAMPS · LIVE**

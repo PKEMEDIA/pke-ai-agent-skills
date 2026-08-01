@@ -1,5 +1,5 @@
-# PKE AI Agent Skills — continuous validate + self-heal gate
-# Optimized for speed: single job · shallow · path-filtered · parallel validate
+# PKE AI Agent Skills — continuous validate + consensus/idempotency heal gate
+# Optimized for speed: single job · shallow · path-filtered · parallel validate · lightweight consensus
 name: PKE Skill CI
 
 on:
@@ -54,9 +54,28 @@ jobs:
       - name: Make scripts executable
         run: |
           chmod +x scripts/*.sh 2>/dev/null || true
+          chmod +x scripts/*.mjs 2>/dev/null || true
           chmod +x skill-creator/scripts/*.sh 2>/dev/null || true
           chmod +x skill-orchestrator/scripts/*.sh 2>/dev/null || true
+          chmod +x skill-orchestrator/scripts/*.mjs 2>/dev/null || true
           chmod +x covicea-pke-podcast-studio/scripts/*.sh 2>/dev/null || true
+
+      - name: Consensus heal gate (Raft-lite + stamp registry)
+        # Lightweight: --gate ~40ms readiness; then unit suite + idempotency demos (sub-second).
+        # No multi-job, no cache, no thrash — keep free-tier wall low.
+        run: |
+          set -euo pipefail
+          ENGINE="skill-orchestrator/scripts/consensus-self-heal.mjs"
+          test -f "$ENGINE"
+          # Prefer root scripts mirror if present and newer-path used by Mac paste
+          if [ -f scripts/consensus-self-heal.mjs ]; then
+            ENGINE="scripts/consensus-self-heal.mjs"
+          fi
+          echo "=== consensus --gate ==="
+          node "$ENGINE" --gate
+          echo "=== consensus unit suite + idempotency demos ==="
+          node "$ENGINE"
+          echo "CONSENSUS_ENGINE=HEALTHY"
 
       - name: CI validate skills (parallel)
         env:
@@ -79,7 +98,10 @@ jobs:
             README.md \
             mind/state.json \
             config/permanent-activation.json \
-            scripts/ci-validate-skills.sh
+            scripts/ci-validate-skills.sh \
+            skill-orchestrator/scripts/consensus-self-heal.mjs \
+            skill-orchestrator/scripts/pke-self-heal.sh \
+            skill-orchestrator/references/heal-idempotency.md
           do
             test -f "$p" && echo "OK $p" || { echo "MISSING $p"; exit 1; }
           done
@@ -96,5 +118,6 @@ jobs:
             echo "ref=${{ github.ref }}"
             echo "event=${{ github.event_name }}"
             echo "timestamp=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+            echo "consensus=gate+unit-suite"
           } > artifacts/ci-summary.txt
           cat artifacts/ci-summary.txt

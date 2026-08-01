@@ -1,32 +1,35 @@
-# Self-heal / Learn repair log — 2026-07-30
+# Heal · Learn · CI Fixes
 
-## Bugs fixed
+**Stamp:** 2026-08-01 · consensus + idempotency synced to GitHub · CI gate live
 
-| # | Severity | Bug | Fix |
-|---|---|---|---|
-| 1 | High | heal_github unconditional cp aborts under set -e | Guarded copies; copied counter |
-| 2 | Medium | startup.sh restore never re-probed app | Re-curl; FAILS if still down |
-| 3 | Medium | github-clone-FAILED skipped FAILS_AFTER | Now increments |
-| 4 | Medium | ROOT hardcoded /workspace | Auto-detect workspace/home/cwd |
-| 5 | Medium | VALIDATE path hardcoded | Search 4 candidate paths |
-| 6 | Low | Empty ACTIONS printed blank dash | Print (none) |
-| 7 | Low | Skill dirs without SKILL.md counted | Skip |
-| 8 | Low | learn [ ] && PUSH under set -e | if/fi |
-| 9 | Medium | Learn Python hardcode validate | argv[5] + fallbacks |
-| 10 | Low | Post-learn validate crash if missing | Guard |
+## Synced (local → GitHub)
 
-## Verification
+| Path | Notes |
+| --- | --- |
+| `skill-orchestrator/scripts/consensus-self-heal.mjs` | Full Raft-lite + HealStampStore · 13/13 · `--gate` |
+| `skill-orchestrator/scripts/pke-self-heal.sh` | Gate at START · run-gate max 2/120s · stamp helpers |
+| `scripts/consensus-self-heal.mjs` | Mirror for Mac paste / docs |
+| `scripts/pke-self-heal.sh` | Mirror for Mac paste / docs |
+| `skill-orchestrator/references/heal-idempotency.md` | Protocol + skip rules |
+| `skill-orchestrator/references/distributed-consensus-self-heal.md` | Raft-lite design |
+| `.github/workflows/pke-skill-ci.yml` | Consensus step before parallel validate |
 
-- bash -n syntax OK
-- Brand skills validate OK
-- Remote scripts/ restored with full hardened bodies
+## CI contract
 
-## Follow-up 2026-07-30 01:30 — learn --push harden
+1. `node …/consensus-self-heal.mjs --gate` must print `ok: true`
+2. Full suite must exit 0 (13/13)
+3. Parallel skill validate FAIL=0
+4. Brand + permanent-activation + engine files present
 
-| # | Severity | Bug | Fix |
-|---|---|---|---|
-| 11 | High | learn bare `gh repo clone` aborts cycle under set -e | Guarded with if ! clone; cycle continues |
-| 12 | High | learn bare brand SKILL `cp` aborts if missing | Guarded for-loop with [ -f ] |
-| 13 | Medium | learn git subshell nonzero aborts parent | Status file + `|| echo SUBSHELL_FAIL` |
+## Local Mac
 
-Now learn --push matches heal's soft-fail push contract.
+```bash
+export PKE_ROOT="$HOME"
+cd "$HOME/pke-ai-agent-skills"
+node scripts/consensus-self-heal.mjs --gate
+bash scripts/pke-self-heal.sh
+```
+
+## Status
+
+**SYNCED · CI GATE LIVE · IDEMPOTENT · NO THRASH · SPEED PRESERVED**

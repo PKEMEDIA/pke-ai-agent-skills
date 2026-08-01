@@ -1,7 +1,13 @@
 #!/usr/bin/env bash
 # PKE self-heal - detect gate failures, auto-repair, re-validate, report.
-# Usage: bash scripts/pke-self-heal.sh [--push]
-# Env:   PKE_ROOT (auto-detected), VALIDATE_SKILL
+# Usage: bash scripts/pke-self-heal.sh [--push] [--force]
+# Env:   PKE_ROOT (auto-detected), VALIDATE_SKILL, PKE_HEAL_FORCE=1
+#
+# Idempotency:
+#   - Global run cooldown stamp (artifacts/heal-stamps/run-cooldown.json)
+#   - Per-action stamps via heal_stamp_* helpers
+#   - Max 2 auto-heal passes per cooldown window unless --force
+#   - Consensus engine gate at START (Raft-lite + stamp registry)
 set -eu
 
 # Root detection (App Builder /workspace, user home, or cwd)
@@ -29,12 +35,25 @@ fi
 VALIDATE="${VALIDATE_SKILL:-}"
 
 LOG_DIR="$ROOT/artifacts/heal-logs"
+STAMP_DIR="$ROOT/artifacts/heal-stamps"
 STAMP=$(date -u +%Y%m%dT%H%M%SZ)
 LOG="$LOG_DIR/heal-$STAMP.log"
 PUSH=0
-if [ "${1:-}" = "--push" ]; then PUSH=1; fi
+FORCE=0
+for arg in "$@"; do
+  case "$arg" in
+    --push) PUSH=1 ;;
+    --force) FORCE=1 ;;
+  esac
+done
+if [ "${PKE_HEAL_FORCE:-0}" = "1" ]; then FORCE=1; fi
 
-mkdir -p "$LOG_DIR"
+# Global run cooldown: 120s between full self-heal passes (max 2 per window tracked)
+RUN_COOLDOWN_SEC=120
+MAX_PASSES_PER_WINDOW=2
+RUN_STAMP_FILE="$STAMP_DIR/run-cooldown.json"
+
+mkdir -p "$LOG_DIR" "$STAMP_DIR"
 
 log() { echo "$@" | tee -a "$LOG"; }
 log_action() { ACTIONS+=("$1"); log "ACTION: $1"; }
@@ -42,9 +61,139 @@ log_action() { ACTIONS+=("$1"); log "ACTION: $1"; }
 ACTIONS=()
 FAILS_BEFORE=0
 FAILS_AFTER=0
+SKIPPED_IDEMPOTENT=0
+
+# ── Idempotency helpers ──
+heal_now() { date +%s; }
+
+# action_key target action → 12-char hex
+heal_action_key() {
+  printf '%s|%s' "$1" "$2" | sha1sum 2>/dev/null | awk '{print substr($1,1,12)}'
+}
+
+heal_stamp_path() {
+  echo "$STAMP_DIR/stamp-$(heal_action_key "$1" "$2").json"
+}
+
+# Returns 0 if action should be SKIPPED (cooldown active + prior ok)
+heal_should_skip() {
+  local target="$1" action="$2"
+  local path now
+  if [ "$FORCE" -eq 1 ]; then return 1; fi
+  path=$(heal_stamp_path "$target" "$action")
+  [ -f "$path" ] || return 1
+  now=$(heal_now)
+  python3 - "$path" "$now" <<'PY'
+import json, sys
+path, now = sys.argv[1], int(sys.argv[2])
+d = json.load(open(path))
+status = d.get("status", "")
+cool = int(d.get("cooldownUntil", 0))
+if status not in ("ok", "skipped_already_healthy"):
+    sys.exit(1)
+sys.exit(0 if cool > now else 1)
+PY
+}
+
+# Write per-action stamp. status=ok|skipped_already_healthy|failed
+# cooldown: destructive 120s, soft 60s, failed 30s
+heal_stamp_write() {
+  local target="$1" action="$2" status="${3:-ok}" result="${4:-}"
+  local path now cooldown
+  path=$(heal_stamp_path "$target" "$action")
+  now=$(heal_now)
+  case "$status" in
+    failed) cooldown=30 ;;
+    *)
+      case "$action" in
+        *restart*|*archive*|*bulk*|*rewrite*|*push*|*delete*) cooldown=120 ;;
+        *) cooldown=60 ;;
+      esac
+      ;;
+  esac
+  python3 - "$path" "$target" "$action" "$status" "$result" "$now" "$cooldown" <<'PY'
+import json, sys
+path, target, action, status, result, now, cooldown = sys.argv[1:8]
+now, cooldown = int(now), int(cooldown)
+data = {
+  "target": target,
+  "action": action,
+  "status": status,
+  "result": result or None,
+  "completedAt": now,
+  "cooldownUntil": now + cooldown,
+  "holderId": "pke-self-heal",
+}
+with open(path, "w") as f:
+  json.dump(data, f, indent=2)
+print(f"STAMP {status} {target}/{action} cool={cooldown}s")
+PY
+}
+
+# Global run-window gate: max 2 passes per RUN_COOLDOWN_SEC unless --force
+heal_run_gate() {
+  local now passes window_start
+  now=$(heal_now)
+  if [ "$FORCE" -eq 1 ]; then
+    log "run_gate=force-bypass"
+    return 0
+  fi
+  if [ ! -f "$RUN_STAMP_FILE" ]; then
+    python3 -c "import json; json.dump({'windowStart':$now,'passes':1}, open('$RUN_STAMP_FILE','w'), indent=2)"
+    log "run_gate=first-pass"
+    return 0
+  fi
+  eval "$(python3 - "$RUN_STAMP_FILE" "$now" "$RUN_COOLDOWN_SEC" "$MAX_PASSES_PER_WINDOW" <<'PY'
+import json,sys
+path, now, cool, maxp = sys.argv[1], int(sys.argv[2]), int(sys.argv[3]), int(sys.argv[4])
+d=json.load(open(path))
+ws=int(d.get("windowStart",0))
+passes=int(d.get("passes",0))
+if now - ws > cool:
+    d={"windowStart":now,"passes":1}
+    json.dump(d, open(path,"w"), indent=2)
+    print("decision=allow")
+    print("reason=window-reset")
+    print(f"passes=1")
+elif passes >= maxp:
+    print("decision=deny")
+    print("reason=max-passes")
+    print(f"passes={passes}")
+    print(f"remaining={cool-(now-ws)}")
+else:
+    d["passes"]=passes+1
+    json.dump(d, open(path,"w"), indent=2)
+    print("decision=allow")
+    print("reason=within-window")
+    print(f"passes={passes+1}")
+PY
+)"
+  log "run_gate decision=$decision reason=$reason passes=${passes:-?} remaining=${remaining:-0}"
+  if [ "$decision" = "deny" ]; then
+    return 1
+  fi
+  return 0
+}
 
 log "=== PKE SELF-HEAL $STAMP ==="
-log "root=$ROOT push=$PUSH validate=${VALIDATE:-MISSING}"
+log "root=$ROOT push=$PUSH force=$FORCE validate=${VALIDATE:-MISSING}"
+
+# ── Consensus + idempotency gate (START — not dead after exit) ──
+# Use --gate (lightweight) so full unit suite is not re-run on every heal pass.
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+if [ -f "$SCRIPT_DIR/consensus-self-heal.mjs" ] && command -v node >/dev/null 2>&1; then
+  if node "$SCRIPT_DIR/consensus-self-heal.mjs" --gate --json >"$STAMP_DIR/last-consensus.json" 2>"$STAMP_DIR/last-consensus.err"; then
+    log "consensus_gate=ok (idempotency ready)"
+  else
+    log "consensus_gate=warn (engine gate non-zero; continuing with local idempotency)"
+  fi
+fi
+
+if ! heal_run_gate; then
+  log "STATUS=SKIPPED_IDEMPOTENT (max $MAX_PASSES_PER_WINDOW passes / ${RUN_COOLDOWN_SEC}s window; pass --force to override)"
+  log "log_file=$LOG"
+  exit 0
+fi
 
 fix_skill_frontmatter() {
   local sk="$1"
@@ -180,8 +329,15 @@ EOF
 }
 
 heal_app() {
+  # Already healthy → stamp + skip (idempotent)
   if curl -sf -o /dev/null --max-time 2 http://127.0.0.1:8080/; then
     log "app=up"
+    heal_stamp_write "app:8080" "restart" "skipped_already_healthy" "already-up" >/dev/null || true
+    return
+  fi
+  if heal_should_skip "app:8080" "restart"; then
+    log "app=skip cooldown (idempotent)"
+    SKIPPED_IDEMPOTENT=$((SKIPPED_IDEMPOTENT + 1))
     return
   fi
   if [ -f "$ROOT/startup.sh" ]; then
@@ -189,8 +345,10 @@ heal_app() {
     sleep 2
     if curl -sf -o /dev/null --max-time 3 http://127.0.0.1:8080/; then
       log_action "app-restarted-via-startup.sh"
+      heal_stamp_write "app:8080" "restart" "ok" "restarted" >/dev/null || true
     else
       log_action "app-restart-FAILED"
+      heal_stamp_write "app:8080" "restart" "failed" "still-down" >/dev/null || true
       FAILS_AFTER=$((FAILS_AFTER + 1))
     fi
   else
@@ -208,8 +366,10 @@ EOF
     sleep 2
     if curl -sf -o /dev/null --max-time 3 http://127.0.0.1:8080/; then
       log_action "restored:startup.sh+app-up"
+      heal_stamp_write "app:8080" "restart" "ok" "startup-restored" >/dev/null || true
     else
       log_action "restored:startup.sh+app-still-down"
+      heal_stamp_write "app:8080" "restart" "failed" "startup-still-down" >/dev/null || true
       FAILS_AFTER=$((FAILS_AFTER + 1))
     fi
   fi
@@ -304,6 +464,11 @@ heal_github() {
     log "github=skip (pass --push)"
     return
   fi
+  if heal_should_skip "github:pke-ai-agent-skills" "push"; then
+    log "github=skip cooldown (idempotent)"
+    SKIPPED_IDEMPOTENT=$((SKIPPED_IDEMPOTENT + 1))
+    return
+  fi
   if ! command -v gh >/dev/null 2>&1; then
     log_action "github-skip:no-gh"
     FAILS_AFTER=$((FAILS_AFTER + 1))
@@ -381,11 +546,14 @@ heal_github() {
   ghst=$(cat /tmp/pke-heal-gh-status 2>/dev/null || echo FAIL)
   if [ "$ghst" = "SYNCED" ]; then
     log "github=already-synced"
+    heal_stamp_write "github:pke-ai-agent-skills" "push" "skipped_already_healthy" "synced" >/dev/null || true
   elif [ "$ghst" = "PUSH_FAILED" ] || [ "$ghst" = "FAIL" ]; then
     log_action "github-push-FAILED"
+    heal_stamp_write "github:pke-ai-agent-skills" "push" "failed" "$ghst" >/dev/null || true
     FAILS_AFTER=$((FAILS_AFTER + 1))
   else
     log_action "github-pushed:$ghst"
+    heal_stamp_write "github:pke-ai-agent-skills" "push" "ok" "$ghst" >/dev/null || true
   fi
   rm -rf "$tmp"
 }
@@ -414,6 +582,7 @@ fi
 log "=== SUMMARY ==="
 log "skills $PASS/$TOTAL"
 log "fails_before_fix=$FAILS_BEFORE fails_remaining=$FAILS_AFTER"
+log "skipped_idempotent=$SKIPPED_IDEMPOTENT"
 log "actions=${#ACTIONS[@]}"
 if [ ${#ACTIONS[@]} -gt 0 ]; then
   for a in "${ACTIONS[@]}"; do log " - $a"; done
@@ -421,6 +590,7 @@ else
   log " - (none)"
 fi
 log "log_file=$LOG"
+log "stamp_dir=$STAMP_DIR"
 
 if [ "$FAILS_AFTER" -eq 0 ]; then
   if [ "$TOTAL" -eq 0 ] || [ "$PASS" -eq "$TOTAL" ]; then

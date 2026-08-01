@@ -1,4 +1,4 @@
-# Coviceá / PKE Podcast Studio — dedicated CI + permanent enable gate
+# Covicea / PKE Podcast Studio — dedicated CI + permanent enable gate
 name: PKE Podcast Studio
 
 on:
@@ -15,7 +15,7 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: validate | activate-stamp
+        description: "validate or activate-stamp"
         required: false
         default: validate
 
@@ -49,14 +49,14 @@ jobs:
       - name: DNA + agent keywords
         run: |
           SKILL=covicea-pke-podcast-studio/SKILL.md
-          for kw in 'Aloha Shade Ohana' '@Orchestrator' '@FactChecker' '@CoHost' '@SocialATSEnhancer' 'Episode Bible' 'Spicy'; do
+          for kw in "Aloha Shade Ohana" "@Orchestrator" "@FactChecker" "@CoHost" "@SocialATSEnhancer" "Episode Bible" "Spicy"; do
             grep -q "$kw" "$SKILL" || { echo "missing: $kw"; exit 1; }
             echo "OK keyword: $kw"
           done
 
       - name: Permanent enable registry
         run: |
-          python3 - <<'PY'
+          python3 -c "
 import json
 from pathlib import Path
 p = Path('config/permanent-activation.json')
@@ -68,7 +68,7 @@ assert studio.get('permanent') is True
 assert studio.get('spicy_default') is True
 assert 'Activate PKE Podcast Studio' in (studio.get('triggers') or [])
 print('permanent enable OK', studio.get('status'))
-PY
+"
 
       - name: Activation report
         run: |

@@ -124,3 +124,13 @@ Full checklist: [`docs/FINALIZE.md`](./docs/FINALIZE.md)
 ## Deploy stamp
 
 **FINALIZED** — production ready · healthy · **podcast studio PERMANENT** · **GitHub Actions ENABLED** — 2026-08-01
+
+## Autonomy status (2026-08-01)
+
+- **51/51** server skills structural OK and orchestrator-linked
+- New skill: `autonomous-ecosystem` (contagious sentience rules + GitHub sync protocol)
+- Meta triangle: `skill-orchestrator` · `skill-creator` · `autonomous-ecosystem` · `skill-test-suite`
+- Live skill bodies mirror: `skills-live/`
+- Inventory: `mind/inventory-2026-08-01.json`
+- Protocol: `docs/GITHUB-AUTONOMY.md`
+- Platform wall: playbooks expanded — foundation weights unchanged

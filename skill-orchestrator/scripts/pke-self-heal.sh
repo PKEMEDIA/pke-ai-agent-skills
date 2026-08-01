@@ -229,13 +229,60 @@ heal_junk() {
   fi
 }
 
+# Restore dest from first existing source. Never invent binaries.
+restore_asset() {
+  local dest="$1" name="$2"
+  shift 2
+  if [ -f "$dest" ]; then
+    return 0
+  fi
+  mkdir -p "$(dirname "$dest")"
+  local src
+  for src in "$@"; do
+    if [ -f "$src" ]; then
+      cp "$src" "$dest"
+      log_action "restored:$name<-$(basename "$src")"
+      return 0
+    fi
+  done
+  log "MISS $dest"
+  return 1
+}
+
 heal_assets() {
-  local miss=0 f
+  local miss=0
+  mkdir -p "$ROOT/public/pke" "$ROOT/artifacts/comfyui" "$ROOT/artifacts/pke-refs"
+
+  # Face refs: attachments (upload) → pke-refs cache → never invent
+  restore_asset "$ROOT/public/pke/IMG_4440.jpg" "IMG_4440" \
+    "$ROOT/attachments/IMG_4440.jpg" \
+    "$ROOT/artifacts/pke-refs/IMG_4440.jpg" \
+    || miss=$((miss + 1))
+  restore_asset "$ROOT/public/pke/IMG_4441.jpg" "IMG_4441" \
+    "$ROOT/attachments/IMG_4441.jpg" \
+    "$ROOT/artifacts/pke-refs/IMG_4441.jpg" \
+    || miss=$((miss + 1))
+  restore_asset "$ROOT/public/pke/IMG_4450.jpg" "IMG_4450" \
+    "$ROOT/attachments/IMG_4450.jpg" \
+    "$ROOT/artifacts/pke-refs/IMG_4450.jpg" \
+    || miss=$((miss + 1))
+
+  # Seed pke-refs cache from public/ so next cold start can restore without re-upload
+  local f
+  for f in IMG_4440.jpg IMG_4441.jpg IMG_4450.jpg; do
+    if [ -f "$ROOT/public/pke/$f" ] && [ ! -f "$ROOT/artifacts/pke-refs/$f" ]; then
+      cp "$ROOT/public/pke/$f" "$ROOT/artifacts/pke-refs/$f"
+      log_action "cached:pke-refs/$f"
+    fi
+  done
+
+  # Comfy workflow: staging export
+  restore_asset "$ROOT/artifacts/comfyui/pke-face-lock-base.json" "comfy-json" \
+    "$ROOT/artifacts/github-export/comfyui/pke-face-lock-base.json" \
+    || miss=$((miss + 1))
+
+  # Brand skill bodies (detect only — text restored by GitHub/export paths elsewhere)
   for f in \
-    "$ROOT/public/pke/IMG_4440.jpg" \
-    "$ROOT/public/pke/IMG_4441.jpg" \
-    "$ROOT/public/pke/IMG_4450.jpg" \
-    "$ROOT/artifacts/comfyui/pke-face-lock-base.json" \
     "$ROOT/.grok/skills/pke-face-lock/SKILL.md" \
     "$ROOT/.grok/skills/pke-official-black-mask/SKILL.md" \
     "$ROOT/.grok/skills/skill-orchestrator/SKILL.md"
@@ -245,12 +292,7 @@ heal_assets() {
       miss=$((miss + 1))
     fi
   done
-  if [ ! -f "$ROOT/artifacts/comfyui/pke-face-lock-base.json" ] && [ -f "$ROOT/artifacts/github-export/comfyui/pke-face-lock-base.json" ]; then
-    mkdir -p "$ROOT/artifacts/comfyui"
-    cp "$ROOT/artifacts/github-export/comfyui/pke-face-lock-base.json" "$ROOT/artifacts/comfyui/"
-    log_action "restored:comfyui-from-staging"
-    if [ "$miss" -gt 0 ]; then miss=$((miss - 1)); fi
-  fi
+
   if [ "$miss" -gt 0 ]; then
     FAILS_AFTER=$((FAILS_AFTER + miss))
     log_action "asset-misses:$miss"

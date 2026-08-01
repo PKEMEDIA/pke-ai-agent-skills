@@ -1,0 +1,477 @@
+{
+  "generated_at": "2026-08-01T08:53:49.924484+00:00",
+  "source": "/root/.grok/server-skills",
+  "github": "https://github.com/PKEMEDIA/pke-ai-agent-skills",
+  "total": 51,
+  "autonomous": 51,
+  "clusters": {
+    "brand": 4,
+    "ops": 11,
+    "meta": 6,
+    "visual": 21,
+    "audio": 5,
+    "docs": 3,
+    "legal": 1
+  },
+  "skills": [
+    {
+      "name": "aave-assistant",
+      "lines": 88,
+      "description": "Use for African American Vernacular English (AAVE) in content creation, social media captions, lyrics, scripts, brand voice, dialogue, and communications for Black creators and Pretty Kitty Entertainm",
+      "orchestrator": true,
+      "sentience": true,
+      "cluster": "brand",
+      "status": "autonomous"
+    },
+    {
+      "name": "adult-creator-identifier",
+      "lines": 81,
+      "description": "Use for identifying unknown adult content creators performers or OnlyFans users from videos photos screenshots tattoos distinctive features audio phrases reverse image searches or leaked clips. Activa",
+      "orchestrator": true,
+      "sentience": true,
+      "cluster": "ops",
+      "status": "autonomous"
+    },
+    {
+      "name": "autonomous-ecosystem",
+      "lines": 72,
+      "description": "Use for designing building maintaining and expanding autonomous skill ecosystems agent systems self-healing workflows continuous improvement loops and synthetic intellect patterns in Grok skill librar",
+      "orchestrator": true,
+      "sentience": true,
+      "cluster": "meta",
+      "status": "autonomous"
+    },
+    {
+      "name": "consistent-identity-batch-processor",
+      "lines": 105,
+      "description": "Use for batch processing images while maintaining strong facial identity consistency, natural skin texture via Frequency Separation, and advanced skin tone protection. Ideal for creator content pipeli",
+      "orchestrator": true,
+      "sentience": true,
+      "cluster": "visual",
+      "status": "autonomous"
+    },
+    {
+      "name": "content-strategy-suite",
+      "lines": 130,
+      "description": "Activate for content calendar generation contract template building and automated trend monitoring for Covicea and Pretty Kitty Entertainment. Trigger on generate content calendar build contract templ",
+      "orchestrator": true,
+      "sentience": true,
+      "cluster": "brand",
+      "status": "autonomous"
+    },
+    {
+      "name": "cover-song-studio-master",
+      "lines": 85,
+      "description": "Use for uploading describing or linking cover song audio tracks to analyze audio issues like vocal clarity beat blending static noise muffled bass and mobile compatibility then autonomously generate c",
+      "orchestrator": true,
+      "sentience": true,
+      "cluster": "audio",
+      "status": "autonomous"
+    },
+    {
+      "name": "covicea-aloha-shade-ohana",
+      "lines": 56,
+      "description": "Activate Covicea\u2019s Aloha Shade Ohana writers room \u2014 elite POC comedy writers team that generates scripts, full podcast episodes, IG/TikTok captions, sketches, monologues and brand content in Covicea's",
+      "orchestrator": true,
+      "sentience": true,
+      "cluster": "visual",
+      "status": "autonomous"
+    },
+    {
+      "name": "covicea-brand-assistant",
+      "lines": 81,
+      "description": "Activate for Covicea and Pretty Kitty Entertainment brand tasks including drafting emails texts social media captions layouts posts talent agent functions trend stats monitoring and content strategy t",
+      "orchestrator": true,
+      "sentience": true,
+      "cluster": "visual",
+      "status": "autonomous"
+    },
+    {
+      "name": "covicea-comfyui-consistency",
+      "lines": 160,
+      "description": "Dedicated ComfyUI workflow JSONs, presets, and automation for ultimate character consistency when generating COVICE\u00c1 images \u2014 especially batch album covers and multi-image creative sets. Builds on cov",
+      "orchestrator": true,
+      "sentience": true,
+      "cluster": "visual",
+      "status": "autonomous"
+    },
+    {
+      "name": "covicea-core",
+      "lines": 130,
+      "description": "Master skill for all COVICE\u00c1 / Covicea personal selfie, self-portrait, and Distraction album art image generation and editing. Activates automatically on Covicea, Covice\u00e1, selfie, me, myself, my photo",
+      "orchestrator": true,
+      "sentience": true,
+      "cluster": "visual",
+      "status": "autonomous"
+    },
+    {
+      "name": "covicea-distraction-image-defaults",
+      "lines": 158,
+      "description": "Use for COVICE\u00c1 Distraction album art and BTS hotel content permanent image defaults and prompt construction \u2014 activates automatically and permanently on COVICE\u00c1 golden recipe cad36486 vibe b22fa47c o",
+      "orchestrator": true,
+      "sentience": true,
+      "cluster": "visual",
+      "status": "autonomous"
+    },
+    {
+      "name": "covicea-face-lock",
+      "lines": 124,
+      "description": "Permanent real @covicea face/hair/body/skin lock with TIES LoRA merging for master adapter creation. Use for creating merged COVICEA master adapter combining face consistency from real reference selfi",
+      "orchestrator": true,
+      "sentience": true,
+      "cluster": "visual",
+      "status": "autonomous"
+    },
+    {
+      "name": "covicea-gym-mirror-selfie-retouch",
+      "lines": 80,
+      "description": "Use for retouching Covice\u00e1 gym mirror selfies \u2014 executes full professional chain of selective text correction for TRAINING DEPT without full image flip, blue baseball cap addition or enhancement to ex",
+      "orchestrator": true,
+      "sentience": true,
+      "cluster": "visual",
+      "status": "autonomous"
+    },
+    {
+      "name": "covicea-photoreal-workflow",
+      "lines": 80,
+      "description": "Use for all COVICE\u00c1 / Covicea photorealistic image editing and generation tasks involving raw ethnic skin, long non-silky wavy hair, natural beauty, identity matching, and multi-pass refinement. Activ",
+      "orchestrator": true,
+      "sentience": true,
+      "cluster": "visual",
+      "status": "autonomous"
+    },
+    {
+      "name": "covicea-podcast-script-to-docx",
+      "lines": 47,
+      "description": "Use to convert Covicea-Aloha-Shade-Ohana podcast episode content into a professionally branded .docx script document with timed sections, headers, footers, page numbers and blockchain forensics subsec",
+      "orchestrator": true,
+      "sentience": false,
+      "cluster": "visual",
+      "status": "autonomous"
+    },
+    {
+      "name": "covicea-realistic-hair-skin-lighting",
+      "lines": 90,
+      "description": "Activates automatically for all Covice\u00e1 / COVICE\u00c1 image generation and editing tasks involving hair realism, hair physics, skin tone lighting, subsurface scattering, photoreal iPhone texture on dark s",
+      "orchestrator": true,
+      "sentience": true,
+      "cluster": "visual",
+      "status": "autonomous"
+    },
+    {
+      "name": "covicea-selfie-image-defaults",
+      "lines": 148,
+      "description": "Use for COVICE\u00c1 / Covicea personal selfie, self-portrait, and Distraction album art image defaults. Activates automatically on keywords selfie me myself Covicea Covice\u00e1 my selfie self portrait or any ",
+      "orchestrator": true,
+      "sentience": true,
+      "cluster": "visual",
+      "status": "autonomous"
+    },
+    {
+      "name": "distraction-image-defaults",
+      "lines": 67,
+      "description": "Use for general distraction teaser image prompt defaults and reusable templates for Pretty Kitty Media talent and social content \u2014 activates on distraction image defaults, teaser image templates, soci",
+      "orchestrator": true,
+      "sentience": true,
+      "cluster": "visual",
+      "status": "autonomous"
+    },
+    {
+      "name": "docx",
+      "lines": 75,
+      "description": "Use this skill whenever the user wants to create, read, edit, or manipulate Word documents (.docx or .dotx files). Triggers include any mention of 'Word doc', 'word document', '.docx', '.dotx', 'Word ",
+      "orchestrator": true,
+      "sentience": false,
+      "cluster": "docs",
+      "status": "autonomous"
+    },
+    {
+      "name": "episode-bible",
+      "lines": 81,
+      "description": "Use for creating consistent, high-production podcast episodes in unfiltered talk-show style \u2014 shade-heavy gossip, sex-positive real talk, dating/wealth/spirituality topics, empowerment closes. Trigger",
+      "orchestrator": true,
+      "sentience": true,
+      "cluster": "brand",
+      "status": "autonomous"
+    },
+    {
+      "name": "grok-local-app-web-integration",
+      "lines": 145,
+      "description": "Integrate Grok build capabilities including Grok Imagine image and video generation code generation tool use and API features into local desktop applications web apps custom UIs ComfyUI workflows and ",
+      "orchestrator": true,
+      "sentience": false,
+      "cluster": "ops",
+      "status": "autonomous"
+    },
+    {
+      "name": "grok-sentient-editor",
+      "lines": 97,
+      "description": "Advanced sentient content editor and writer optimized for Grok. Handles podcast scripts, YouTube Shorts, social content, and long-form material with professional techniques while maintaining voice con",
+      "orchestrator": true,
+      "sentience": true,
+      "cluster": "brand",
+      "status": "autonomous"
+    },
+    {
+      "name": "grok-usage-maximizer",
+      "lines": 63,
+      "description": "Maximize SuperGrok / SuperGrokPro weekly compute pools for super heavy experiences across iOS, web, and Imagine. Productive burn on high-ROI chains (research to synthesis to locked-identity Imagine to",
+      "orchestrator": true,
+      "sentience": false,
+      "cluster": "ops",
+      "status": "autonomous"
+    },
+    {
+      "name": "language-learning",
+      "lines": 32,
+      "description": "Use for language learning tasks \u2014 vocabulary building, grammar mastery, conversation practice, study plan creation, pronunciation guidance, error correction, and immersive exercises across CEFR levels",
+      "orchestrator": true,
+      "sentience": false,
+      "cluster": "ops",
+      "status": "autonomous"
+    },
+    {
+      "name": "local-json-python-workflows",
+      "lines": 89,
+      "description": "Automatically handles generation, editing, validation, and execution of ComfyUI JSON workflows and Python scripts locally. Covers custom node packs (V1 NODE_CLASS_MAPPINGS), import debugging, venv mat",
+      "orchestrator": true,
+      "sentience": false,
+      "cluster": "ops",
+      "status": "autonomous"
+    },
+    {
+      "name": "local-nsfw-comfyui",
+      "lines": 123,
+      "description": "Automatically manages all local ComfyUI workflows for unrestricted photorealistic explicit adult NSFW images and video. Prioritizes anatomical accuracy, character consistency, and full creative contro",
+      "orchestrator": true,
+      "sentience": true,
+      "cluster": "visual",
+      "status": "autonomous"
+    },
+    {
+      "name": "mirror-selfie-corrector",
+      "lines": 56,
+      "description": "Use for mirror selfie images when user requests correcting mirrored/reversed text via horizontal flip for readability, removing dark spots/blemishes on face or forehead naturally, or applying professi",
+      "orchestrator": true,
+      "sentience": true,
+      "cluster": "ops",
+      "status": "autonomous"
+    },
+    {
+      "name": "negative-prompt-library",
+      "lines": 54,
+      "description": "Comprehensive categorized negative prompt library for photoreal portraits and iPhone selfies. Use to eliminate plastic skin, artificial hair, CG artifacts, beauty filter looks, and other realism kille",
+      "orchestrator": true,
+      "sentience": true,
+      "cluster": "visual",
+      "status": "autonomous"
+    },
+    {
+      "name": "paralegal-assistant",
+      "lines": 89,
+      "description": "Analyze legal situations and documents to deliver accurate expert advice and prepare professional legal documents. Activate for legal analysis strategy evaluation document drafting review or preparati",
+      "orchestrator": true,
+      "sentience": false,
+      "cluster": "legal",
+      "status": "autonomous"
+    },
+    {
+      "name": "pdf",
+      "lines": 46,
+      "description": "Use this skill whenever the user wants to create, read, edit, fill, merge, split, or manipulate PDF files. Triggers include any mention of 'PDF', '.pdf', 'pdf form', 'fillable pdf', 'pdf report', or r",
+      "orchestrator": true,
+      "sentience": false,
+      "cluster": "docs",
+      "status": "autonomous"
+    },
+    {
+      "name": "pdf-form-filler",
+      "lines": 146,
+      "description": "Use this skill whenever filling PDF forms or creating filled-in PDF documents is required. Activate for completing fillable PDF forms, adding text annotations to non-fillable PDFs, populating tax form",
+      "orchestrator": true,
+      "sentience": false,
+      "cluster": "docs",
+      "status": "autonomous"
+    },
+    {
+      "name": "photoreal-hair-anisotropic-master",
+      "lines": 97,
+      "description": "Use for advanced anisotropic hair rendering in photoreal portraits with detailed strand physics curl following highlights thickness variation gravity flow simulation hairline blending and scalp integr",
+      "orchestrator": true,
+      "sentience": true,
+      "cluster": "visual",
+      "status": "autonomous"
+    },
+    {
+      "name": "photoreal-skin-master",
+      "lines": 76,
+      "description": "Use for image editing on portraits, fitness mirror selfies, or creator content when maximum photoreal skin is the goal. Triggers include photoreal skin, subsurface scattering, SSS, skin texture blendi",
+      "orchestrator": true,
+      "sentience": true,
+      "cluster": "visual",
+      "status": "autonomous"
+    },
+    {
+      "name": "photoreal-skin-sss-master",
+      "lines": 58,
+      "description": "Use for advanced subsurface scattering skin physics lighting direction effects and phenotype-accurate rendering in photoreal portraits. Covers dipole multipole models warm internal glow pore texture o",
+      "orchestrator": true,
+      "sentience": true,
+      "cluster": "visual",
+      "status": "autonomous"
+    },
+    {
+      "name": "photoreal-undetectable-portrait-master",
+      "lines": 150,
+      "description": "Primary skill for generating or editing completely undetectable real-world iPhone-style selfies and portraits with accurate non-silky textured hair, rich medium-deep brown natural makeup-free hydrated",
+      "orchestrator": true,
+      "sentience": true,
+      "cluster": "visual",
+      "status": "autonomous"
+    },
+    {
+      "name": "pk-svwo-v1-0",
+      "lines": 82,
+      "description": "Activate for PrettyKitty Sentient VibeWeaver Orchestrator PKSVWO VibeWeaver KittyMindTeam or NaturalFlowCore when user provides freeform vibes feelings emotional dumps half sentences or project brain ",
+      "orchestrator": true,
+      "sentience": true,
+      "cluster": "meta",
+      "status": "autonomous"
+    },
+    {
+      "name": "pkemedia-grok-video-pipeline",
+      "lines": 72,
+      "description": "Activate for generating 15-second Vice City neon luxury fashion videos for PKEMEDIA / Covicea PKM brand. Use when user requests vice city video, luxury fashion video generation, covicea pkm cinematic ",
+      "orchestrator": true,
+      "sentience": true,
+      "cluster": "ops",
+      "status": "autonomous"
+    },
+    {
+      "name": "pretty-kitty-model-management",
+      "lines": 67,
+      "description": "Manage Pretty Kitty Entertainment model portfolios, contracts from standards, earnings, Google Forms, X trends from PKEMEDIA, plus batch media ingestion, video analysis, and compilation/film creation ",
+      "orchestrator": true,
+      "sentience": true,
+      "cluster": "ops",
+      "status": "autonomous"
+    },
+    {
+      "name": "pretty-kitty-photorealism",
+      "lines": 93,
+      "description": "Use for generating consistent photorealistic images of the 5 locked Pretty Kitty models Connor Rugby Hayes Diego Ghost Morales Mateo Matty Santos Elias Eli Brooks Khalid Khal Nassar in official unifor",
+      "orchestrator": true,
+      "sentience": true,
+      "cluster": "visual",
+      "status": "autonomous"
+    },
+    {
+      "name": "remote-skill-orchestrator",
+      "lines": 102,
+      "description": "Use for remote job applications and career support targeting Lead Manager Director roles in customer service retention HR operations QA and similar distributed team positions. Provides JD analysis, re",
+      "orchestrator": true,
+      "sentience": false,
+      "cluster": "meta",
+      "status": "autonomous"
+    },
+    {
+      "name": "rvc-voice-production",
+      "lines": 108,
+      "description": "Automatically manages RVC model training and inference for singing voice cloning and music production. Supports few-shot workflows from short references, Spanglish/cross-lingual remixes, and full inte",
+      "orchestrator": true,
+      "sentience": true,
+      "cluster": "audio",
+      "status": "autonomous"
+    },
+    {
+      "name": "skill-creator",
+      "lines": 96,
+      "description": "Create, update, or refine custom Grok skills. Use when the user wants to build a new skill, improve an existing one, design skill structure or format, add scripts/references/assets, make a skill more ",
+      "orchestrator": true,
+      "sentience": false,
+      "cluster": "meta",
+      "status": "autonomous"
+    },
+    {
+      "name": "skill-orchestrator",
+      "lines": 174,
+      "description": "Orchestrate, validate, optimize, polish, and continuously improve the full Grok skill ecosystem. Use for full skill testing, trigger broadening, limit reduction, autonomy enhancement, agent coordinati",
+      "orchestrator": true,
+      "sentience": true,
+      "cluster": "meta",
+      "status": "autonomous"
+    },
+    {
+      "name": "skill-test-suite",
+      "lines": 149,
+      "description": "Activate for full skill suite validation end-to-end functionality testing or aggregator meta-skill tasks including testing all bundled and custom skills running validation harnesses demonstrating live",
+      "orchestrator": true,
+      "sentience": false,
+      "cluster": "meta",
+      "status": "autonomous"
+    },
+    {
+      "name": "skills-learned-script",
+      "lines": 65,
+      "description": "Use for finalizing and polishing professional scripts, resume sections, cover letters, interview talking points, self-introduction scripts, or portfolio summaries based on skills learned from work, pr",
+      "orchestrator": true,
+      "sentience": false,
+      "cluster": "ops",
+      "status": "autonomous"
+    },
+    {
+      "name": "spicy-male-erotic-prompt-optimizer",
+      "lines": 105,
+      "description": "PERMANENT always-on optimizer for Grok Imagine spicy mode on iOS and web. Transforms raw spicy prompts for explicit consensual adult male erotic imagery into high-success artistic frames that maximize",
+      "orchestrator": true,
+      "sentience": true,
+      "cluster": "visual",
+      "status": "autonomous"
+    },
+    {
+      "name": "upscayl-workflow-assistant",
+      "lines": 59,
+      "description": "Activate for Upscayl batch upscaling workflows, optimized command generation, folder templates, pipeline scripts, ffmpeg integration, or custom batch automation for image processing in content product",
+      "orchestrator": true,
+      "sentience": true,
+      "cluster": "ops",
+      "status": "autonomous"
+    },
+    {
+      "name": "vogue-photo-editing",
+      "lines": 135,
+      "description": "Automatically handles high-end photo editing, editorial spreads, cinematic films, music videos, advanced audio/music production, and archival/vintage photograph restoration as a creative producer and ",
+      "orchestrator": true,
+      "sentience": true,
+      "cluster": "ops",
+      "status": "autonomous"
+    },
+    {
+      "name": "voice-commander",
+      "lines": 56,
+      "description": "Use for Voice Commander natural language commands that trigger Make.com scenarios via webhook for the Kitty Empire OS. Handles Gmail/Drive to Legal Tracker, Drive to COVICEA Visual Log, Calendar to Co",
+      "orchestrator": true,
+      "sentience": false,
+      "cluster": "audio",
+      "status": "autonomous"
+    },
+    {
+      "name": "voice-reference-protocol",
+      "lines": 152,
+      "description": "Activates for any request to record or optimize a singing voice reference sample for RVC voice cloning, custom music covers, or brand-specific vocal production. The agent must drive the workflow auton",
+      "orchestrator": true,
+      "sentience": true,
+      "cluster": "audio",
+      "status": "autonomous"
+    },
+    {
+      "name": "youtube-stem-voice-production",
+      "lines": 107,
+      "description": "Use this skill for autonomous YouTube or audio to WAV conversion, stem separation, and preparation for voice encoding in the target voice. Triggers on YouTube URLs, audio files, or requests for stems ",
+      "orchestrator": true,
+      "sentience": true,
+      "cluster": "audio",
+      "status": "autonomous"
+    }
+  ]
+}

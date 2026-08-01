@@ -148,59 +148,81 @@ Lean gate for **chat + iOS + web** before calling a skill or UI ship done.
 | Performance | Lazy heavy panels; no main-thread thrash on low-end iPhone |
 | Integrations | Soft-fail; never block boot |
 | Skills | Plain-scalar description; platforms noted for UI skills |
+| Growth language | Playbooks/ecosystem expanded — not foundation weights |
+
+## Procedure
+1. Identify surfaces touched (chat / iOS / web / all).
+2. Run checks above; fix fails before ship.
+3. Re-validate skill if SKILL.md changed.
+4. Log one Learning line if a systemic rule was found → skill-creator.
+
+## Orchestration
+Pairs with skill-orchestrator and skill-creator.
 EOF
+  "$VALIDATE" "$PARITY_DIR" >/dev/null
   ok "surface-parity-gate created (lean)"
 fi
 
-if [ ! -d "$DPO_ROOT" ]; then
-  mkdir -p "$DPO_ROOT"
-  skip "DPO package absent (optional — run scaffold_dpo_pairs.py)"
+if [ -d "$DPO_ROOT" ]; then
+  mkdir -p \
+    "$DPO_ROOT/stage2/chosen" "$DPO_ROOT/stage2/rejected" \
+    "$DPO_ROOT/stage3/chosen" "$DPO_ROOT/stage3/rejected" \
+    "$DPO_ROOT/meta"
+  skip "DPO package root present (dirs ensured, images untouched)"
 else
-  skip "DPO package present"
+  skip "DPO package absent (optional — run scaffold_dpo_pairs.py)"
 fi
+
 ok "CONVERGE done"
 
 # ─────────────────────────────────────────────────────────────
-# 3. SNAPSHOT
+# 3. SNAPSHOT — skip if clean or no git
 # ─────────────────────────────────────────────────────────────
 section "3/4 SNAPSHOT"
-if [ "$SKIP_VCS" = true ]; then
-  skip "skill-vcs (--skip-vcs)"
-elif [ -x "$VCS" ] || [ -f "$VCS" ]; then
-  bash "$VCS" auto "post-finalize" 2>&1 || true
-  ok "skill-vcs auto"
-else
-  skip "skill-vcs (no git repo or no changes)"
-fi
 
-# ─────────────────────────────────────────────────────────────
-# 4. STAMP
-# ─────────────────────────────────────────────────────────────
-section "4/4 STAMP"
-if [ "$SKIP_STAMP" = true ]; then
-  skip "metrics (--skip-stamp)"
-elif [ -f "$METRICS" ]; then
-  # simple debounce: if top entry is recent orchestrate-finalize, skip
-  if head -20 "$METRICS" | grep -q "orchestrate-finalize.sh"; then
-    skip "metrics (recent orchestrate-finalize stamp already on top)"
+if [ "$SKIP_VCS" = true ]; then
+  skip "VCS (--skip-vcs)"
+elif [ -f "$VCS" ]; then
+  if "$VCS" auto "post-finalize" 2>&1; then
+    ok "skill-vcs auto"
   else
-    {
-      echo ""
-      echo "## $(date -u '+%Y-%m-%d %H:%M') UTC — FINALIZE (orchestrate-finalize.sh)"
-      echo "- Structural: ${TOTAL} checked · ${STRUCT_FAIL} failed"
-      echo "- WASM + spicy: green"
-      echo "- Converge: surface-parity-gate create-if-absent; DPO dirs ensured"
-      echo "- Surfaces: chat · iOS · web"
-      echo "- Platform wall unchanged"
-      echo "- **Status: PRODUCTION READY**"
-      echo ""
-    } | cat - "$METRICS" > /tmp/metrics.tmp && mv /tmp/metrics.tmp "$METRICS"
-    ok "metrics stamped"
+    skip "skill-vcs (no git repo or no changes)"
   fi
 else
-  skip "metrics file missing"
+  skip "skill-vcs.sh missing"
 fi
 
-echo ""
-echo "=== APPLY OK ==="
+# ─────────────────────────────────────────────────────────────
+# 4. STAMP — append-only; debounce identical back-to-back runs
+# ─────────────────────────────────────────────────────────────
+section "4/4 STAMP"
+
+if [ "$SKIP_STAMP" = true ]; then
+  skip "metrics (--skip-stamp)"
+elif head -6 "$METRICS" 2>/dev/null | grep -q "orchestrate-finalize.sh"; then
+  skip "metrics (recent orchestrate-finalize stamp already on top)"
+else
+  mkdir -p "$(dirname "$METRICS")"
+  [ -f "$METRICS" ] || echo "# Performance Metrics Log" > "$METRICS"
+  now="$(date '+%Y-%m-%d %H:%M %Z' 2>/dev/null || date '+%Y-%m-%d %H:%M')"
+  tmp="$(mktemp)"
+  {
+    echo "# Performance Metrics Log"
+    echo ""
+    echo "## ${now} — FINALIZE (orchestrate-finalize.sh)"
+    echo "- Structural: ${TOTAL} checked · ${STRUCT_FAIL} failed"
+    echo "- WASM + spicy: green"
+    echo "- Converge: surface-parity-gate create-if-absent; DPO dirs ensured"
+    echo "- Surfaces: chat · iOS · web"
+    echo "- Platform wall unchanged"
+    echo "- **Status: PRODUCTION READY**"
+    echo ""
+    tail -n +2 "$METRICS"
+  } > "$tmp"
+  mv "$tmp" "$METRICS"
+  ok "metrics stamped"
+fi
+
+section "APPLY OK"
 echo "Finalize complete — idempotent apply finished."
+exit 0

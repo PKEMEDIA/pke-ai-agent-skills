@@ -1,0 +1,241 @@
+flowchart LR
+  subgraph c0["Core Meta Layer"]
+    skill-creator
+    skill-orchestrator
+    skill-test-suite
+    skill-installer
+  end
+  subgraph c1["Legal / Paralegal"]
+    paralegal-assistant
+    docx
+    pdf
+    pdf-form-filler
+    covicea-podcast-script-to-docx
+    skills-learned-script
+    memory-edit
+  end
+  subgraph c2["COVICEA Visual & Media Production"]
+    covicea-core
+    covicea-face-lock
+    covicea-selfie-image-defaults
+    covicea-distraction-image-defaults
+    covicea-realistic-hair-skin-lighting
+    covicea-photoreal-workflow
+    covicea-gym-mirror-selfie-retouch
+    covicea-comfyui-consistency
+    covicea-brand-assistant
+    covicea-aloha-shade-ohana
+    local-nsfw-comfyui
+    negative-prompt-library
+    photoreal-hair-anisotropic-master
+    photoreal-skin-master
+    photoreal-skin-sss-master
+    photoreal-undetectable-portrait-master
+    pretty-kitty-model-management
+    pretty-kitty-photorealism
+    spicy-male-erotic-prompt-optimizer
+    consistent-identity-batch-processor
+    distraction-image-defaults
+    mirror-selfie-corrector
+  end
+  subgraph c3["Brand / Voice / Content Strategy"]
+    content-strategy-suite
+    episode-bible
+    grok-sentient-editor
+    aave-assistant
+    pk-svwo-v1-0
+  end
+  subgraph c4["Voice & Audio Production"]
+    rvc-voice-production
+    voice-reference-protocol
+    voice-commander
+    youtube-stem-voice-production
+    cover-song-studio-master
+  end
+  subgraph c5["Orchestration / Remote"]
+    remote-skill-orchestrator
+    grok-local-app-web-integration
+    grok-usage-maximizer
+    local-json-python-workflows
+    upscayl-workflow-assistant
+    vogue-photo-editing
+    pkemedia-grok-video-pipeline
+    adult-creator-identifier
+    language-learning
+  end
+  subgraph c6["Other"]
+    color
+    ffmpeg
+    finance
+    image-gen-edit
+    imagemagick
+    mcp
+    pptx
+    tasks
+    xlsx
+  end
+  aave-assistant --> content-strategy-suite
+  aave-assistant --> covicea-brand-assistant
+  aave-assistant --> local-nsfw-comfyui
+  aave-assistant --> paralegal-assistant
+  consistent-identity-batch-processor --> color
+  content-strategy-suite --> covicea-brand-assistant
+  content-strategy-suite --> local-json-python-workflows
+  content-strategy-suite --> local-nsfw-comfyui
+  content-strategy-suite --> paralegal-assistant
+  cover-song-studio-master --> ffmpeg
+  cover-song-studio-master --> local-json-python-workflows
+  cover-song-studio-master --> rvc-voice-production
+  cover-song-studio-master --> skill-orchestrator
+  covicea-aloha-shade-ohana --> color
+  covicea-brand-assistant --> color
+  covicea-brand-assistant --> covicea-core
+  covicea-brand-assistant --> paralegal-assistant
+  covicea-brand-assistant --> pretty-kitty-model-management
+  covicea-comfyui-consistency --> color
+  covicea-comfyui-consistency --> covicea-core
+  covicea-comfyui-consistency --> covicea-distraction-image-defaults
+  covicea-comfyui-consistency --> covicea-selfie-image-defaults
+  covicea-core --> color
+  covicea-core --> covicea-distraction-image-defaults
+  covicea-core --> covicea-face-lock
+  covicea-core --> covicea-realistic-hair-skin-lighting
+  covicea-distraction-image-defaults --> color
+  covicea-distraction-image-defaults --> covicea-core
+  covicea-distraction-image-defaults --> distraction-image-defaults
+  covicea-face-lock --> color
+  covicea-face-lock --> covicea-comfyui-consistency
+  covicea-face-lock --> covicea-core
+  covicea-face-lock --> covicea-distraction-image-defaults
+  covicea-gym-mirror-selfie-retouch --> color
+  covicea-gym-mirror-selfie-retouch --> covicea-core
+  covicea-gym-mirror-selfie-retouch --> covicea-distraction-image-defaults
+  covicea-gym-mirror-selfie-retouch --> covicea-realistic-hair-skin-lighting
+  covicea-photoreal-workflow --> covicea-core
+  covicea-photoreal-workflow --> covicea-face-lock
+  covicea-photoreal-workflow --> local-nsfw-comfyui
+  covicea-photoreal-workflow --> skill-orchestrator
+  covicea-podcast-script-to-docx --> covicea-aloha-shade-ohana
+  covicea-podcast-script-to-docx --> docx
+  covicea-realistic-hair-skin-lighting --> color
+  covicea-realistic-hair-skin-lighting --> covicea-core
+  covicea-realistic-hair-skin-lighting --> covicea-selfie-image-defaults
+  covicea-realistic-hair-skin-lighting --> tasks
+  covicea-selfie-image-defaults --> color
+  covicea-selfie-image-defaults --> covicea-core
+  distraction-image-defaults --> covicea-core
+  distraction-image-defaults --> covicea-distraction-image-defaults
+  docx --> covicea-podcast-script-to-docx
+  docx --> episode-bible
+  docx --> memory-edit
+  docx --> paralegal-assistant
+  ffmpeg --> tasks
+  grok-local-app-web-integration --> covicea-brand-assistant
+  grok-local-app-web-integration --> ffmpeg
+  grok-local-app-web-integration --> local-json-python-workflows
+  grok-local-app-web-integration --> local-nsfw-comfyui
+  grok-usage-maximizer --> content-strategy-suite
+  grok-usage-maximizer --> covicea-brand-assistant
+  grok-usage-maximizer --> episode-bible
+  grok-usage-maximizer --> local-nsfw-comfyui
+  image-gen-edit --> imagemagick
+  imagemagick --> color
+  imagemagick --> pdf
+  language-learning --> tasks
+  local-json-python-workflows --> ffmpeg
+  local-json-python-workflows --> local-nsfw-comfyui
+  local-json-python-workflows --> rvc-voice-production
+  local-json-python-workflows --> vogue-photo-editing
+  local-nsfw-comfyui --> color
+  local-nsfw-comfyui --> ffmpeg
+  local-nsfw-comfyui --> local-json-python-workflows
+  local-nsfw-comfyui --> spicy-male-erotic-prompt-optimizer
+  mcp --> pptx
+  mcp --> tasks
+  memory-edit --> tasks
+  negative-prompt-library --> color
+  paralegal-assistant --> covicea-brand-assistant
+  paralegal-assistant --> docx
+  paralegal-assistant --> memory-edit
+  paralegal-assistant --> pdf
+  pdf --> covicea-podcast-script-to-docx
+  pdf --> docx
+  pdf --> paralegal-assistant
+  pdf --> pdf-form-filler
+  pdf-form-filler --> pdf
+  pdf-form-filler --> tasks
+  photoreal-hair-anisotropic-master --> color
+  photoreal-hair-anisotropic-master --> covicea-core
+  photoreal-hair-anisotropic-master --> covicea-face-lock
+  photoreal-hair-anisotropic-master --> local-nsfw-comfyui
+  photoreal-skin-master --> aave-assistant
+  photoreal-skin-master --> color
+  photoreal-skin-master --> covicea-core
+  photoreal-skin-master --> covicea-realistic-hair-skin-lighting
+  photoreal-skin-sss-master --> color
+  photoreal-skin-sss-master --> covicea-core
+  photoreal-skin-sss-master --> covicea-face-lock
+  photoreal-skin-sss-master --> local-nsfw-comfyui
+  photoreal-undetectable-portrait-master --> color
+  photoreal-undetectable-portrait-master --> covicea-core
+  photoreal-undetectable-portrait-master --> covicea-face-lock
+  photoreal-undetectable-portrait-master --> local-nsfw-comfyui
+  pk-svwo-v1-0 --> covicea-brand-assistant
+  pk-svwo-v1-0 --> grok-local-app-web-integration
+  pk-svwo-v1-0 --> local-json-python-workflows
+  pk-svwo-v1-0 --> local-nsfw-comfyui
+  pkemedia-grok-video-pipeline --> color
+  pptx --> pdf
+  pretty-kitty-model-management --> covicea-brand-assistant
+  pretty-kitty-model-management --> docx
+  pretty-kitty-model-management --> paralegal-assistant
+  pretty-kitty-model-management --> skill-orchestrator
+  pretty-kitty-photorealism --> covicea-core
+  pretty-kitty-photorealism --> covicea-face-lock
+  pretty-kitty-photorealism --> local-nsfw-comfyui
+  pretty-kitty-photorealism --> skill-orchestrator
+  remote-skill-orchestrator --> docx
+  remote-skill-orchestrator --> paralegal-assistant
+  remote-skill-orchestrator --> pdf
+  remote-skill-orchestrator --> xlsx
+  rvc-voice-production --> cover-song-studio-master
+  rvc-voice-production --> ffmpeg
+  rvc-voice-production --> voice-reference-protocol
+  rvc-voice-production --> youtube-stem-voice-production
+  skill-creator --> mcp
+  skill-creator --> skill-orchestrator
+  skill-creator --> skill-test-suite
+  skill-creator --> tasks
+  skill-orchestrator --> covicea-brand-assistant
+  skill-orchestrator --> local-nsfw-comfyui
+  skill-orchestrator --> mcp
+  skill-orchestrator --> paralegal-assistant
+  skill-test-suite --> color
+  skill-test-suite --> covicea-brand-assistant
+  skill-test-suite --> docx
+  skill-test-suite --> ffmpeg
+  skills-learned-script --> pptx
+  spicy-male-erotic-prompt-optimizer --> covicea-core
+  spicy-male-erotic-prompt-optimizer --> covicea-face-lock
+  spicy-male-erotic-prompt-optimizer --> covicea-realistic-hair-skin-lighting
+  spicy-male-erotic-prompt-optimizer --> grok-usage-maximizer
+  upscayl-workflow-assistant --> ffmpeg
+  upscayl-workflow-assistant --> local-nsfw-comfyui
+  upscayl-workflow-assistant --> vogue-photo-editing
+  vogue-photo-editing --> color
+  vogue-photo-editing --> covicea-core
+  vogue-photo-editing --> ffmpeg
+  vogue-photo-editing --> local-nsfw-comfyui
+  voice-commander --> content-strategy-suite
+  voice-commander --> covicea-brand-assistant
+  voice-commander --> covicea-core
+  voice-commander --> covicea-distraction-image-defaults
+  voice-reference-protocol --> covicea-brand-assistant
+  voice-reference-protocol --> ffmpeg
+  voice-reference-protocol --> local-json-python-workflows
+  voice-reference-protocol --> pretty-kitty-model-management
+  xlsx --> color
+  xlsx --> tasks
+  youtube-stem-voice-production --> ffmpeg
+  youtube-stem-voice-production --> rvc-voice-production
+  youtube-stem-voice-production --> vogue-photo-editing

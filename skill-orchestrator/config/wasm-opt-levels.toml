@@ -1,0 +1,87 @@
+# Pinned Binaryen wasm-opt levels — skill-orchestrator
+# Source of truth for Rust/wasm-pack, shell, and docs.
+# Do not pass ad-hoc -O flags in scripts; import these pins.
+#
+# v1.1 — optimized flags (2026-07-28):
+#   - Always strip toolchain annotations on ship profiles
+#   - Size/iOS profiles also strip debug/dwarf/producers
+#   - Converge reserved for fixed-point size/speed
+#   - Optional SIMD via env WASM_OPT_SIMD=1 → appends --enable-simd
+
+[meta]
+version = "1.1.0"
+pinned = "2026-07-28"
+tool = "binaryen wasm-opt"
+note = "WABT wasm-validate is separate; always validate pre + post opt."
+
+# Shared suffixes (documented; applied by script + listed in profile args)
+[common]
+# Hygiene on every ship profile (no IR size regression on clean modules)
+ship_suffix = ["--strip-toolchain-annotations"]
+# Extra strip for download-bound / iOS payloads
+size_suffix = ["--strip-debug", "--strip-dwarf", "--strip-producers"]
+# Optional (env WASM_OPT_SIMD=1)
+simd_flag = "--enable-simd"
+
+# Profile → exact CLI args (array order preserved)
+[profiles.dev]
+enabled = false
+args = []
+description = "Skip Binaryen; copy-through"
+
+[profiles.speed]
+enabled = true
+args = ["-O3", "--strip-toolchain-annotations"]
+description = "Aggressive speed + strip annotations"
+
+[profiles.size]
+enabled = true
+args = ["-Oz", "--strip-toolchain-annotations", "--strip-debug", "--strip-dwarf", "--strip-producers"]
+description = "Aggressive size + full strip (web/iOS payload)"
+
+[profiles.size_balanced]
+enabled = true
+args = ["-Os", "--strip-toolchain-annotations"]
+description = "Balanced size + strip annotations"
+
+[profiles.release]
+enabled = true
+args = ["-O3", "--strip-toolchain-annotations"]
+description = "Default ship (app · iOS · web compute) = speed + strip"
+
+[profiles.release_converge]
+enabled = true
+args = ["-O3", "--converge", "--strip-toolchain-annotations"]
+description = "Fixed-point speed"
+
+[profiles.release_size]
+enabled = true
+args = ["-Oz", "--converge", "--strip-toolchain-annotations", "--strip-debug", "--strip-dwarf", "--strip-producers"]
+description = "Fixed-point size ship (preferred for iOS download-bound)"
+
+[profiles.ios]
+# Alias of release_size for explicit mobile payload path
+enabled = true
+args = ["-Oz", "--converge", "--strip-toolchain-annotations", "--strip-debug", "--strip-dwarf", "--strip-producers"]
+description = "iOS payload-optimized (same as release_size)"
+
+# wasm-pack Cargo.toml mirror
+[wasm_pack.dev]
+wasm-opt = false
+
+[wasm_pack.release]
+# Match profiles.release.args
+wasm-opt = ["-O3", "--strip-toolchain-annotations"]
+
+[wasm_pack.release_size]
+wasm-opt = ["-Oz", "--converge", "--strip-toolchain-annotations", "--strip-debug", "--strip-dwarf", "--strip-producers"]
+
+[gates]
+pre_validate = true
+post_validate = true
+validator = "wasm-validate"
+fail_on_missing_wasm_opt = true
+fail_on_missing_validator = false
+
+[defaults]
+profile = "release"

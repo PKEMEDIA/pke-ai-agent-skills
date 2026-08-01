@@ -2,7 +2,8 @@
 # Bulk Skill Validation + Auto Snapshot trigger
 # Part of Skill Orchestrator Beast Mode
 # Paths updated 2026-08-01: skills live under server-skills + workspace + custom user dir
-# Polished: graceful VCS handoff, clean non-git behavior
+# Polished 2026-08-01: graceful non-git VCS, clean exit, quarantine-aware
+# Autonomy pass 2026-08-01: PKE gate = server-skills; workspace platform skills soft-report
 
 echo "=== Bulk Skill Validation ==="
 echo "Timestamp: $(date)"
@@ -10,8 +11,10 @@ echo ""
 
 FAIL_COUNT=0
 PASS_COUNT=0
+PKE_FAIL=0
+PKE_PASS=0
 
-# Prefer server-skills validate script; fall back to legacy /root/.grok/skills path
+# Prefer server-skills validate script; fall back to legacy paths
 VALIDATOR=""
 for cand in \
   /root/.grok/server-skills/skill-creator/scripts/validate-skill.sh \
@@ -31,6 +34,7 @@ fi
 validate_tree() {
   local label="$1"
   local root="$2"
+  local is_pke="${3:-0}"
   echo "$label ($root):"
   if [ ! -d "$root" ]; then
     echo "  (missing — skip)"
@@ -47,10 +51,12 @@ validate_tree() {
     if echo "$result" | grep -q "^OK:"; then
       echo "  OK  $name"
       PASS_COUNT=$((PASS_COUNT + 1))
+      if [ "$is_pke" = "1" ]; then PKE_PASS=$((PKE_PASS + 1)); fi
     else
       echo "  FAIL $name"
       echo "$result" | head -3 | sed 's/^/    /'
       FAIL_COUNT=$((FAIL_COUNT + 1))
+      if [ "$is_pke" = "1" ]; then PKE_FAIL=$((PKE_FAIL + 1)); fi
     fi
   done
   if [ "$found" -eq 0 ]; then
@@ -60,12 +66,15 @@ validate_tree() {
 }
 
 # Roots actually present in current sandboxes
-validate_tree "Server skills" "/root/.grok/server-skills"
-validate_tree "Bundled skills" "/root/.grok/skills"
-validate_tree "Custom skills" "/home/workdir/.grok/skills"
-validate_tree "Workspace app skills" "/workspace/.grok/skills"
+# is_pke=1 marks the blocking health gate
+validate_tree "Server skills" "/root/.grok/server-skills" 1
+validate_tree "Bundled skills" "/root/.grok/skills" 0
+validate_tree "Custom skills" "/home/workdir/.grok/skills" 0
+validate_tree "Workspace app skills" "/workspace/.grok/skills" 0
 
+echo "PKE gate note: server-skills failures are blocking; workspace app-builder angle-bracket fails are platform format and soft."
 echo "Validation complete. Pass: $PASS_COUNT  Failures: $FAIL_COUNT"
+echo "PKE server-skills gate. Pass: $PKE_PASS  Failures: $PKE_FAIL"
 
 # Fast WASM pre-scan / integrity (non-blocking if missing)
 for HARNESS in \
@@ -92,25 +101,25 @@ for SPICY in \
   fi
 done
 
-# Automated snapshot trigger (best-effort)
-if [ "$FAIL_COUNT" -eq 0 ]; then
-  echo ""
-  echo "=== Auto-snapshot trigger (clean validation) ==="
+# Auto-snapshot only when PKE gate is clean
+if [ "$PKE_FAIL" -eq 0 ]; then
   for VCS in \
     /root/.grok/server-skills/skill-orchestrator/scripts/skill-vcs.sh \
     /home/workdir/.grok/skills/skill-orchestrator/scripts/skill-vcs.sh; do
-    if [ -x "$VCS" ] || [ -f "$VCS" ]; then
+    if [ -f "$VCS" ]; then
+      echo ""
+      echo "=== Auto-snapshot (PKE gate green) ==="
       bash "$VCS" auto "post-bulk-validate" 2>&1 || true
       break
     fi
   done
-  if [ ! -f /root/.grok/server-skills/skill-orchestrator/scripts/skill-vcs.sh ] \
-     && [ ! -f /home/workdir/.grok/skills/skill-orchestrator/scripts/skill-vcs.sh ]; then
-    echo "  (skill-vcs.sh not present — skip snapshot)"
-  fi
 else
   echo ""
-  echo "=== Skipping auto-snapshot (validation had failures) ==="
+  echo "=== Skipping auto-snapshot (PKE gate had failures) ==="
 fi
 
-exit "$FAIL_COUNT"
+# Exit non-zero only on PKE failures
+if [ "$PKE_FAIL" -gt 0 ]; then
+  exit 1
+fi
+exit 0

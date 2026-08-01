@@ -3,9 +3,15 @@
   "owner": "PKEMEDIA",
   "brand": "Pretty Kitty Entertainment / Pretty Kitty Media",
   "enabled": true,
-  "activated_at": "2026-08-01T08:25:00Z",
+  "activated_at": "2026-08-01T08:30:00Z",
   "repo": "PKEMEDIA/pke-ai-agent-skills",
-  "surfaces": ["grok-chat", "grok-ios", "grok-web", "supergrok-pro", "grok-build"],
+  "surfaces": [
+    "grok-chat",
+    "grok-ios",
+    "grok-web",
+    "supergrok-pro",
+    "grok-build"
+  ],
   "skills": {
     "covicea-pke-podcast-studio": {
       "permanent": true,
@@ -18,7 +24,7 @@
         "Produce episode on",
         "React live as co-host",
         "Full podcast studio online",
-        "Activate Coviceá production team",
+        "Activate Covice\u00e1 production team",
         "Social ATS push for #1"
       ],
       "agents": [
@@ -32,8 +38,15 @@
         "SocialATSEnhancer",
         "TalentCoordinator"
       ],
-      "shows": ["The 3-2 Podcast", "The Siren Soul", "THE WHAT IF FILES"],
-      "ci_workflows": ["pke-skill-ci.yml", "pke-podcast-studio.yml"]
+      "shows": [
+        "The 3-2 Podcast",
+        "The Siren Soul",
+        "THE WHAT IF FILES"
+      ],
+      "ci_workflows": [
+        "pke-skill-ci.yml",
+        "pke-podcast-studio.yml"
+      ]
     },
     "skill-orchestrator": {
       "permanent": true,
@@ -64,5 +77,19 @@
       "skill-orchestrator/scripts/bulk-validate.sh"
     ]
   },
-  "notes": "Permanent activation for Coviceá / PKE Podcast Studio across all Grok levels. GitHub Actions re-validates on every main push."
+  "notes": "Permanent activation for Covice\u00e1 / PKE Podcast Studio across all Grok levels. GitHub Actions re-validates on every main push.",
+  "full_deploy": {
+    "at": "2026-08-01T08:30:00Z",
+    "status": "COMPLETE",
+    "surfaces": [
+      "github",
+      "grok-chat",
+      "grok-ios",
+      "grok-web",
+      "supergrok-pro",
+      "grok-build",
+      "notion",
+      "google-drive"
+    ]
+  }
 }

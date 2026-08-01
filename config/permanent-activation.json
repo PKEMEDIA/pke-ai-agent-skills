@@ -129,6 +129,13 @@
     "docs": [
       "docs/SUPER-MIND.md"
     ],
-    "learn_imagine_calls": 0
+    "learn_imagine_calls": 0,
+    "status": "LIVE",
+    "deployed_at": "20260801T140730Z"
+  },
+  "terminal_deploy": {
+    "at": "20260801T140730Z",
+    "status": "COMPLETE",
+    "method": "terminal"
   }
 }

@@ -1,0 +1,30 @@
+{
+  "stamp": "20260801T140617Z",
+  "scores": {
+    "health": 2,
+    "skill_integrity": 10,
+    "prompt_efficiency": 10,
+    "brand_lock_strength": 6,
+    "autonomy": 10,
+    "github_automation": 10,
+    "ci_speed": 10,
+    "super_mind": 10,
+    "overall": 7.6
+  },
+  "observations": [
+    "skills_pass=0 skills_fail=0",
+    "app=down:<urlopen error [Errno 111] Connection refused>",
+    "missing_assets=public/pke/IMG_4440.jpg,public/pke/IMG_4441.jpg,public/pke/IMG_4450.jpg,artifacts/comfyui/pke-face-lock-base.json,.grok/skills/pke-face-lock/SKILL.md,.grok/skills/pke-official-black-mask/SKILL.md,.grok/skills/skill-orchestrator/SKILL.md",
+    "recent_heal_issues=7",
+    "heal_signal:MISS /workspace/pke-ai-agent-skills/public/pke/IMG_4450.jpg",
+    "heal_signal:MISS /workspace/pke-ai-agent-skills/artifacts/comfyui/pke-face-lock-base.json",
+    "heal_signal:MISS /workspace/pke-ai-agent-skills/.grok/skills/pke-face-lock/SKILL.md",
+    "heal_signal:MISS /workspace/pke-ai-agent-skills/.grok/skills/pke-official-black-mask/SKILL.md",
+    "heal_signal:MISS /workspace/pke-ai-agent-skills/.grok/skills/skill-orchestrator/SKILL.md",
+    "top_failure_classes=assets:7,app:1"
+  ],
+  "improvements": [],
+  "free_tier": true,
+  "imagine_calls": 0,
+  "video_calls": 0
+}

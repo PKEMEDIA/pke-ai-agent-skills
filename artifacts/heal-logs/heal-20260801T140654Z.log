@@ -1,0 +1,21 @@
+=== PKE SELF-HEAL 20260801T140654Z ===
+root=/workspace/pke-ai-agent-skills push=0 validate=/root/.grok/server-skills/skill-creator/scripts/validate-skill.sh
+STILL_FAIL skill-orchestrator
+ACTION: app-restart-FAILED
+MISS /workspace/pke-ai-agent-skills/public/pke/IMG_4440.jpg
+MISS /workspace/pke-ai-agent-skills/public/pke/IMG_4441.jpg
+MISS /workspace/pke-ai-agent-skills/public/pke/IMG_4450.jpg
+MISS /workspace/pke-ai-agent-skills/artifacts/comfyui/pke-face-lock-base.json
+MISS /workspace/pke-ai-agent-skills/.grok/skills/pke-face-lock/SKILL.md
+MISS /workspace/pke-ai-agent-skills/.grok/skills/pke-official-black-mask/SKILL.md
+MISS /workspace/pke-ai-agent-skills/.grok/skills/skill-orchestrator/SKILL.md
+ACTION: asset-misses:7
+github=skip (pass --push)
+=== SUMMARY ===
+skills 0/0
+fails_before_fix=1 fails_remaining=9
+actions=2
+ - app-restart-FAILED
+ - asset-misses:7
+log_file=/workspace/pke-ai-agent-skills/artifacts/heal-logs/heal-20260801T140654Z.log
+STATUS=DEGRADED

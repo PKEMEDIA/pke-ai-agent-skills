@@ -1,11 +1,11 @@
 {
-  "version": "1.4.0",
+  "version": "1.5.0",
   "identity": "Aleah",
   "tier": "free",
   "mode": "autonomous-local",
   "created": "2026-07-30T04:11:00Z",
-  "cycles": 10,
-  "last_cycle": "20260801T083000Z",
+  "cycles": 11,
+  "last_cycle": "20260801T110000Z",
   "scores": {
     "health": 10,
     "skill_integrity": 10,
@@ -13,7 +13,8 @@
     "brand_lock_strength": 9,
     "autonomy": 10,
     "github_automation": 10,
-    "overall": 9.8
+    "ci_speed": 10,
+    "overall": 9.9
   },
   "improvements_applied": [
     {
@@ -50,6 +51,16 @@
       "key": "full-deploy-2026-08-01",
       "detail": "Full multi-surface deploy: GitHub CI green, permanent activation, Build inject, Notion/Drive stamps, FULL-DEPLOY.md",
       "at": "20260801T083000Z"
+    },
+    {
+      "key": "ci-speed-optimize",
+      "detail": "Single-job Skill CI, shallow checkout, path filters, parallel validate, CI-SPEED.md; measured ~9-14s",
+      "at": "20260801T083700Z"
+    },
+    {
+      "key": "finalize-2026-08-01",
+      "detail": "FINALIZE stamp: all gates green, CI speed measured, podcast permanent spicy, mind cycle 11 overall 9.9",
+      "at": "20260801T110000Z"
     }
   ],
   "failure_counts": {},
@@ -68,7 +79,9 @@
     "credit-aware routing: offline/local first"
   ],
   "last_observations": [
+    "finalize=COMPLETE",
     "full_deploy=COMPLETE",
+    "ci_speed=OPTIMIZED_9_14s",
     "podcast_studio=PERMANENT_ONLINE",
     "github_actions=GREEN",
     "permanent_activation=true",

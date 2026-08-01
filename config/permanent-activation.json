@@ -1,9 +1,10 @@
 {
-  "version": "1.0.0",
+  "version": "1.1.0",
   "owner": "PKEMEDIA",
   "brand": "Pretty Kitty Entertainment / Pretty Kitty Media",
   "enabled": true,
   "activated_at": "2026-08-01T08:30:00Z",
+  "finalized_at": "2026-08-01T11:00:00Z",
   "repo": "PKEMEDIA/pke-ai-agent-skills",
   "surfaces": [
     "grok-chat",
@@ -24,7 +25,7 @@
         "Produce episode on",
         "React live as co-host",
         "Full podcast studio online",
-        "Activate Covice\u00e1 production team",
+        "Activate Coviceá production team",
         "Social ATS push for #1"
       ],
       "agents": [
@@ -70,6 +71,14 @@
     "ci_on_push": true,
     "ci_on_pr": true,
     "manual_dispatch": true,
+    "ci_speed": {
+      "optimized": true,
+      "skill_ci_wall_seconds": "9-14",
+      "podcast_wall_seconds": "~12",
+      "single_job": true,
+      "shallow_checkout": true,
+      "path_filters": true
+    },
     "self_heal_scripts": [
       "scripts/pke-self-heal.sh",
       "scripts/pke-learn.sh",
@@ -77,7 +86,7 @@
       "skill-orchestrator/scripts/bulk-validate.sh"
     ]
   },
-  "notes": "Permanent activation for Covice\u00e1 / PKE Podcast Studio across all Grok levels. GitHub Actions re-validates on every main push.",
+  "notes": "Permanent activation for Coviceá / PKE Podcast Studio across all Grok levels. GitHub Actions re-validates on every main push. Finalized 2026-08-01 with CI speed optimization.",
   "full_deploy": {
     "at": "2026-08-01T08:30:00Z",
     "status": "COMPLETE",
@@ -90,6 +99,19 @@
       "grok-build",
       "notion",
       "google-drive"
+    ]
+  },
+  "finalize": {
+    "at": "2026-08-01T11:00:00Z",
+    "status": "COMPLETE",
+    "ci_speed": "OPTIMIZED",
+    "podcast_studio": "PERMANENT_ONLINE",
+    "docs": [
+      "docs/FINALIZE.md",
+      "docs/FULL-DEPLOY.md",
+      "docs/CI-SPEED.md",
+      "docs/GITHUB-AUTOMATION.md",
+      "docs/PODCAST-STUDIO-DEPLOY.md"
     ]
   }
 }

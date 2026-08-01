@@ -1,8 +1,9 @@
 # PKE Full Deploy Stamp
 
 **Date:** 2026-08-01  
-**Status:** FINALIZED · FULLY DEPLOYED · SUPER MIND LIVE · PERMANENT · CI GREEN · TERMINAL DEPLOY  
-**Repo:** https://github.com/PKEMEDIA/pke-ai-agent-skills
+**Status:** FINALIZED · FULLY DEPLOYED · SUPER MIND LIVE · PERMANENT · CI GREEN · TERMINAL MAC DEPLOY  
+**Repo:** https://github.com/PKEMEDIA/pke-ai-agent-skills  
+**Stamp:** `20260801T144004Z`
 
 ## Surfaces
 
@@ -13,17 +14,28 @@
 | Grok chat / iOS / web / SuperGrokPro | Permanent triggers live |
 | Grok Build | Skill pack + podcast studio inject |
 | Permanent registry | `config/permanent-activation.json` |
-| CI | Skill CI ~8–10s · validate ~2s · Podcast ~12s |
+| CI | Skill CI parallel · macOS + Linux xargs-safe · Podcast local |
 | Notion / Drive | Empire + Podcast hubs stamped |
 
 ## Terminal deploy sequence (this stamp)
 
 ```bash
+mkdir -p ~/PKE && cd ~/PKE
+gh repo clone PKEMEDIA/pke-ai-agent-skills || (cd pke-ai-agent-skills && git pull)
+cd pke-ai-agent-skills
+export PKE_ROOT="$PWD"
 bash scripts/pke-self-heal.sh
 CI_VALIDATE_JOBS=4 bash scripts/ci-validate-skills.sh
 bash covicea-pke-podcast-studio/scripts/validate-local.sh
-# mind restore Super Mind scores · push main
+bash scripts/pke-learn.sh
+# bash scripts/pke-learn.sh --push  # or commit+push from working tree
 ```
+
+## Mac portability (this deploy)
+
+- `scripts/ci-validate-skills.sh` — portable xargs (no GNU `-a`)
+- `scripts/pke-self-heal.sh` — repo `skill-creator` validate path, `.grok/skills` symlinks, soft face-ref misses, skills-only root skip
+- Face JPGs under `public/pke/` optional for free-tier text learn
 
 ## Activate
 

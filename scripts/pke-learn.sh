@@ -433,10 +433,13 @@ if [ "$PUSH" -eq 1 ] && command -v gh >/dev/null 2>&1; then
       "$ROOT/scripts/pke-learn.sh|$tmp/skill-orchestrator/scripts/pke-learn.sh" \
       "$ROOT/scripts/pke-self-heal.sh|$tmp/scripts/pke-self-heal.sh" \
       "$ROOT/scripts/pke-learn.sh|$tmp/scripts/pke-learn.sh" \
+      "$ROOT/scripts/ci-validate-skills.sh|$tmp/scripts/ci-validate-skills.sh" \
+      "$ROOT/startup.sh|$tmp/startup.sh" \
       "$MIND/state.json|$tmp/mind/state.json" \
       "$MIND/lessons.md|$tmp/mind/lessons.md" \
       "$ROOT/docs/FULL-DEPLOY.md|$tmp/docs/FULL-DEPLOY.md" \
       "$ROOT/docs/SUPER-MIND.md|$tmp/docs/SUPER-MIND.md" \
+      "$ROOT/docs/FINALIZE.md|$tmp/docs/FINALIZE.md" \
       "$ROOT/config/permanent-activation.json|$tmp/config/permanent-activation.json"
     do
       src="${pair%%|*}"

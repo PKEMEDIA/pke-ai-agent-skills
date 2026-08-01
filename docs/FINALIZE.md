@@ -1,7 +1,7 @@
 # PKE Skill Pack — FINALIZE
 
 **Date:** 2026-08-01  
-**Status:** FINALIZED · FULLY DEPLOYED · PRODUCTION READY · HEALTHY · PODCAST STUDIO PERMANENT · GITHUB CI GREEN · CI SPEED OPTIMIZED  
+**Status:** FINALIZED · FULLY DEPLOYED · PRODUCTION READY · HEALTHY · PODCAST STUDIO PERMANENT · GITHUB CI GREEN · CI SPEED OPTIMIZED · MAC PORTABLE  
 **Head (at finalize):** main continuous green (Actions runs 5–9+)
 
 ## Gates (all green)
@@ -53,6 +53,13 @@ gh run list --workflow="PKE Skill CI" --limit 3
 
 Grok iOS · Grok web · SuperGrokPro · Imagine (manual) · Grok Build · GitHub `PKEMEDIA/pke-ai-agent-skills` + **Actions CI** · Notion Empire OS · Google Drive · Local ComfyUI
 
+## Mac portability (2026-08-01 terminal)
+
+- CI validate works on BSD xargs (macOS)
+- Self-heal finds repo-native `skill-creator/scripts/validate-skill.sh`
+- `.grok/skills/*` linked to canonical packs
+- Face binary refs optional (soft-miss)
+
 ## Finalize stamp
 
-**FINALIZED 2026-08-01 · PERMANENT · SPICY DEFAULT · CI OPTIMIZED · READY TO PRODUCE**
+**FINALIZED 2026-08-01 · PERMANENT · SPICY DEFAULT · CI OPTIMIZED · MAC PORTABLE · SUPER MIND L5 · READY TO PRODUCE · stamp `20260801T144004Z`**

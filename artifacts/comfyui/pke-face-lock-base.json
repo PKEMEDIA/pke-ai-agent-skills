@@ -1,0 +1,890 @@
+{
+  "last_node_id": 18,
+  "last_link_id": 22,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "CheckpointLoaderSimple",
+      "pos": [
+        40,
+        80
+      ],
+      "size": {
+        "0": 320,
+        "1": 100
+      },
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            10
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            1,
+            2
+          ],
+          "slot_index": 1
+        },
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            11
+          ],
+          "slot_index": 2
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CheckpointLoaderSimple"
+      },
+      "widgets_values": [
+        "juggernautXL_v9.safetensors"
+      ],
+      "title": "PKE Base Checkpoint (drop into models/checkpoints/)"
+    },
+    {
+      "id": 2,
+      "type": "LoadImage",
+      "pos": [
+        40,
+        260
+      ],
+      "size": {
+        "0": 320,
+        "1": 320
+      },
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            3,
+            12
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null,
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "pke_face_ref_IMG_4441.jpg",
+        "image"
+      ],
+      "title": "PKE Face Ref (FaceID / InstantID)"
+    },
+    {
+      "id": 3,
+      "type": "LoadImage",
+      "pos": [
+        40,
+        620
+      ],
+      "size": {
+        "0": 320,
+        "1": 280
+      },
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            4
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null,
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "pke_pose_ref.png",
+        "image"
+      ],
+      "title": "Optional Pose Ref for OpenPose"
+    },
+    {
+      "id": 4,
+      "type": "CLIPTextEncode",
+      "pos": [
+        420,
+        40
+      ],
+      "size": {
+        "0": 420,
+        "1": 220
+      },
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            5
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPTextEncode"
+      },
+      "widgets_values": [
+        "Official PKE face lock: dense freckles across face, striking green-hazel eyes with natural catchlights, copper-red cornrow braids with clean parts, reddish-copper groomed beard and mustache, diamond stud earrings, thick gold Cuban-link chain when chest visible, strong adult male bone structure, natural skin pores, dry clean skin no sweat no water droplets, photoreal studio portrait, soft key light, cool rim, medium close-up, 9:16"
+      ],
+      "title": "Positive \u2014 pke-face-lock block"
+    },
+    {
+      "id": 5,
+      "type": "CLIPTextEncode",
+      "pos": [
+        420,
+        300
+      ],
+      "size": {
+        "0": 420,
+        "1": 180
+      },
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 2
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            6
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPTextEncode"
+      },
+      "widgets_values": [
+        "plastic skin, beauty filter, over-smooth, sweat, water droplets, wet skin, wrong hair color, no freckles, blue eyes, child, teen, underage, deformed hands, extra limbs, blurry, lowres, watermark, text, logo, cartoon, 3d render, chrome spikes"
+      ],
+      "title": "Negative \u2014 PKE cues"
+    },
+    {
+      "id": 6,
+      "type": "OpenposePreprocessor",
+      "pos": [
+        420,
+        540
+      ],
+      "size": {
+        "0": 280,
+        "1": 100
+      },
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 4
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            7
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "OpenposePreprocessor"
+      },
+      "widgets_values": [
+        "enable",
+        "enable",
+        "enable"
+      ],
+      "title": "OpenPose preprocess (pose only)"
+    },
+    {
+      "id": 7,
+      "type": "ControlNetLoader",
+      "pos": [
+        420,
+        700
+      ],
+      "size": {
+        "0": 320,
+        "1": 60
+      },
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "CONTROL_NET",
+          "type": "CONTROL_NET",
+          "links": [
+            8
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ControlNetLoader"
+      },
+      "widgets_values": [
+        "controlnet-openpose-sdxl.safetensors"
+      ],
+      "title": "models/controlnet/ OpenPose"
+    },
+    {
+      "id": 8,
+      "type": "ControlNetApplyAdvanced",
+      "pos": [
+        780,
+        540
+      ],
+      "size": {
+        "0": 300,
+        "1": 180
+      },
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 5
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 6
+        },
+        {
+          "name": "control_net",
+          "type": "CONTROL_NET",
+          "link": 8
+        },
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 7
+        }
+      ],
+      "outputs": [
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "links": [
+            13
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "links": [
+            14
+          ],
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ControlNetApplyAdvanced"
+      },
+      "widgets_values": [
+        0.85,
+        0.0,
+        1.0
+      ],
+      "title": "OpenPose apply strength ~0.85"
+    },
+    {
+      "id": 9,
+      "type": "IPAdapterUnifiedLoaderFaceID",
+      "pos": [
+        780,
+        80
+      ],
+      "size": {
+        "0": 320,
+        "1": 120
+      },
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 10
+        }
+      ],
+      "outputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "links": [
+            15
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "ipadapter",
+          "type": "IPADAPTER",
+          "links": [
+            16
+          ],
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "IPAdapterUnifiedLoaderFaceID"
+      },
+      "widgets_values": [
+        "FACEID PLUS V2",
+        0.0
+      ],
+      "title": "models/ipadapter/ FaceID loader"
+    },
+    {
+      "id": 10,
+      "type": "IPAdapterFaceID",
+      "pos": [
+        780,
+        240
+      ],
+      "size": {
+        "0": 320,
+        "1": 180
+      },
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 15
+        },
+        {
+          "name": "ipadapter",
+          "type": "IPADAPTER",
+          "link": 16
+        },
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 3
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            17
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "IPAdapterFaceID"
+      },
+      "widgets_values": [
+        0.85,
+        0.0,
+        1.0,
+        "V only"
+      ],
+      "title": "FaceID weight 0.75\u20130.90 (identity)"
+    },
+    {
+      "id": 11,
+      "type": "EmptyLatentImage",
+      "pos": [
+        1140,
+        80
+      ],
+      "size": {
+        "0": 280,
+        "1": 110
+      },
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            18
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "EmptyLatentImage"
+      },
+      "widgets_values": [
+        832,
+        1216,
+        1
+      ],
+      "title": "Latent 832x1216 (~9:16)"
+    },
+    {
+      "id": 12,
+      "type": "KSampler",
+      "pos": [
+        1140,
+        240
+      ],
+      "size": {
+        "0": 300,
+        "1": 280
+      },
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 17
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 13
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 14
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 18
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            19
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "KSampler"
+      },
+      "widgets_values": [
+        42,
+        "fixed",
+        30,
+        6.0,
+        "dpmpp_2m",
+        "karras",
+        1.0
+      ],
+      "title": "KSampler 30 steps CFG 6"
+    },
+    {
+      "id": 13,
+      "type": "VAEDecode",
+      "pos": [
+        1500,
+        240
+      ],
+      "size": {
+        "0": 220,
+        "1": 50
+      },
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 19
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 11
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            20
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAEDecode"
+      }
+    },
+    {
+      "id": 14,
+      "type": "FaceDetailer",
+      "pos": [
+        1500,
+        340
+      ],
+      "size": {
+        "0": 300,
+        "1": 360
+      },
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 20
+        },
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 17
+        },
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 1
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 11
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 13
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 14
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": [
+            21
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "FaceDetailer"
+      },
+      "widgets_values": [],
+      "title": "Impact FaceDetailer (optional polish)"
+    },
+    {
+      "id": 15,
+      "type": "SaveImage",
+      "pos": [
+        1860,
+        340
+      ],
+      "size": {
+        "0": 280,
+        "1": 80
+      },
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 21
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SaveImage"
+      },
+      "widgets_values": [
+        "pke/face_lock_base"
+      ],
+      "title": "Save \u2192 pke/face_lock_base"
+    },
+    {
+      "id": 16,
+      "type": "Note",
+      "pos": [
+        1140,
+        560
+      ],
+      "size": {
+        "0": 420,
+        "1": 280
+      },
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "properties": {
+        "text": ""
+      },
+      "widgets_values": [
+        "PKE FACE-LOCK BASE\n\n1) Drop checkpoint into models/checkpoints/\n2) FaceID weights into models/ipadapter/ (+ InstantID if used)\n3) OpenPose ControlNet into models/controlnet/\n4) Put face ref as pke_face_ref_IMG_4441.jpg in Comfy input folder (copy from public/pke/IMG_4441.jpg)\n5) Pose ref optional \u2014 disable OpenPose branch if unused\n\nFaceID = WHO (identity). OpenPose = WHERE limbs sit (pose). Do not use OpenPose to fix face.\n\nStrength starts: FaceID 0.85, OpenPose 0.85. Change one variable per batch."
+      ],
+      "title": "PKE setup notes"
+    }
+  ],
+  "links": [
+    [
+      1,
+      1,
+      1,
+      4,
+      0,
+      "CLIP"
+    ],
+    [
+      2,
+      1,
+      1,
+      5,
+      0,
+      "CLIP"
+    ],
+    [
+      3,
+      2,
+      0,
+      10,
+      2,
+      "IMAGE"
+    ],
+    [
+      4,
+      3,
+      0,
+      6,
+      0,
+      "IMAGE"
+    ],
+    [
+      5,
+      4,
+      0,
+      8,
+      0,
+      "CONDITIONING"
+    ],
+    [
+      6,
+      5,
+      0,
+      8,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      7,
+      6,
+      0,
+      8,
+      3,
+      "IMAGE"
+    ],
+    [
+      8,
+      7,
+      0,
+      8,
+      2,
+      "CONTROL_NET"
+    ],
+    [
+      10,
+      1,
+      0,
+      9,
+      0,
+      "MODEL"
+    ],
+    [
+      11,
+      1,
+      2,
+      13,
+      1,
+      "VAE"
+    ],
+    [
+      12,
+      2,
+      0,
+      10,
+      2,
+      "IMAGE"
+    ],
+    [
+      13,
+      8,
+      0,
+      12,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      14,
+      8,
+      1,
+      12,
+      2,
+      "CONDITIONING"
+    ],
+    [
+      15,
+      9,
+      0,
+      10,
+      0,
+      "MODEL"
+    ],
+    [
+      16,
+      9,
+      1,
+      10,
+      1,
+      "IPADAPTER"
+    ],
+    [
+      17,
+      10,
+      0,
+      12,
+      0,
+      "MODEL"
+    ],
+    [
+      18,
+      11,
+      0,
+      12,
+      3,
+      "LATENT"
+    ],
+    [
+      19,
+      12,
+      0,
+      13,
+      0,
+      "LATENT"
+    ],
+    [
+      20,
+      13,
+      0,
+      14,
+      0,
+      "IMAGE"
+    ],
+    [
+      21,
+      14,
+      0,
+      15,
+      0,
+      "IMAGE"
+    ]
+  ],
+  "groups": [
+    {
+      "title": "PKE Face Lock Base",
+      "bounding": [
+        20,
+        20,
+        2160,
+        900
+      ],
+      "color": "#3f789e"
+    }
+  ],
+  "config": {},
+  "extra": {
+    "pke": {
+      "skill": "pke-face-lock",
+      "version": "1.0.0",
+      "gen_order": [
+        "pke-face-lock",
+        "optional-mask",
+        "title-seal"
+      ],
+      "model_folders": {
+        "checkpoints": "models/checkpoints/",
+        "controlnet": "models/controlnet/",
+        "ipadapter": "models/ipadapter/",
+        "loras": "models/loras/",
+        "vae": "models/vae/"
+      }
+    }
+  },
+  "version": 0.4
+}

@@ -15,13 +15,14 @@ else
   ROOT="$(pwd)"
 fi
 
-# Prefer available validate-skill.sh
+# Prefer available validate-skill.sh (repo-native first, then deploy layouts)
 if [ -z "${VALIDATE_SKILL:-}" ]; then
   for cand in \
+    "$ROOT/skill-creator/scripts/validate-skill.sh" \
+    "$ROOT/.grok/skills/skill-creator/scripts/validate-skill.sh" \
     /root/.grok/skills/skill-creator/scripts/validate-skill.sh \
     /root/.grok/server-skills/skill-creator/scripts/validate-skill.sh \
-    /home/workdir/.grok/skills/skill-creator/scripts/validate-skill.sh \
-    "$ROOT/.grok/skills/skill-creator/scripts/validate-skill.sh"
+    /home/workdir/.grok/skills/skill-creator/scripts/validate-skill.sh
   do
     if [ -f "$cand" ]; then VALIDATE_SKILL="$cand"; break; fi
   done
@@ -184,7 +185,42 @@ heal_app() {
     log "app=up"
     return
   fi
+  # Skills monorepo may have no Node app — skip hard-fail without package.json
+  if [ ! -f "$ROOT/package.json" ]; then
+    log "app=skip (no package.json — skills-only root)"
+    # Rewrite broken /workspace hardcode if present
+    if [ -f "$ROOT/startup.sh" ] && grep -q '/workspace/pke-ai-agent-skills' "$ROOT/startup.sh" 2>/dev/null; then
+      cat > "$ROOT/startup.sh" <<EOF
+#!/bin/sh
+set -eu
+cd "$ROOT"
+if curl -sf -o /dev/null --max-time 2 http://127.0.0.1:8080/; then
+  exit 0
+fi
+if [ -f package.json ]; then
+  npm run dev >>/tmp/app-startup.log 2>&1 &
+fi
+EOF
+      chmod +x "$ROOT/startup.sh"
+      log_action "restored:startup.sh-local-ROOT"
+    fi
+    return
+  fi
   if [ -f "$ROOT/startup.sh" ]; then
+    # Heal /workspace hardcode for Mac / non-container hosts
+    if grep -q '/workspace/pke-ai-agent-skills' "$ROOT/startup.sh" 2>/dev/null; then
+      cat > "$ROOT/startup.sh" <<EOF
+#!/bin/sh
+set -eu
+cd "$ROOT"
+if curl -sf -o /dev/null --max-time 2 http://127.0.0.1:8080/; then
+  exit 0
+fi
+npm run dev >>/tmp/app-startup.log 2>&1 &
+EOF
+      chmod +x "$ROOT/startup.sh"
+      log_action "restored:startup.sh-local-ROOT"
+    fi
     sh "$ROOT/startup.sh" || true
     sleep 2
     if curl -sf -o /dev/null --max-time 3 http://127.0.0.1:8080/; then
@@ -231,26 +267,78 @@ heal_junk() {
 
 heal_assets() {
   local miss=0 f
+
+  # Wire repo-root skills into .grok/skills (symlink) for Grok layout consumers.
+  # Replace incomplete stubs (e.g. brand-map-only skill-orchestrator) with real packs.
+  mkdir -p "$ROOT/.grok/skills"
+  for skill in pke-face-lock pke-official-black-mask skill-orchestrator skill-creator \
+               pke-synthetic-intellect autonomous-ecosystem skill-test-suite \
+               covicea-pke-podcast-studio; do
+    if [ ! -f "$ROOT/$skill/SKILL.md" ]; then
+      continue
+    fi
+    target="$ROOT/.grok/skills/$skill"
+    if [ -L "$target" ]; then
+      continue
+    fi
+    if [ -d "$target" ] && [ ! -f "$target/SKILL.md" ]; then
+      # Preserve any orphan files (e.g. brand map) into canonical pack first
+      if [ -f "$target/references/pke-brand-map.md" ] && [ ! -f "$ROOT/$skill/references/pke-brand-map.md" ]; then
+        mkdir -p "$ROOT/$skill/references"
+        cp "$target/references/pke-brand-map.md" "$ROOT/$skill/references/"
+        log_action "merged:brand-map-into-$skill"
+      fi
+      rm -rf "$target"
+      ln -sfn "../../$skill" "$target"
+      log_action "replaced-stub:.grok/skills/$skill"
+    elif [ ! -e "$target" ]; then
+      ln -sfn "../../$skill" "$target"
+      log_action "linked:.grok/skills/$skill"
+    fi
+  done
+
+  # Comfy face-lock workflow: repo comfyui/ → artifacts/comfyui/
+  if [ ! -f "$ROOT/artifacts/comfyui/pke-face-lock-base.json" ]; then
+    if [ -f "$ROOT/comfyui/pke-face-lock-base.json" ]; then
+      mkdir -p "$ROOT/artifacts/comfyui"
+      cp "$ROOT/comfyui/pke-face-lock-base.json" "$ROOT/artifacts/comfyui/"
+      [ -f "$ROOT/comfyui/README-pke-face-lock-base.md" ] && \
+        cp "$ROOT/comfyui/README-pke-face-lock-base.md" "$ROOT/artifacts/comfyui/" || true
+      log_action "restored:comfyui-from-repo"
+    elif [ -f "$ROOT/artifacts/github-export/comfyui/pke-face-lock-base.json" ]; then
+      mkdir -p "$ROOT/artifacts/comfyui"
+      cp "$ROOT/artifacts/github-export/comfyui/pke-face-lock-base.json" "$ROOT/artifacts/comfyui/"
+      log_action "restored:comfyui-from-staging"
+    fi
+  fi
+
+  # Binary face refs are optional for free-tier text learn (often not in git). Soft warn only.
+  local soft=0
   for f in \
     "$ROOT/public/pke/IMG_4440.jpg" \
     "$ROOT/public/pke/IMG_4441.jpg" \
-    "$ROOT/public/pke/IMG_4450.jpg" \
+    "$ROOT/public/pke/IMG_4450.jpg"
+  do
+    if [ ! -f "$f" ] && [ ! -L "$f" ]; then
+      log "WARN soft-miss face ref (optional free-tier): $f"
+      soft=$((soft + 1))
+    fi
+  done
+  if [ "$soft" -gt 0 ]; then
+    log_action "soft-miss-face-refs:$soft"
+  fi
+
+  for f in \
     "$ROOT/artifacts/comfyui/pke-face-lock-base.json" \
     "$ROOT/.grok/skills/pke-face-lock/SKILL.md" \
     "$ROOT/.grok/skills/pke-official-black-mask/SKILL.md" \
     "$ROOT/.grok/skills/skill-orchestrator/SKILL.md"
   do
-    if [ ! -f "$f" ]; then
+    if [ ! -f "$f" ] && [ ! -L "$f" ]; then
       log "MISS $f"
       miss=$((miss + 1))
     fi
   done
-  if [ ! -f "$ROOT/artifacts/comfyui/pke-face-lock-base.json" ] && [ -f "$ROOT/artifacts/github-export/comfyui/pke-face-lock-base.json" ]; then
-    mkdir -p "$ROOT/artifacts/comfyui"
-    cp "$ROOT/artifacts/github-export/comfyui/pke-face-lock-base.json" "$ROOT/artifacts/comfyui/"
-    log_action "restored:comfyui-from-staging"
-    if [ "$miss" -gt 0 ]; then miss=$((miss - 1)); fi
-  fi
   if [ "$miss" -gt 0 ]; then
     FAILS_AFTER=$((FAILS_AFTER + miss))
     log_action "asset-misses:$miss"
@@ -348,22 +436,33 @@ heal_github() {
   rm -rf "$tmp"
 }
 
-# run
-heal_skills
-heal_brand_map
+# run — wire assets/links first so skill heal sees real packs
 heal_app
 heal_junk
 heal_assets
+heal_brand_map
+heal_skills
 heal_github
 
 PASS=0
 TOTAL=0
 if [ -n "$VALIDATE" ] && [ -f "$VALIDATE" ]; then
+  # Prefer .grok/skills; fall back to repo-root skill packs with SKILL.md
+  local_skill_dirs=""
   for d in "$ROOT"/.grok/skills/*/; do
     [ -d "$d" ] || continue
     [ -f "$d/SKILL.md" ] || continue
+    local_skill_dirs="$local_skill_dirs $d"
+  done
+  if [ -z "$(echo $local_skill_dirs)" ]; then
+    for d in "$ROOT"/*/; do
+      [ -f "$d/SKILL.md" ] || continue
+      local_skill_dirs="$local_skill_dirs $d"
+    done
+  fi
+  for d in $local_skill_dirs; do
     TOTAL=$((TOTAL + 1))
-    if "$VALIDATE" "$d" >/dev/null 2>&1; then PASS=$((PASS + 1)); fi
+    if bash "$VALIDATE" "$d" >/dev/null 2>&1; then PASS=$((PASS + 1)); fi
   done
 else
   log "WARN: final validate skipped (no validate-skill.sh)"

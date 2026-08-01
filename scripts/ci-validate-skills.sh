@@ -103,8 +103,9 @@ if [ "$SKILL_COUNT" -eq 0 ]; then
   echo "WARN no SKILL.md found (non-fatal for empty trees)"
 elif command -v xargs >/dev/null 2>&1 && [ "$JOBS" -gt 1 ]; then
   # Parallel path — results live in STATUS_DIR (authoritative)
-  # GNU xargs -a (ubuntu-latest). Exit status ignored; we count files below.
-  xargs -P "$JOBS" -a "$LIST_FILE" -I {} bash -c 'run_one "$@"' _ {} || true
+  # Portable: BSD xargs (macOS) has no -a; feed LIST_FILE via stdin.
+  # GNU xargs also accepts stdin. Exit status ignored; we count files below.
+  xargs -P "$JOBS" -I {} bash -c 'run_one "$@"' _ {} < "$LIST_FILE" || true
 else
   # Sequential path (JOBS=1 or no xargs)
   while IFS= read -r d; do

@@ -2,7 +2,8 @@
 # PKE CI skill validator — repo-native, GitHub Actions safe, parallel-capable
 # Scans every directory with SKILL.md under the repo root (depth 1–2).
 # Uses skill-creator/scripts/validate-skill.sh when present; falls back to structural checks.
-# Parallel via CI_VALIDATE_JOBS (default 4) for wall-clock speed.
+# Parallel via CI_VALIDATE_JOBS (default 4). Per-skill status files make aggregation
+# authoritative — no sequential re-run.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -29,13 +30,20 @@ echo ""
 
 # Collect skill dirs into a temp file (portable; no process substitution)
 LIST_FILE=$(mktemp)
+STATUS_DIR=$(mktemp -d)
+trap 'rm -f "$LIST_FILE"; rm -rf "$STATUS_DIR"' EXIT
+
 find "$ROOT" -mindepth 2 -maxdepth 3 -type f -name 'SKILL.md' \
   ! -path '*/node_modules/*' \
   ! -path '*/.git/*' \
   ! -path '*/_archived/*' \
   2>/dev/null | sed 's|/SKILL.md$||' | sort -u > "$LIST_FILE" || true
 
-# Parallel validate function (xargs safe)
+SKILL_COUNT=$(wc -l < "$LIST_FILE" | tr -d ' ')
+echo "SKILLS_FOUND=$SKILL_COUNT"
+echo ""
+
+# Human-facing validate (prints OK/FAIL lines; may interleave under -P)
 validate_one() {
   local d="$1"
   local name rel out ok=1
@@ -71,45 +79,57 @@ validate_one() {
     fi
   fi
 }
-export -f validate_one
-export ROOT VALIDATE
 
-# Parallel run with result capture
-RESULTS_FILE=$(mktemp)
-if command -v xargs >/dev/null 2>&1 && [ "$JOBS" -gt 1 ]; then
-  # Parallel path
-  cat "$LIST_FILE" | xargs -P "$JOBS" -I {} bash -c 'validate_one "$@" && echo PASS || echo FAIL' _ {} > "$RESULTS_FILE" 2>&1 || true
-  # Re-run sequential for clean PASS/FAIL counts + names (xargs output interleaves)
-  # For accuracy we still count properly below
-fi
-
-# Always do sequential for accurate aggregation (parallel is for wall speed when many skills;
-# with ~20 skills sequential is already <2s, but we keep the parallel path ready)
-while IFS= read -r d; do
-  [ -n "$d" ] || continue
+# Atomic per-skill status file (no interleaving / no flock needed)
+# Format: PASS|name|rel  or  FAIL|name|rel
+run_one() {
+  local d="$1"
+  local name rel key
+  name=$(basename "$d")
+  rel=${d#"$ROOT/"}
+  # sha256 of rel → unique key even when basename collides (skills-live vs top-level)
+  key=$(printf '%s' "$rel" | sha256sum | awk '{print $1}')
   if validate_one "$d"; then
-    PASS=$((PASS+1))
+    printf 'PASS|%s|%s\n' "$name" "$rel" > "$STATUS_DIR/$key"
   else
-    FAIL=$((FAIL+1))
-    FAILED_NAMES="$FAILED_NAMES $(basename "$d")"
+    printf 'FAIL|%s|%s\n' "$name" "$rel" > "$STATUS_DIR/$key"
   fi
-done < "$LIST_FILE"
-rm -f "$LIST_FILE" "$RESULTS_FILE"
+}
 
-# Podcast studio local extras
-if [ -x "$ROOT/covicea-pke-podcast-studio/scripts/validate-local.sh" ] || [ -f "$ROOT/covicea-pke-podcast-studio/scripts/validate-local.sh" ]; then
-  echo ""
-  echo "=== Podcast studio local validate ==="
-  if bash "$ROOT/covicea-pke-podcast-studio/scripts/validate-local.sh"; then
-    echo "OK   covicea-pke-podcast-studio/validate-local"
-  else
-    echo "FAIL covicea-pke-podcast-studio/validate-local"
-    FAIL=$((FAIL+1))
-    FAILED_NAMES="$FAILED_NAMES covicea-pke-podcast-studio/validate-local"
-  fi
+export -f validate_one run_one
+export ROOT VALIDATE STATUS_DIR
+
+if [ "$SKILL_COUNT" -eq 0 ]; then
+  echo "WARN no SKILL.md found (non-fatal for empty trees)"
+elif command -v xargs >/dev/null 2>&1 && [ "$JOBS" -gt 1 ]; then
+  # Parallel path — results live in STATUS_DIR (authoritative)
+  # GNU xargs -a (ubuntu-latest). Exit status ignored; we count files below.
+  xargs -P "$JOBS" -a "$LIST_FILE" -I {} bash -c 'run_one "$@"' _ {} || true
+else
+  # Sequential path (JOBS=1 or no xargs)
+  while IFS= read -r d; do
+    [ -n "$d" ] || continue
+    run_one "$d" || true
+  done < "$LIST_FILE"
 fi
 
-# Mind state presence (permanent activation stamp)
+# Aggregate from status files only (single source of truth)
+for f in "$STATUS_DIR"/*; do
+  [ -f "$f" ] || continue
+  line=$(cat "$f")
+  status=${line%%|*}
+  rest=${line#*|}
+  name=${rest%%|*}
+  if [ "$status" = "PASS" ]; then
+    PASS=$((PASS + 1))
+  else
+    FAIL=$((FAIL + 1))
+    FAILED_NAMES="$FAILED_NAMES $name"
+  fi
+done
+
+# Permanent activation stamps (cheap presence checks)
+# Podcast local gate lives in the workflow step only (no double-run).
 echo ""
 echo "=== Permanent activation stamps ==="
 if [ -f "$ROOT/mind/state.json" ]; then

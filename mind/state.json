@@ -60,6 +60,8 @@
     "credit-aware routing: offline/local first"
   ],
   "last_observations": [
+    "ecosystem_inject=20260801T144508Z",
+    "core_validate=16/16",
     "deploy=FINALIZE_TERMINAL_MAC",
     "super_mind=LIVE_L5",
     "skills_pass=84",
@@ -95,5 +97,13 @@
     "ci_speed": 10,
     "super_mind": 10,
     "overall": 9.83
+  },
+  "ecosystem_inject": {
+    "at": "20260801T144508Z",
+    "status": "COMPLETE",
+    "skills_root": "/Users/a1707/.grok/skills",
+    "core_pass": 16,
+    "core_fail": 0,
+    "method": "symlink-user-grok"
   }
 }

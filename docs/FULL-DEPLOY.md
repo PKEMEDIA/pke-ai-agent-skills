@@ -65,3 +65,13 @@ Orchestrator · HeadWriter · ResearchJournalist · FactChecker · CoHost · Pan
 - `docs/CI-SPEED.md` — pipeline speed
 - `docs/GITHUB-AUTOMATION.md` — Actions map
 - `docs/PODCAST-STUDIO-DEPLOY.md` — studio deploy
+
+## Ecosystem inject (Mac / Grok Build)
+
+```bash
+export PKE_ROOT=~/PKE/pke-ai-agent-skills
+bash "$PKE_ROOT/scripts/inject-ecosystem.sh"
+# or: bash deploy/setup-grok-cli-bridge.sh
+```
+
+Wires Super Mind + permanent packs into `~/.grok/skills`, rules, env, config.toml paths, and `~/AGENTS.md`.

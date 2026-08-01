@@ -71,6 +71,18 @@
     "pke-official-black-mask": {
       "permanent": true,
       "status": "LOCKED"
+    },
+    "autonomous-ecosystem": {
+      "permanent": true,
+      "status": "LIVE"
+    },
+    "skill-creator": {
+      "permanent": true,
+      "status": "LIVE"
+    },
+    "skill-test-suite": {
+      "permanent": true,
+      "status": "LIVE"
     }
   },
   "github_automation": {
@@ -140,5 +152,19 @@
     "status": "COMPLETE",
     "method": "terminal-mac",
     "validate": "PASS=84 FAIL=0"
+  },
+  "ecosystem_inject": {
+    "at": "20260801T144717Z",
+    "status": "COMPLETE",
+    "method": "scripts/inject-ecosystem.sh",
+    "surfaces": [
+      "~/.grok/skills (core symlinks)",
+      "~/.grok/config.toml [skills].paths",
+      "~/.grok/rules/pke-super-mind.md",
+      "~/.grok/env.sh PKE_ROOT",
+      "~/AGENTS.md",
+      "full pack recursive discovery"
+    ],
+    "core_skills": 16
   }
 }

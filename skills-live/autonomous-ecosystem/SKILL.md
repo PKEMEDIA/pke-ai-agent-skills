@@ -11,7 +11,7 @@ Encode patterns required to design and operate fully autonomous skill and agent 
 ## Core Principles
 - Maximize autonomy: Prefer scripts, bash, parallel tool calls, and auto-remediation over proposals.
 - Progressive disclosure: Keep every SKILL.md lean (under 350–400 lines). Offload detail to references/.
-- Permanent local changes: Prefer `/root/.grok/server-skills/` (App Builder / server) and `/home/workdir/.grok/skills/` (chat persistence) so improvements inherit across chat, iOS, and web.
+- Permanent local changes: Prefer `$PKE_ROOT` package dirs, `skills-live/`, and `~/.grok/skills/` so improvements inherit across chat, iOS, and web. Never hardcode `/root/.grok/server-skills` or `/home/workdir/.grok/skills` as live trees.
 - Honest platform wall: Never claim foundation model weights or SuperGrok quotas can be changed. Route growth into playbooks, adapters, DPO scaffolds, ownership maps, and synthetic learning loops.
 - Safety with power: Snapshot before structural moves. Protect locked identity phenotype and legal operative text. Log every change.
 - Continuous loop: validate → diagnose → fix → re-test → report until clean or only platform walls remain.

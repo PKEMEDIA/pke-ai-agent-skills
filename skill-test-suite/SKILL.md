@@ -1,6 +1,11 @@
 ---
 name: skill-test-suite
 description: Activate for full skill suite validation end-to-end functionality testing or aggregator meta-skill tasks including testing all bundled and custom skills running validation harnesses demonstrating live skill usage overriding bundled skills permanently adding or updating skills. Trigger on test all skills run full suite validation validate every skill skill test harness end-to-end skill tests or meta skill for skills testing and integration.
+metadata:
+  short-description: Validate, e2e test, and integrate the PKE skill fleet
+  argument-hint: "[validate | e2e | inventory]"
+  surfaces: grok-bot, grok-chat, grok-ios, grok-web, grok-build, grok-cli
+  slash: /skill-test-suite
 ---
 
 # Skill Test Suite
@@ -19,11 +24,15 @@ Activate on any query containing: test all skills, run full suite validation, va
 
 When triggered for testing or validation:
 
-- Locate all skill directories:
-  - Bundled/native: /root/.grok/server-skills/ (all subdirs except the .bundled marker file)
-  - Custom/persistent: /home/workdir/.grok/skills/ (all subdirs)
+- Locate all skill directories, in order:
+  - `$PKE_ROOT` package dirs and `skills-live/` (repo source of truth)
+  - `~/.grok/skills/` (CLI persistence)
+  - `/workspace/.grok/skills/` (Build)
+  - Grok Bot library
+  Never treat `/root/.grok/server-skills` or `/home/workdir/.grok/skills` as live trees.
+- Resolve CREATOR as `$PKE_ROOT/skill-creator` or the sibling `skill-creator` package.
 - For every directory execute exactly:
-  bash /root/.grok/server-skills/skill-creator/scripts/validate-skill.sh "<full-path-to-skill-dir>"
+  bash "$CREATOR/scripts/validate-skill.sh" "<full-path-to-skill-dir>"
 - Capture and tabulate results for each skill: name, line count, status (OK or FAIL), and any error messages.
 - If all pass: Report "All X skills validated successfully. 100% pass rate. Fully integrated into Grok native."
 - If any fail:
@@ -93,8 +102,8 @@ On request to demonstrate a particular skill (e.g. "demonstrate live usage of co
 
 To customize any bundled (native) skill permanently so changes survive sessions:
 
-- Check whether /home/workdir/.grok/skills/<exact-skill-name>/ already exists.
-- If not: Copy the full bundled directory with bash cp -r /root/.grok/server-skills/<name> /home/workdir/.grok/skills/
+- Check whether `~/.grok/skills/<exact-skill-name>/` already exists.
+- If not: symlink `~/.grok/skills/<name>` to `$PKE_ROOT/<name>` (or copy from `skills-live/<name>`). Never `cp` from `/root/.grok/server-skills`.
 - Edit the user-dir version: SKILL.md for instructions, or scripts/ references/ assets/ as needed. Use edit_file or write_file for precision.
 - Immediately run validate-skill.sh on the user copy to confirm compliance.
 - The user-dir version now takes precedence on every load and persists across conversations.
@@ -105,7 +114,7 @@ To customize any bundled (native) skill permanently so changes survive sessions:
 
 **Adding a new skill:**
 - Choose a kebab-case name (2-64 chars, lowercase alphanum + single hyphens, starts/ends with alphanum).
-- Run: bash /root/.grok/server-skills/skill-creator/scripts/init-skill.sh <new-name> /home/workdir/.grok/skills [--resources scripts,references,assets]
+- Run: bash "$CREATOR/scripts/init-skill.sh" <new-name> ~/.grok/skills [--resources scripts,references,assets]
 - Edit the generated SKILL.md: Replace TODOs with compliant frontmatter (name exactly matches dir; description is plain scalar, no colon-space, no <>, no TODO, <=1024 chars) and imperative body instructions.
 - Add any needed scripts/ (executable helpers), references/ (long docs), or assets/ (templates).
 - Run validate-skill.sh on the new directory.
@@ -113,7 +122,7 @@ To customize any bundled (native) skill permanently so changes survive sessions:
 - The new skill is now permanently available and discoverable.
 
 **Updating an existing skill (bundled or custom):**
-- For bundled: First copy to /home/workdir/.grok/skills/ for permanence (see section 4).
+- For bundled: First symlink or copy into `~/.grok/skills/` for permanence (see section 4).
 - Use read_file to inspect current content.
 - Make targeted edits with edit_file (preferred for precision) or write_file for larger rewrites.
 - Focus only on non-obvious procedural or domain-specific knowledge; avoid duplicating what the base model already knows.
@@ -136,8 +145,8 @@ After every validation or E2E run:
 
 ## Supporting Resources
 
-- Official validation: /root/.grok/server-skills/skill-creator/scripts/validate-skill.sh
-- Skill initialization: /root/.grok/server-skills/skill-creator/scripts/init-skill.sh
+- Official validation: `$CREATOR/scripts/validate-skill.sh`
+- Skill initialization: `$CREATOR/scripts/init-skill.sh`
 - This meta-skill's scripts/ directory is available for custom automation scripts (e.g. a future run-full-tests.sh wrapper).
 - Individual skill references/ and assets/ are loaded on demand when the specific skill activates.
 - All generated test artifacts should be placed in /workspace/artifacts/ for easy access and review.

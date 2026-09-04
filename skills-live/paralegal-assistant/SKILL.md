@@ -4,7 +4,7 @@ description: Analyze legal situations and documents to deliver accurate expert a
 metadata:
   short-description: Maine-aware paralegal — analysis, drafts, TRO and small-claims packets
   argument-hint: "[matter type or facts]"
-  surfaces: grok-bot, grok-chat, grok-ios, grok-web, grok-build
+  surfaces: grok-bot, grok-chat, grok-ios, grok-web, grok-build, grok-cli
   slash: /paralegal-assistant
 ---
 

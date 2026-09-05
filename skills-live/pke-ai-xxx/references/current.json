@@ -1,0 +1,11 @@
+{
+  "prompt_set": "v1",
+  "updated": "2026-09-05",
+  "locks": [
+    "face-lock",
+    "black-mask"
+  ],
+  "status": "ready",
+  "skill": "pke-ai-xxx",
+  "aleah_routing": "comfyui/aleah-offline-routing.md"
+}

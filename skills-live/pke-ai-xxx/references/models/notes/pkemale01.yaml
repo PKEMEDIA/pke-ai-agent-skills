@@ -1,0 +1,15 @@
+id: pkemale01
+trigger: pkemale01
+age_band: "21+"
+status: template
+body: athletic hung Black male
+face: open phenotype — never Face Lock
+lora_path: models/loras/pkemale01.safetensors
+strength_min: 0.6
+strength_max: 0.85
+base_ckpt: null
+sample_seeds: []
+limits:
+  - no Face Lock refs
+  - no Black Mask refs
+  - no minors language

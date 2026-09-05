@@ -4,7 +4,7 @@ description: Use for Pretty Kitty Entertainment AI-XXX stills video teasers male
 metadata:
   short-description: PKE AI-XXX — ComfyUI, male LoRAs, capability matrix
   argument-hint: "[lane | double-oral | male-lora | checklist]"
-  surfaces: grok-bot, grok-chat, grok-ios, grok-web, grok-build
+  surfaces: grok-bot, grok-chat, grok-ios, grok-web, grok-build, grok-cli
   slash: /pke-ai-xxx
 ---
 # PKE AI-XXX

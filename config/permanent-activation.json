@@ -83,6 +83,27 @@
     "skill-test-suite": {
       "permanent": true,
       "status": "LIVE"
+    },
+    "pke-ai-xxx": {
+      "permanent": true,
+      "status": "LIVE",
+      "path": "skills-live/pke-ai-xxx",
+      "slash": "/pke-ai-xxx",
+      "mode": "local-first-ai-xxx",
+      "locks": [
+        "face-lock",
+        "black-mask"
+      ],
+      "imagine_on_heal_learn": 0,
+      "references": [
+        "skills-live/pke-ai-xxx/references/README.md",
+        "skills-live/pke-ai-xxx/references/comfyui/workflows.md",
+        "skills-live/pke-ai-xxx/references/prompts/male-models.md",
+        "skills-live/pke-ai-xxx/references/prompts/double-oral-mmf.md",
+        "skills-live/pke-ai-xxx/references/prompts/capability-matrix.md"
+      ],
+      "activated_at": "2026-09-05T22:54:47Z",
+      "pr": "https://github.com/PKEMEDIA/pke-ai-agent-skills/pull/5"
     }
   },
   "github_automation": {
@@ -106,7 +127,7 @@
       "skill-orchestrator/scripts/bulk-validate.sh"
     ]
   },
-  "notes": "Permanent activation for Covice\u00e1 / PKE Podcast Studio across all Grok levels. GitHub Actions re-validates on every main push. Finalized 2026-08-01 with CI speed optimization.",
+  "notes": "Permanent activation for Covice\u00e1 / PKE Podcast Studio across all Grok levels. GitHub Actions re-validates on every main push. Finalized 2026-08-01 with CI speed optimization. pke-ai-xxx permanently activated 2026-09-05T22:54:47Z (local ComfyUI/male LoRA; Face Lock+Black Mask remain LOCKED).",
   "full_deploy": {
     "at": "2026-08-01T14:40:04Z",
     "status": "COMPLETE",

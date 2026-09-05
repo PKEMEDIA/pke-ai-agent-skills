@@ -1,5 +1,5 @@
 {
-  "version": "1.2.0",
+  "version": "1.2.1",
   "owner": "PKEMEDIA",
   "brand": "Pretty Kitty Entertainment / Pretty Kitty Media",
   "enabled": true,
@@ -83,6 +83,22 @@
     "skill-test-suite": {
       "permanent": true,
       "status": "LIVE"
+    },
+    "pke-ai-xxx": {
+      "permanent": true,
+      "status": "LIVE",
+      "slash": "/pke-ai-xxx",
+      "pack": "skills-live/pke-ai-xxx",
+      "imagine_calls": 0,
+      "heal_imagine": false,
+      "locks": {
+        "face_lock": "LOCKED",
+        "black_mask": "LOCKED",
+        "covicea_face_lock": "LOCKED"
+      },
+      "activated_at": "2026-09-05T22:54:51Z",
+      "merge": "bd464d0d7ebc80f6d36ae7592c921bdfb7d16dc7",
+      "pr": 5
     }
   },
   "github_automation": {

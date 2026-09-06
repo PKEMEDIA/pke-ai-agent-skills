@@ -1,0 +1,19 @@
+{
+  "title": "PKE AI-XXX stills grid",
+  "pack": "ai-xxx",
+  "status": "template-api",
+  "note": "Replace PLACEHOLDER_*.safetensors with local filenames. Never use Face Lock / Black Mask assets.",
+  "locks": [
+    "face-lock",
+    "black-mask"
+  ],
+  "defaults": {
+    "width": 832,
+    "height": 1216,
+    "steps": 28,
+    "cfg": 5.5,
+    "sampler_name": "euler_ancestral",
+    "scheduler": "normal",
+    "batch_size": 2
+  }
+}

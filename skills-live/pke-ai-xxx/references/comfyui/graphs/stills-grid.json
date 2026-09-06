@@ -1,0 +1,118 @@
+{
+  "1": {
+    "class_type": "CheckpointLoaderSimple",
+    "inputs": {
+      "ckpt_name": "PLACEHOLDER_NSFW_SDXL.safetensors"
+    }
+  },
+  "2": {
+    "class_type": "LoraLoader",
+    "inputs": {
+      "model": [
+        "1",
+        0
+      ],
+      "clip": [
+        "1",
+        1
+      ],
+      "lora_name": "PLACEHOLDER_pkemale01.safetensors",
+      "strength_model": 0.8,
+      "strength_clip": 0.8
+    }
+  },
+  "3": {
+    "class_type": "LoraLoader",
+    "inputs": {
+      "model": [
+        "2",
+        0
+      ],
+      "clip": [
+        "2",
+        1
+      ],
+      "lora_name": "PLACEHOLDER_detail_or_style.safetensors",
+      "strength_model": 0.6,
+      "strength_clip": 0.5
+    }
+  },
+  "4": {
+    "class_type": "CLIPTextEncode",
+    "inputs": {
+      "text": "ANGLE A shared worship double oral MMF, one adult woman reclining, two adult men faces side-by-side between her thighs, both tongues licking the same clit together, soft FemDom energy, both men looking up into the camera with needy eye contact, black lace panties pulled aside, glistening pussy, POV low between thighs, pkemale01, handsome adult Black man distinct second male, masterpiece, best quality, ultra-detailed, explicit NSFW, anatomically correct, correct hands, five fingers",
+      "clip": [
+        "3",
+        1
+      ]
+    }
+  },
+  "5": {
+    "class_type": "CLIPTextEncode",
+    "inputs": {
+      "text": "worst quality, low quality, blurry, bad anatomy, bad hands, extra fingers, missing fingers, deformed, child, teen, underage, school, Face Lock, Black Mask, one man only, single tongue only, looking away from camera, censor, watermark, text",
+      "clip": [
+        "3",
+        1
+      ]
+    }
+  },
+  "6": {
+    "class_type": "EmptyLatentImage",
+    "inputs": {
+      "width": 832,
+      "height": 1216,
+      "batch_size": 2
+    }
+  },
+  "7": {
+    "class_type": "KSampler",
+    "inputs": {
+      "seed": 32045001,
+      "steps": 28,
+      "cfg": 5.5,
+      "sampler_name": "euler_ancestral",
+      "scheduler": "normal",
+      "denoise": 1.0,
+      "model": [
+        "3",
+        0
+      ],
+      "positive": [
+        "4",
+        0
+      ],
+      "negative": [
+        "5",
+        0
+      ],
+      "latent_image": [
+        "6",
+        0
+      ]
+    }
+  },
+  "8": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": [
+        "7",
+        0
+      ],
+      "vae": [
+        "1",
+        2
+      ]
+    }
+  },
+  "9": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "filename_prefix": "pke_ai_xxx_stills",
+      "images": [
+        "8",
+        0
+      ]
+    }
+  }
+}

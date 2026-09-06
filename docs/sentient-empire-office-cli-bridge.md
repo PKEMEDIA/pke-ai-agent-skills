@@ -96,3 +96,7 @@ Cooldown-limit (e.g. 6h) to avoid quota burn.
 - Sandbox/allow rules on CI review path
 - Audit Make webhooks in Automation Log DB
 - Prefer Keychain / launchd EnvironmentVariables over plaintext env files
+
+## Grok Bot desk
+
+For daily+business Sentient Concierge routing on Grok Bot, see [sentient-assistant-grok-bot.md](./sentient-assistant-grok-bot.md) (`/sentient-assistant`).

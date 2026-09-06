@@ -104,6 +104,31 @@
       ],
       "activated_at": "2026-09-05T22:54:47Z",
       "pr": "https://github.com/PKEMEDIA/pke-ai-agent-skills/pull/5"
+    },
+    "sentient-assistant": {
+      "permanent": true,
+      "status": "LIVE",
+      "path": "skills-live/sentient-assistant",
+      "slash": "/sentient-assistant",
+      "mode": "daily-business-sentient",
+      "locks": [
+        "face-lock",
+        "black-mask"
+      ],
+      "imagine_on_heal_learn": 0,
+      "references": [
+        "docs/sentient-assistant-grok-bot.md",
+        "docs/sentient-empire-office-cli-bridge.md",
+        "skills-live/grok-sentient-editor/SKILL.md"
+      ],
+      "activated_at": "2026-09-06T14:42:31Z"
+    },
+    "grok-sentient-editor": {
+      "permanent": true,
+      "status": "LIVE",
+      "path": "skills-live/grok-sentient-editor",
+      "slash": "/grok-sentient-editor",
+      "activated_at": "2026-09-06T14:42:31Z"
     }
   },
   "github_automation": {
@@ -127,7 +152,7 @@
       "skill-orchestrator/scripts/bulk-validate.sh"
     ]
   },
-  "notes": "Permanent activation for Covice\u00e1 / PKE Podcast Studio across all Grok levels. GitHub Actions re-validates on every main push. Finalized 2026-08-01 with CI speed optimization. pke-ai-xxx permanently activated 2026-09-05T22:54:47Z (local ComfyUI/male LoRA; Face Lock+Black Mask remain LOCKED).",
+  "notes": "Permanent activation for Covice\u00e1 / PKE Podcast Studio across all Grok levels. GitHub Actions re-validates on every main push. Finalized 2026-08-01 with CI speed optimization. pke-ai-xxx permanently activated 2026-09-05T22:54:47Z (local ComfyUI/male LoRA; Face Lock+Black Mask remain LOCKED). sentient-assistant + grok-sentient-editor permanently activated 2026-09-06T14:42:31Z (Face Lock+Black Mask remain LOCKED).",
   "full_deploy": {
     "at": "2026-08-01T14:40:04Z",
     "status": "COMPLETE",

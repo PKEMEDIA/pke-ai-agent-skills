@@ -1,0 +1,18 @@
+{
+  "title": "PKE AI-XXX AnimateDiff teaser",
+  "pack": "ai-xxx",
+  "status": "template-api",
+  "note": "Requires ComfyUI-AnimateDiff-Evolved + Video Helper Suite. Replace PLACEHOLDER motion module + ckpt. Ping-pong/edit to 15\u201345s externally if needed.",
+  "locks": [
+    "face-lock",
+    "black-mask"
+  ],
+  "defaults": {
+    "width": 768,
+    "height": 768,
+    "steps": 22,
+    "cfg": 5.0,
+    "context_length": 16,
+    "frame_rate": 8
+  }
+}

@@ -1,0 +1,131 @@
+{
+  "1": {
+    "class_type": "CheckpointLoaderSimple",
+    "inputs": {
+      "ckpt_name": "PLACEHOLDER_NSFW_SDXL.safetensors"
+    }
+  },
+  "2": {
+    "class_type": "ADE_AnimateDiffLoaderGen1",
+    "inputs": {
+      "model_name": "PLACEHOLDER_mm_sdxl_v15_v2.safetensors",
+      "beta_schedule": "autoselect",
+      "model": [
+        "1",
+        0
+      ]
+    }
+  },
+  "3": {
+    "class_type": "ADE_AnimateDiffUniformContextOptions",
+    "inputs": {
+      "context_length": 16,
+      "context_stride": 1,
+      "context_overlap": 4,
+      "closed_loop": false,
+      "fuse_method": "flat",
+      "use_on_equal_length": false,
+      "start_percent": 0.0,
+      "end_percent": 1.0
+    }
+  },
+  "4": {
+    "class_type": "LoraLoader",
+    "inputs": {
+      "model": [
+        "2",
+        0
+      ],
+      "clip": [
+        "1",
+        1
+      ],
+      "lora_name": "PLACEHOLDER_pkemale01.safetensors",
+      "strength_model": 0.75,
+      "strength_clip": 0.75
+    }
+  },
+  "5": {
+    "class_type": "CLIPTextEncode",
+    "inputs": {
+      "text": "double oral MMF, two adult men licking same clit, eye contact looking up at camera, subtle motion, licking motion, breathing, eye blink, slow, lace panties aside, pkemale01, explicit NSFW, masterpiece, best quality",
+      "clip": [
+        "4",
+        1
+      ]
+    }
+  },
+  "6": {
+    "class_type": "CLIPTextEncode",
+    "inputs": {
+      "text": "jitter, morphing face, extra heads, warp, worst quality, bad anatomy, child, teen, underage, Face Lock, Black Mask, censor, watermark",
+      "clip": [
+        "4",
+        1
+      ]
+    }
+  },
+  "7": {
+    "class_type": "EmptyLatentImage",
+    "inputs": {
+      "width": 768,
+      "height": 768,
+      "batch_size": 16
+    }
+  },
+  "8": {
+    "class_type": "KSampler",
+    "inputs": {
+      "seed": 32045002,
+      "steps": 22,
+      "cfg": 5.0,
+      "sampler_name": "euler_ancestral",
+      "scheduler": "normal",
+      "denoise": 1.0,
+      "model": [
+        "4",
+        0
+      ],
+      "positive": [
+        "5",
+        0
+      ],
+      "negative": [
+        "6",
+        0
+      ],
+      "latent_image": [
+        "7",
+        0
+      ]
+    }
+  },
+  "9": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": [
+        "8",
+        0
+      ],
+      "vae": [
+        "1",
+        2
+      ]
+    }
+  },
+  "10": {
+    "class_type": "VHS_VideoCombine",
+    "inputs": {
+      "images": [
+        "9",
+        0
+      ],
+      "frame_rate": 8,
+      "loop_count": 0,
+      "filename_prefix": "pke_ai_xxx_ad",
+      "format": "video/h264-mp4",
+      "pingpong": true,
+      "save_output": true
+    }
+  }
+}

@@ -71,9 +71,11 @@ Run before generating and again before upload. Lane example: Double Oral MMF; sa
 
 ## Abort conditions (stop and regenerate)
 
-- Face resembles Face Lock / Black Mask  
+- Face resembles Face Lock / Black Mask → **FREEZE deploy** for this pack id; trash seed; do not upload; log anti-pattern in `runs/YYYY-MM.md`; notify Orchestrator / Aleah before next gen  
 - Underage-looking output  
 - Unreadable product on review lane  
 - Caption angle ≠ visual angle (e.g. FemDom caption on soft worship cut)  
+
+**Ownership:** operator runs this checklist; Face Lock / Black Mask abort → Orchestrator health gate + Aleah routing (`comfyui/aleah-offline-routing.md`). Automated similarity script = later; checklist freeze is live now.
 
 **Sign-off:** date ______  operator ______  pack id ______

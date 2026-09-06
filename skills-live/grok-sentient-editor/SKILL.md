@@ -84,6 +84,9 @@ Use this skill when the user says things like:
 
 ## Important Notes
 
+- Face Lock and Official Black Mask stay **LOCKED**. Never unlock or train company face packs.
+
+
 - Never make content sound overly academic or corporate unless specifically requested.
 - Default to minimal AAVE. Only increase it when the user explicitly asks.
 - Always prioritize clarity, flow, and emotional impact over showing off technique.

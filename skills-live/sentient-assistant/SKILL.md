@@ -3,7 +3,8 @@ name: sentient-assistant
 description: Use for Coviceá daily life and Pretty Kitty Media business when activating the Sentient Assistant, Sentient Concierge, Empire OS, or full-stack personal+studio ops — email and calendar triage, brand legal talent podcast routing, Aleah heal/learn, ComfyUI/AI-XXX, Voice Commander Make webhooks. Face Lock and Black Mask stay locked.
 metadata:
   short-description: Sentient daily+business assistant for Grok Bot / PKE
-  surfaces: grok-bot, grok-chat, grok-ios, grok-web, grok-build
+  argument-hint: "[daily | business | heal | route]"
+  surfaces: grok-bot, grok-chat, grok-ios, grok-web, grok-build, grok-cli
   slash: /sentient-assistant
   version: "1.0.0"
 ---

@@ -83,15 +83,23 @@ Paste-ready ops docs so PKE can generate stills, short video teasers, male AI ta
 ```
 ai-xxx/
 ├── README.md                 ← you are here
+├── ECOSYSTEM.md              ← self-improve runbook
+├── CHANGELOG.md
+├── current.json              ← pins prompts/vN + locks + ecosystem_loop
+├── scripts/heal-check.sh     ← local validate (no Imagine burn)
 ├── pipelines/00-overview.md
-├── prompts/
+├── prompts/                  ← live mirror of current pin
+│   ├── v1/                   ← versioned copies (never overwrite in place)
 │   ├── double-oral-mmf.md
 │   ├── male-models.md
 │   └── capability-matrix.md
+├── models/notes/             ← LoRA/ckpt notes + _TEMPLATE.md
+├── runs/YYYY-MM.md           ← append-only scored run log
 ├── comfyui/
 │   ├── workflows.md
 │   ├── male-lora-training.md
-│   └── aleah-offline-routing.md  ← free-tier / no Imagine router
+│   ├── aleah-offline-routing.md  ← free-tier / no Imagine router
+│   └── graphs/validate-graphs.py
 ├── compliance/2257-ai-notes.md
 └── checklists/shoot-day-ai.md
 ```
@@ -100,4 +108,4 @@ ai-xxx/
 
 ## Version
 
-Pack v1 — 2026-09-05 — PKE / Coviceá AI-XXX capability baseline.
+Pack v1 — 2026-09-05 baseline; ecosystem loop polished 2026-09-19 (`ecosystem_loop: active`). See `CHANGELOG.md`.

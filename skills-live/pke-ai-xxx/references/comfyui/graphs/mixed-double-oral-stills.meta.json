@@ -1,0 +1,17 @@
+{
+  "status": "awaiting-comfy-cloud-api-key",
+  "blocked_reason": "Need COMFY_CLOUD_API_KEY + paid plan; ckpt must exist on Comfy Cloud",
+  "prompt_lane": "mixed-race double oral A/D",
+  "face_lock": "OFF",
+  "created": "2026-09-06T01:13:00-04:00",
+  "ckpt_note": "Replace PLACEHOLDER_NSFW_SDXL.safetensors with your Civitai NSFW SDXL filename",
+  "endpoint": "POST http://127.0.0.1:8188/prompt",
+  "bridge_doc": "comfyui/GPU-BRIDGE.md",
+  "queue_script": "comfyui/scripts/queue-mixed-double-oral.sh",
+  "diagnosed": "2026-09-06T13:05:00-04:00",
+  "runpod_payload": "comfyui/graphs/mixed-double-oral-runpod.json",
+  "runpod_script": "comfyui/scripts/runpod-runsync.sh",
+  "worker_repo": "https://github.com/PKEMEDIA/worker-comfyui",
+  "comfy_cloud_payload": "comfyui/graphs/mixed-double-oral-comfy-cloud.json",
+  "comfy_cloud_script": "comfyui/scripts/comfy-cloud-run.sh"
+}

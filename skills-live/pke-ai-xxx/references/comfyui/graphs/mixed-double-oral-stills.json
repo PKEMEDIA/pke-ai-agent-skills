@@ -1,0 +1,86 @@
+{
+  "1": {
+    "class_type": "CheckpointLoaderSimple",
+    "inputs": {
+      "ckpt_name": "PLACEHOLDER_NSFW_SDXL.safetensors"
+    }
+  },
+  "4": {
+    "class_type": "CLIPTextEncode",
+    "inputs": {
+      "text": "ANGLE A/D hybrid double oral MMF, two mixed-race adult men late 20s, one light-brown skin fade soft beard, one medium-brown skin short curls, faces side-by-side between adult woman's thighs, both tongues licking the same clit together, double cunnilingus, black lace panties pulled aside, glistening pussy, wet tongues, both men looking up at camera with needy eye contact, POV crotch-level, athletic hung male bodies partially visible, intimate bedroom warm light, masterpiece, best quality, ultra-detailed, sharp focus, realistic skin texture, explicit NSFW, erotic photography, anatomically correct, correct hands, five fingers, shallow depth of field",
+      "clip": [
+        "1",
+        1
+      ]
+    }
+  },
+  "5": {
+    "class_type": "CLIPTextEncode",
+    "inputs": {
+      "text": "worst quality, low quality, blurry, jpeg artifacts, watermark, text, logo, bad anatomy, bad hands, extra fingers, missing fingers, fused fingers, extra limbs, deformed, child, teen, underage, school, Face Lock, Black Mask, one man only, single tongue only, looking away from camera, censor, mosaic",
+      "clip": [
+        "1",
+        1
+      ]
+    }
+  },
+  "6": {
+    "class_type": "EmptyLatentImage",
+    "inputs": {
+      "width": 832,
+      "height": 1216,
+      "batch_size": 2
+    }
+  },
+  "7": {
+    "class_type": "KSampler",
+    "inputs": {
+      "seed": 42069001,
+      "steps": 28,
+      "cfg": 5.5,
+      "sampler_name": "euler_ancestral",
+      "scheduler": "normal",
+      "denoise": 1.0,
+      "model": [
+        "1",
+        0
+      ],
+      "positive": [
+        "4",
+        0
+      ],
+      "negative": [
+        "5",
+        0
+      ],
+      "latent_image": [
+        "6",
+        0
+      ]
+    }
+  },
+  "8": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": [
+        "7",
+        0
+      ],
+      "vae": [
+        "1",
+        2
+      ]
+    }
+  },
+  "9": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "filename_prefix": "pke_mixed_double_oral",
+      "images": [
+        "8",
+        0
+      ]
+    }
+  }
+}

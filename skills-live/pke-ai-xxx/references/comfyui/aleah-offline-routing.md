@@ -35,7 +35,7 @@ LX  Grok Imagine / SuperGrok Heavy — FORBIDDEN for pack ops,
 
 ## Offline ComfyUI ops (Aleah expects)
 
-1. **Workflow source of truth** — `comfyui/workflows.md` (API JSON under `comfyui/graphs/` when added).  
+1. **Workflow source of truth** — `comfyui/workflows.md` + API JSON in `comfyui/graphs/` (`stills-grid.json`, `animatediff-teaser.json`). Validate offline: `python3 comfyui/graphs/validate-graphs.py`.  
 2. **Dry-run before GPU** — validate graph JSON + required nodes/models present; log missing deps to `runs/YYYY-MM.md`.  
 3. **Batch discipline** — grid seeds locally; pick heroes; upscale winners; write `manifest.md` (ckpt, LoRAs, seeds, AI vs real).  
 4. **No remote caption burn required** — use Brand post packs + board; optional local WD14/JoyCaption only.  

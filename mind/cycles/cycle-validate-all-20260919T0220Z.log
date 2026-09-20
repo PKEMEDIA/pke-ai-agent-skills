@@ -1,0 +1,7 @@
+=== PKE LEARN STAMP (VALIDATE ALL ONLY) ===
+tier=free mode=stamp-only push=0
+rule=no-imagine no-video no-supergrok-burn no-mac-heal
+event=VALIDATE_ALL_LIVE
+result=95_pass_0_fail_0_fixes
+live_note=/workspace/artifacts/VALIDATE-ALL-LIVE-2026-09-19.md
+metrics=/workspace/pke-sentient-deploy/pke-ai-agent-skills/skill-orchestrator/references/performance-metrics.md

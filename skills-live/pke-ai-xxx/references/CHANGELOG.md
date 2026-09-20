@@ -27,4 +27,4 @@
 - Added `models/notes/_TEMPLATE.md`; `prompts/README.md` (root = live mirror of `current.json` pin)
 - Verified root `prompts/*.md` identical to `prompts/v1/` (checksums match); no sync rewrite needed
 - `current.json`: `updated=2026-09-19`, `ecosystem_loop=active`, locks unchanged, status=ready
-- heal-check PASS required; GitHub sync not attempted (local polished; sync pending if credentials later)
+- heal-check PASS; GitHub SoT synced to `skills-live/pke-ai-xxx/references/` on PKEMEDIA/pke-ai-agent-skills main

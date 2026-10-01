@@ -21,7 +21,7 @@ Meta-skill for health, efficiency, autonomy, and continuous improvement of the P
 3. Grok Build — `/workspace/.grok/skills/`
 4. Extra paths in `~/.grok/config.toml` `[skills].paths`
 
-Resolve with `$PKE_ROOT` when set. Never hardcode `/root/.grok/server-skills`.
+Resolve with `$PKE_ROOT` when set. Never hardcode an absolute server-skills path.
 
 ## Core principles
 
@@ -86,6 +86,6 @@ Local only. No Imagine, no video, no SuperGrok burn.
 
 ## Last stamp
 
-**2026-08-28 EDT — PKE Skill Command polish.** Meta triangle (orchestrator, creator, paralegal-assistant) Grok-bot-ready. Portable roots. CI-legal frontmatter. Deploy reference added. Automations wired to the loop.
+**2026-10-01 06:22 AM EDT — path align to c9c7e51.** Dropped absolute server-skills literal so the package copy matches skills-live. Sequence skill-creator → skill-orchestrator → skill-test-suite. Legal operative text untouched. Imagine=0.
 
 **See also:** skill-creator, skill-test-suite, autonomous-ecosystem, pke-synthetic-intellect, paralegal-assistant, PKEMEDIA/pke-ai-agent-skills.

@@ -21,7 +21,7 @@ Meta-skill for health, efficiency, autonomy, and continuous improvement of the P
 3. Grok Build — `/workspace/.grok/skills/`
 4. Extra paths in `~/.grok/config.toml` `[skills].paths`
 
-Resolve with `$PKE_ROOT` when set. Never hardcode the server-skills absolute root.
+Resolve with `$PKE_ROOT` when set. Never hardcode an absolute server-skills path.
 
 ## Core principles
 
@@ -86,9 +86,11 @@ Local only. No Imagine, no video, no SuperGrok burn. Learns from heal logs, vali
 
 ## Last stamp
 
-**2026-10-01 06:16 AM EDT — META TRIANGLE recheck on eed8c26.** Sequence skill-creator → skill-orchestrator → skill-test-suite. validate-skill.sh 4/4 OK (triangle + test-suite). Frontmatter scalars clean. metadata.slash + surfaces present. Bodies under 350. Cheap path wording — dropped literal server-skills and workspace-scripts roots from creator, orchestrator, and test-suite. Paralegal operative text untouched. Imagine=0. PRODUCTION READY · HEALTH GREEN.
+**2026-10-01 06:16 AM EDT — META TRIANGLE recheck on 653cc93.** Sequence skill-creator → skill-orchestrator → skill-test-suite. validate-skill.sh 4/4 OK on CI scalars. metadata.slash + surfaces present. Bodies under 350. Cheap path fix — dropped absolute server-skills and workspace-scripts literals from orchestrator and test-suite (creator already clean in 653cc93). Paralegal operative text untouched. Imagine=0. PRODUCTION READY · HEALTH GREEN.
 
-Prior: **2026-10-01 06:12 AM EDT — META TRIANGLE.** 3/3. **2026-10-01 04:05 AM EDT — FULL CYCLE.** bulk-validate 50/50. WASM 50/50 in 16.29 ms.
+Prior: **2026-10-01 06:12 AM EDT — META TRIANGLE.** skill-creator → skill-orchestrator → paralegal-assistant. validate-skill.sh 3/3 OK. Frontmatter scalars clean (no colon-space, quotes, angle brackets, TODO). metadata.slash + surfaces present. Bodies 72/87/88. Cheap path fix: deployment-checklist and bisect test-structural now resolve `$PKE_ROOT` / `~/.grok/skills` (no executable absolute validator path). Legal operative text untouched. Imagine=0. Sequences intact. PRODUCTION READY · HEALTH GREEN.
+
+Prior: **2026-10-01 04:05 AM EDT — FULL CYCLE.** bulk-validate 50/50. WASM 50/50 in 16.29 ms. **2026-10-01 02:23 AM EDT — FULL CYCLE.** 64/64. **2026-09-30 06:12 AM EDT — META TRIANGLE.** 3/3.
 
 Archive: `references/performance-metrics.md` and `references/agent-meeting-protocol.md`.
 

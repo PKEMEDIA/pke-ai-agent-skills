@@ -29,7 +29,7 @@ When triggered for testing or validation:
   - `~/.grok/skills/` (CLI persistence)
   - `/workspace/.grok/skills/` (Build)
   - Grok Bot library
-  Never treat `/root/.grok/server-skills` or `/home/workdir/.grok/skills` as live trees.
+  Never treat an absolute server-skills path or a home workdir skills path as a live tree.
 - Resolve CREATOR as `$PKE_ROOT/skill-creator` or the sibling `skill-creator` package.
 - For every directory execute exactly:
   bash "$CREATOR/scripts/validate-skill.sh" "<full-path-to-skill-dir>"
@@ -103,7 +103,7 @@ On request to demonstrate a particular skill (e.g. "demonstrate live usage of co
 To customize any bundled (native) skill permanently so changes survive sessions:
 
 - Check whether `~/.grok/skills/<exact-skill-name>/` already exists.
-- If not: symlink `~/.grok/skills/<name>` to `$PKE_ROOT/<name>` (or copy from `skills-live/<name>`). Never `cp` from `/root/.grok/server-skills`.
+- If not: symlink `~/.grok/skills/<name>` to `$PKE_ROOT/<name>` (or copy from `skills-live/<name>`). Never copy from an absolute server-skills tree.
 - Edit the user-dir version: SKILL.md for instructions, or scripts/ references/ assets/ as needed. Use edit_file or write_file for precision.
 - Immediately run validate-skill.sh on the user copy to confirm compliance.
 - The user-dir version now takes precedence on every load and persists across conversations.
@@ -155,4 +155,3 @@ This meta-skill guarantees repeatable one-command (or one-phrase) control over t
 
 ## Orchestrator Integration
 This skill participates in full ecosystem testing, self-healing, and continuous improvement via skill-orchestrator and skill-test-suite. After major edits, re-validate with skill-creator validate-skill.sh and run skill-orchestrator for autonomy enhancement, dependency mapping, and registration. Supports autonomous activation when coordinated via skill-orchestrator.
-

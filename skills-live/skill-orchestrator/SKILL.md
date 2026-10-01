@@ -82,10 +82,14 @@ bash "$PKE_ROOT/scripts/pke-learn.sh"          # observe → heal → improve �
 bash "$PKE_ROOT/scripts/pke-learn.sh" --push   # + GitHub
 ```
 
-Local only. No Imagine, no video, no SuperGrok burn.
+Local only. No Imagine, no video, no SuperGrok burn. Learns from heal logs, validate fails, asset gates, skill gaps. Writes `artifacts/pke-mind/`. Self-heal before patches. Prefer `$PKE_ROOT/scripts/pke-learn.sh` or this package `scripts/pke-learn.sh` — do not hardcode `/workspace/scripts`.
 
 ## Last stamp
 
-**2026-08-28 EDT — PKE Skill Command polish.** Meta triangle (orchestrator, creator, paralegal-assistant) Grok-bot-ready. Portable roots. CI-legal frontmatter. Deploy reference added. Automations wired to the loop.
+**2026-10-01 06:12 AM EDT — META TRIANGLE.** skill-creator → skill-orchestrator → paralegal-assistant. validate-skill.sh 3/3 OK. Frontmatter scalars clean (no colon-space, quotes, angle brackets, TODO). metadata.slash + surfaces present. Bodies 72/87/88. Cheap path fix: deployment-checklist and bisect test-structural now resolve `$PKE_ROOT` / `~/.grok/skills` (no executable absolute validator path). Legal operative text untouched. Imagine=0. Sequences intact. PRODUCTION READY · HEALTH GREEN.
+
+Prior: **2026-10-01 04:05 AM EDT — FULL CYCLE.** bulk-validate 50/50. WASM 50/50 in 16.29 ms. **2026-10-01 02:23 AM EDT — FULL CYCLE.** 64/64. **2026-09-30 06:12 AM EDT — META TRIANGLE.** 3/3.
+
+Archive: `references/performance-metrics.md` and `references/agent-meeting-protocol.md`.
 
 **See also:** skill-creator, skill-test-suite, autonomous-ecosystem, pke-synthetic-intellect, paralegal-assistant, PKEMEDIA/pke-ai-agent-skills.

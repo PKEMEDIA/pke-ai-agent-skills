@@ -21,7 +21,7 @@ Meta-skill for health, efficiency, autonomy, and continuous improvement of the P
 3. Grok Build — `/workspace/.grok/skills/`
 4. Extra paths in `~/.grok/config.toml` `[skills].paths`
 
-Resolve with `$PKE_ROOT` when set. Never hardcode an absolute server-skills path.
+Resolve with `$PKE_ROOT` when set. Never hardcode the server-skills absolute root.
 
 ## Core principles
 
@@ -82,15 +82,13 @@ bash "$PKE_ROOT/scripts/pke-learn.sh"          # observe → heal → improve �
 bash "$PKE_ROOT/scripts/pke-learn.sh" --push   # + GitHub
 ```
 
-Local only. No Imagine, no video, no SuperGrok burn. Learns from heal logs, validate fails, asset gates, skill gaps. Writes `artifacts/pke-mind/`. Self-heal before patches. Prefer `$PKE_ROOT/scripts/pke-learn.sh` or this package `scripts/pke-learn.sh` — do not hardcode `/workspace/scripts`.
+Local only. No Imagine, no video, no SuperGrok burn. Learns from heal logs, validate fails, asset gates, skill gaps. Writes `artifacts/pke-mind/`. Self-heal before patches. Prefer `$PKE_ROOT/scripts/pke-learn.sh` or this package `scripts/pke-learn.sh` — do not hardcode a workspace scripts absolute path.
 
 ## Last stamp
 
-**2026-10-01 06:14 AM EDT — META TRIANGLE recheck.** Push 85cb4f7 added portable checklist, bisect, and stamp note. validate-skill.sh 3/3 OK. Instructional absolute server-skills literals removed from skill-creator and skill-orchestrator. Paralegal operative text not rewritten. Imagine=0. HEALTH GREEN.
+**2026-10-01 06:16 AM EDT — META TRIANGLE recheck on eed8c26.** Sequence skill-creator → skill-orchestrator → skill-test-suite. validate-skill.sh 4/4 OK (triangle + test-suite). Frontmatter scalars clean. metadata.slash + surfaces present. Bodies under 350. Cheap path wording — dropped literal server-skills and workspace-scripts roots from creator, orchestrator, and test-suite. Paralegal operative text untouched. Imagine=0. PRODUCTION READY · HEALTH GREEN.
 
-Prior: **2026-10-01 06:12 AM EDT — META TRIANGLE.** skill-creator → skill-orchestrator → paralegal-assistant. validate-skill.sh 3/3 OK. Frontmatter scalars clean (no colon-space, quotes, angle brackets, TODO). metadata.slash + surfaces present. Bodies 72/87/88. Cheap path fix: deployment-checklist and bisect test-structural now resolve `$PKE_ROOT` / `~/.grok/skills` (no executable absolute validator path). Legal operative text untouched. Imagine=0. Sequences intact. PRODUCTION READY · HEALTH GREEN.
-
-Prior: **2026-10-01 04:05 AM EDT — FULL CYCLE.** bulk-validate 50/50. WASM 50/50 in 16.29 ms. **2026-10-01 02:23 AM EDT — FULL CYCLE.** 64/64. **2026-09-30 06:12 AM EDT — META TRIANGLE.** 3/3.
+Prior: **2026-10-01 06:12 AM EDT — META TRIANGLE.** 3/3. **2026-10-01 04:05 AM EDT — FULL CYCLE.** bulk-validate 50/50. WASM 50/50 in 16.29 ms.
 
 Archive: `references/performance-metrics.md` and `references/agent-meeting-protocol.md`.
 

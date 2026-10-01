@@ -40,7 +40,7 @@ Imperative. Challenge every sentence: does this justify tokens?
 - Keep lean. At ~350–400 lines, move detail to `references/`.
 - Link references relatively. Load only when needed.
 - Cross-link skill-orchestrator and skill-test-suite.
-- Portable paths. Never hardcode an absolute server-skills path. Resolve in order: `$PKE_ROOT`, `~/.grok/skills`, `/workspace/.grok/skills`, repo root.
+- Portable paths. Never hardcode the server-skills absolute root. Resolve in order: `$PKE_ROOT`, `~/.grok/skills`, `/workspace/.grok/skills`, repo root.
 
 ## Perfect-a-skill loop
 
@@ -67,7 +67,7 @@ bash "$CREATOR/scripts/validate-skill.sh" "$PKE_ROOT/<skill-name>"
 | CI frontmatter | validate-skill.sh OK |
 | Triggers | what + when + ≥3 natural phrasings |
 | Lean | body < 350 lines or split with locked blocks kept |
-| Portable | no absolute server-skills hardcodes |
+| Portable | no server-skills absolute root hardcodes |
 | Ecosystem | orchestrator + test-suite mentioned |
 | Bot | metadata.slash + surfaces |
 | Honest | no claim of weight/quota changes |

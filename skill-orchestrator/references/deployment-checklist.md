@@ -2,19 +2,19 @@
 
 **Purpose**: Gate every ecosystem ship to chat · iOS · web. Run before calling Finalize complete or after skill-creator publishes.
 
-Last updated: 2026-07-28
+Last updated: 2026-10-03
 
 ---
 
 ## Pre-flight (always)
 
-- [ ] Working tree under `/home/workdir/.grok/skills/` is the source of truth (not `/tmp`)
+- [ ] Working tree under `$PKE_ROOT` or `~/.grok/skills/` is the source of truth (not `/tmp`)
 - [ ] No unvalidated `edit_file` / `write_file` pending re-check
 - [ ] Platform wall understood: no claim of foundation-weight or SuperGrok-quota change
 
 ## Structural & tests
 
-- [ ] `bash /root/.grok/skills/skill-creator/scripts/validate-skill.sh` OK on every touched skill
+- [ ] `bash "$PKE_ROOT/skill-creator/scripts/validate-skill.sh"` (fallback `~/.grok/skills/skill-creator/scripts/validate-skill.sh`) OK on every touched skill
 - [ ] Full sweep: structural **N/N OK** (bundled + custom)
 - [ ] `node scripts/wasm-validate-harness.mjs` → Pass = Skills count, Fail = 0
 - [ ] `node scripts/spicy-error-unit-tests.mjs` → **15/15 PASS**
@@ -67,7 +67,7 @@ Last updated: 2026-07-28
 
 **Preferred (idempotent one-shot):**
 ```bash
-bash /home/workdir/.grok/skills/skill-orchestrator/scripts/orchestrate-finalize.sh
+bash "$PKE_ROOT/skill-orchestrator/scripts/orchestrate-finalize.sh"
 # Flags: --skip-vcs · --skip-stamp
 ```
 
@@ -75,9 +75,9 @@ Phases: VALIDATE (structural + WASM + spicy) → CONVERGE (create-if-absent) →
 
 **Manual equivalent:**
 ```bash
-bash /home/workdir/.grok/skills/skill-orchestrator/scripts/bulk-validate.sh
-node /home/workdir/.grok/skills/skill-orchestrator/scripts/wasm-validate-harness.mjs
-node /home/workdir/.grok/skills/skill-orchestrator/scripts/spicy-error-unit-tests.mjs
+bash "$PKE_ROOT/skill-orchestrator/scripts/bulk-validate.sh"
+node "$PKE_ROOT/skill-orchestrator/scripts/wasm-validate-harness.mjs"
+node "$PKE_ROOT/skill-orchestrator/scripts/spicy-error-unit-tests.mjs"
 ```
 
 After skill-creator add or capability change → `orchestrate-finalize.sh` before calling ship done.

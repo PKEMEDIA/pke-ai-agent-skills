@@ -67,7 +67,7 @@ bash "$CREATOR/scripts/validate-skill.sh" "$PKE_ROOT/<skill-name>"
 | CI frontmatter | validate-skill.sh OK |
 | Triggers | what + when + ≥3 natural phrasings |
 | Lean | body < 350 lines or split with locked blocks kept |
-| Portable | no server-skills absolute root hardcodes |
+| Portable | no server-skills absolute-root hardcodes |
 | Ecosystem | orchestrator + test-suite mentioned |
 | Bot | metadata.slash + surfaces |
 | Honest | no claim of weight/quota changes |

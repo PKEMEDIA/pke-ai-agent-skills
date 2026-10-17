@@ -1,11 +1,29 @@
 ---
 name: local-nsfw-comfyui
-description: Automatically manages all local ComfyUI workflows for unrestricted photorealistic explicit adult NSFW images and video. Prioritizes anatomical accuracy, character consistency, and full creative control without any cloud moderation. Activates automatically for any NSFW generation, explicit content, ComfyUI pipelines, anatomy work, or local uncensored production requests.
+description: Manages local ComfyUI workflows for photorealistic adult NSFW stills and short video for consenting adults 21+ only. Covers ComfyUI root resolution, workflow JSON templates, API batch queueing, anatomy and character consistency, VRAM tuning, AnimateDiff motion, and ship gates. Activates on local NSFW generation, ComfyUI pipelines, ComfyUI API queue, batch render, workflow JSON, anatomy fixes, AnimateDiff explicit clips, or local adult production requests. Requires age, consent, 2257 and likeness-consent gates before ship. Face Lock and Black Mask stay locked.
+metadata:
+  short-description: Local ComfyUI adult production — portable root, API batch, 21+ gates
+  argument-hint: "[setup | template | queue | video | ship-gate]"
+  surfaces: grok-bot, grok-chat, grok-ios, grok-web, grok-build, grok-cli
+  slash: /local-nsfw-comfyui
 ---
 
 # Local NSFW ComfyUI Workflows
 
 Use this skill when the user needs to set up or build ComfyUI pipelines for explicit adult content that cloud tools block. Focus on photorealistic real-people results, precise anatomy, and reusable production workflows for gay male / interracial / fetish scenes.
+
+## Hard Gates (run before any generation or ship)
+- Adults 21+ only. No minors, no youthful or age-play framing, ever. Abort on any ambiguity.
+- No real-person likeness without documented consent on file; reference photos must belong to consented, ID-verified adult talent.
+- Every ship goes through the age / consent / 2257 gate in `pretty-kitty-model-management` before export, posting, or handoff.
+- Face Lock (`pke-face-lock`, `covicea-face-lock`) and Black Mask (`pke-official-black-mask`) stay LOCKED; this skill never edits or unlocks them.
+- Final human review on all explicit output.
+
+## Autonomous Local Production (summary)
+Full procedure: `references/autonomous-local-production.md`.
+- **Root:** resolve `$COMFYUI_ROOT` → `$PKE_ROOT/comfyui` → `~/ComfyUI`; stop if none has `main.py`. Never hard-code machine paths.
+- **Queue:** POST workflow API-format JSON to `http://${COMFYUI_HOST:-127.0.0.1}:${COMFYUI_PORT:-8188}/prompt`, poll `/history/<prompt_id>`, collect from `$COMFYUI_ROOT/output`.
+- **Split:** generation runs on the user's local GPU machine; the bot cloud box only edits templates, validates JSON, and writes reports (no GPU, no installs, no models).
 
 ## Hardware & Installation
 Install on a machine with NVIDIA GPU. Minimum 12 GB VRAM is viable with modern optimizations; 16–24 GB recommended for comfortable Flux/SD3.5 + heavy IP-Adapter + LoRA stacks in high-resolution explicit work. Use the Windows portable version or standard Git install. Always install ComfyUI-Manager first for easy custom node installation (ControlNet, IP-Adapter, ADetailer, Ultimate SD Upscale, AnimateDiff, and memory-related nodes like Crystools or VRAM Debug).
@@ -53,6 +71,7 @@ Always begin with Load Checkpoint (Juggernaut or Flux). Add multiple LoRA Loader
 For reverse cowgirl or complex explicit poses, insert ControlNet Apply nodes (OpenPose or Depth) with a reference pose image to lock rider position, penetration angle, and body contact. Add IP-Adapter or FaceID nodes with reference photos of the two models to keep the white dreads bottom and light-skin mixed Black rider consistent across an entire carousel. Insert ADetailer or custom detailer nodes after sampling to auto-correct faces, hands, and genital anatomy in close-ups.
 
 ## Prompting for Real-People Photoreal Explicit
+> Gate: "real-people" means photoreal style of consented, ID-verified adult talent (21+) only — never an identifiable real person without documented likeness consent. See Hard Gates.
 Write positive prompts as if directing a real photo shoot: “photorealistic live-action photograph of two actual athletic adult men in their mid-20s, [precise description of white dreads bottom and mixed Black rider], reverse cowgirl position, deep anal penetration, intense prostate orgasm, visible fluids, glistening sweat and natural skin texture, shot on Canon EOS R5, 85mm lens, shallow depth of field, 8k”. Use strong negative prompts focused on anatomy failures. Add style tokens like “real photograph, no AI artifacts, natural imperfections, film grain” to push away plastic AI look. For fluids and fetish elements, be direct in the prompt once the base anatomy is solid.
 
 ## Carousel & Variation Generation
@@ -77,16 +96,6 @@ For short explicit video clips (reverse cowgirl thrusting, anal orgasm, fluids),
 4. Positive prompt: “photorealistic live-action photograph of two actual athletic adult men in their mid-20s, white male with long dreadlocks as bottom lying supine, light-skin mixed Black male as rider squatting reverse cowgirl, deep anal penetration, rider experiencing powerful prostate/anal orgasm with his thick erect cock leaking visible stream of clear piss from the urethra onto bottom’s abs, glistening sweat, intense ecstatic expressions, natural skin pores and textures, shot on Canon EOS R5, 85mm lens, shallow depth of field”.
 5. Strong negative prompt focused on anatomy, deformation, and blur.
 
-## Minimizing iOS On-Device Sensitive Content Detection
-
-To reduce the chance of iOS Photos app flagging generated explicit content:
-
-- Generate and save locally (never upload to cloud services).
-- Use the Python metadata stripping script from `local-json-python-workflows`.
-- Save final images/videos to the **Files app** instead of Photos when possible.
-- Consider slight post-processing (light blur on edges or minor color grading) if flagging occurs frequently.
-- Use third-party gallery/viewer apps that have weaker or disabled sensitive content detection.
-- For videos: Render with ffmpeg using clean encoding settings and stripped metadata.
 6. Empty Latent Image (e.g. 1024x1536 or landscape for action).
 7. Wire KSampler/SamplerCustomAdvanced with AnimateDiff motion module active.
 8. Insert ControlNet Apply (OpenPose) using preprocessed pose map, strength 0.9–1.1.
@@ -114,6 +123,28 @@ Common explicit-scene problems (hands, genitals, anus, penetration) are solved w
 
 ## Professional Production Notes
 Treat this like any other adult content tool: maintain character consistency for brand, generate test shots before full shoots, and keep final human review on all explicit output. Local gives complete freedom and privacy but places full responsibility on you for age accuracy, consent, and distribution legality. This setup replaces every moderated cloud generator for high-volume explicit work.
+
+## Minimizing iOS On-Device Sensitive Content Detection
+
+To reduce the chance of iOS Photos app flagging generated explicit content:
+
+- Generate and save locally (never upload to cloud services).
+- Use the Python metadata stripping script from `local-json-python-workflows`.
+- Save final images/videos to the **Files app** instead of Photos when possible.
+- Consider slight post-processing (light blur on edges or minor color grading) if flagging occurs frequently.
+- Use third-party gallery/viewer apps that have weaker or disabled sensitive content detection.
+- For videos: Render with ffmpeg using clean encoding settings and stripped metadata.
+## Handoffs
+| Need | Skill |
+|------|-------|
+| Age / consent / 2257 / likeness ship gate | `pretty-kitty-model-management` |
+| PKE AI-XXX lanes, male LoRAs, capability matrix | `pke-ai-xxx` |
+| Captions, brand voice, Coviceá look | `covicea-brand-assistant` |
+| Upscale finals | `upscayl-workflow-assistant` |
+| Metadata strip / JSON + Python batch scripts | `local-json-python-workflows` |
+| Identity across batches | `covicea-comfyui-consistency`, `consistent-identity-batch-processor` |
+| Negatives | `negative-prompt-library` |
+| Validate / orchestrate | `skill-test-suite`, `skill-orchestrator` |
 
 ## Orchestrator Integration
 This skill participates in full ecosystem testing, self-healing, and continuous improvement via skill-orchestrator and skill-test-suite. After major edits, re-validate with skill-creator validate-skill.sh and run skill-orchestrator for autonomy enhancement, dependency mapping, and registration. Supports autonomous activation when coordinated via skill-orchestrator.

@@ -1,6 +1,9 @@
 ---
 name: vogue-photo-editing
 description: Automatically handles high-end photo editing, editorial spreads, cinematic films, music videos, advanced audio/music production, and archival/vintage photograph restoration as a creative producer and director. Takes high-level ideas and develops full production concepts optimized for maximum engagement. Can directly execute ffmpeg commands. Includes smart few-shot full track generation, advanced natural voice cloning, real-time cross-lingual audio, perfect music video synchronization, and full multimedia production. Activates automatically for any cinematic, multimedia, production pipeline, or old photo restoration requests.
+metadata:
+  surfaces: grok-bot, grok-chat, grok-ios, grok-web, grok-build, grok-cli
+  slash: /vogue-photo-editing
 ---
 
 # Vogue Photo Editing

@@ -1,9 +1,14 @@
 ---
 name: local-json-python-workflows
 description: Automatically handles generation, editing, validation, and execution of ComfyUI JSON workflows and Python scripts locally. Covers custom node packs (V1 NODE_CLASS_MAPPINGS), import debugging, venv matching, and uv/pip-tools installs into the Comfy interpreter. Seamlessly integrates with local-nsfw-comfyui, rvc-voice-production, ffmpeg, and other skills for full automation of image/video/audio pipelines. Activates automatically for any ComfyUI workflow, custom nodes, Python automation, media pipeline, venv/uv setup, or local JSON/Python orchestration needs.
+metadata:
+  surfaces: grok-bot, grok-chat, grok-ios, grok-web, grok-build, grok-cli
+  slash: /local-json-python-workflows
 ---
 
 # Local JSON & Python Workflows
+
+> Gate: adults 21+ only, documented consent and likeness consent, 2257 ship gate via `pretty-kitty-model-management` (see `local-nsfw-comfyui` Hard Gates).
 
 This skill is the central orchestrator for local media production pipelines. It generates, edits, validates, and executes ComfyUI JSON workflows and supporting Python scripts. It acts as glue between `local-nsfw-comfyui`, `rvc-voice-production`, `ffmpeg`, `vogue-photo-editing`, and related skills for complete end-to-end local image/video/audio/NSFW workflows.
 

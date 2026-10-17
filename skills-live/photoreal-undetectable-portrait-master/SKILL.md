@@ -1,6 +1,9 @@
 ---
 name: photoreal-undetectable-portrait-master
 description: Primary skill for generating or editing completely undetectable real-world iPhone-style selfies and portraits with accurate non-silky textured hair, rich medium-deep brown natural makeup-free hydrated skin, advanced anisotropic hair physics, multi-scale skin texture, subsurface scattering, HSL undertone protection, computational photography look, and Covicea visual identity. Activate on make it real, undetectable photo, photoreal portrait, iPhone selfie, natural skin, non-silky hair, raw photo version, healthy skin grade, or any request for photoreal Covicea or ethnic skin portraits.
+metadata:
+  surfaces: grok-bot, grok-chat, grok-ios, grok-web, grok-build, grok-cli
+  slash: /photoreal-undetectable-portrait-master
 ---
 
 # Photoreal Undetectable Portrait Master

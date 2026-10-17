@@ -1,6 +1,9 @@
 ---
 name: photoreal-hair-anisotropic-master
 description: Use for advanced anisotropic hair rendering in photoreal portraits with detailed strand physics curl following highlights thickness variation gravity flow simulation hairline blending and scalp integration for long dark textured ethnic or mulatto mixed hair in Covicea visual style. Activate on hair physics anisotropic shading curly hair strand rendering hair flow gravity non-silky hair consistency requests.
+metadata:
+  surfaces: grok-bot, grok-chat, grok-ios, grok-web, grok-build, grok-cli
+  slash: /photoreal-hair-anisotropic-master
 ---
 
 # Photoreal Hair Anisotropic Master

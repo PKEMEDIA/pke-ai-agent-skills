@@ -1,6 +1,9 @@
 ---
 name: consistent-identity-batch-processor
 description: Use for batch processing images while maintaining strong facial identity consistency, natural skin texture via Frequency Separation, and advanced skin tone protection. Ideal for creator content pipelines, album art batches, or any multi-image workflow requiring consistent photoreal results.
+metadata:
+  surfaces: grok-bot, grok-chat, grok-ios, grok-web, grok-build, grok-cli
+  slash: /consistent-identity-batch-processor
 ---
 
 # ConsistentIdentityBatchProcessor

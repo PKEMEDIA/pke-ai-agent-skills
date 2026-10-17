@@ -1,6 +1,9 @@
 ---
 name: photoreal-skin-sss-master
 description: Use for advanced subsurface scattering skin physics lighting direction effects and phenotype-accurate rendering in photoreal portraits. Covers dipole multipole models warm internal glow pore texture oil sheen volumetric quality eyelash eyebrow techniques and ready-to-use lighting plus SSS prompt blocks for medium-deep to deep brown skin in Covicea and iPhone-style images. Activate on skin sss subsurface scattering skin physics pore texture realistic skin glow lighting interaction rim light skin phenotype-accurate SSS eyelash rendering eyebrow techniques Bible Skin or any request involving accurate skin light transport.
+metadata:
+  surfaces: grok-bot, grok-chat, grok-ios, grok-web, grok-build, grok-cli
+  slash: /photoreal-skin-sss-master
 ---
 
 # Photoreal Skin Sss Master

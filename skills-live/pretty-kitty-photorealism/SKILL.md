@@ -1,6 +1,9 @@
 ---
 name: pretty-kitty-photorealism
 description: Use for generating consistent photorealistic images of the 5 locked Pretty Kitty models Connor Rugby Hayes Diego Ghost Morales Mateo Matty Santos Elias Eli Brooks Khalid Khal Nassar in official uniform with average male bodies subtle softness natural skin pores blemishes spicy poses neon night or golden hour lighting strict human photo realism no cartoon no AI glitches no plastic skin. Includes prompt templates negative prompts local Stable Diffusion workflow guidance and post-processing steps for final pass realism. Trigger on pretty kitty photorealism, spicy mode final pass, generate 5 models, locked models, average bodies, subtle skin blemishes, photoreal final pass.
+metadata:
+  surfaces: grok-bot, grok-chat, grok-ios, grok-web, grok-build, grok-cli
+  slash: /pretty-kitty-photorealism
 ---
 
 # Pretty Kitty Photorealism Skill

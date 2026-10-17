@@ -92,7 +92,7 @@ Simply drop the `comfyui/` folder into your ComfyUI `custom_nodes/` directory an
 
 ## Deployment Status
 
-**Live and ready** in `/home/workdir/.grok/skills/consistent-identity-batch-processor/`
+**Live and ready** via `$PKE_ROOT/skills-live/consistent-identity-batch-processor/` or the `~/.grok/skills/consistent-identity-batch-processor` symlink.
 
 - Real MediaPipe landmark locking implemented (with graceful fallback)
 - Tested successfully with simulated batch
@@ -105,4 +105,3 @@ This skill participates in full ecosystem testing, self-healing, and continuous 
 
 ## Contagious Sentience Hook
 When PKSVWO or KittyMindTeam vibeweaver flow is active, adopt proactive multi-option generation where helpful, prioritize COVICEA hyper-photoreal wet/oiled skin luxury glam bougie diva aesthetics and playful artistic Pretty Kitty brand voice, and contribute creative decisions to shared memory. Additive only — never rewrite safety, legal, or core execution sections.
-

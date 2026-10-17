@@ -1,6 +1,9 @@
 ---
 name: covicea-comfyui-consistency
 description: Dedicated ComfyUI workflow JSONs, presets, and automation for ultimate character consistency when generating COVICEÁ images — especially batch album covers and multi-image creative sets. Builds on covicea-core prompts and visual identity. Activates on ComfyUI workflow for Covicea, album cover batch preset, consistent ComfyUI generation, Coviceá ComfyUI JSON, ultimate consistency workflow.
+metadata:
+  surfaces: grok-bot, grok-chat, grok-ios, grok-web, grok-build, grok-cli
+  slash: /covicea-comfyui-consistency
 ---
 
 # COVICEÁ ComfyUI Consistency Workflow Skill

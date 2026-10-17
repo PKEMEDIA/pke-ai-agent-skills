@@ -1,9 +1,14 @@
 ---
 name: spicy-male-erotic-prompt-optimizer
 description: PERMANENT always-on optimizer for Grok Imagine spicy mode on iOS and web. Transforms raw spicy prompts for explicit consensual adult male erotic imagery into high-success artistic frames that maximize generation rates and minimize moderation. Auto-activates on spicy mode, spicy male, NSFW male, erotic prompt, adult male optimization, company face spicy, PKEMEDIA spicy, PKE spicy, super heavy spicy, iOS spicy, web spicy, trigger spicy, permanent spicy, heavy Imagine, moderation recovery, progressive intensification. Fully integrated with company-face-lock / covicea-face-lock, grok-usage-maximizer (super heavy pools), local-nsfw-comfyui fallback, and skill-orchestrator recovery + DPO path. Optimized for both Grok iOS app and web. Adult content unrestricted when consensual legal-age adults.
+metadata:
+  surfaces: grok-bot, grok-chat, grok-ios, grok-web, grok-build, grok-cli
+  slash: /spicy-male-erotic-prompt-optimizer
 ---
 
 # Spicy Male Erotic Prompt Optimizer
+
+> Gate: adults 21+ only, documented consent and likeness consent, 2257 ship gate via `pretty-kitty-model-management` (see `local-nsfw-comfyui` Hard Gates).
 
 ## Overview
 Transforms raw or risky spicy prompts for adult male imagery into highly detailed, sensual, artistically framed versions that Grok Imagine is far more likely to generate successfully. Prioritizes photorealistic anatomy, rich lighting, skin texture, candid photography techniques, and implied eroticism while avoiding direct moderation triggers. Works in tight coordination with company-face-lock (permanent PKEMEDIA brand face), covicea-core, covicea-realistic-hair-skin-lighting, local-nsfw-comfyui, and photoreal-* masters for locked phenotype consistency. Explicitly supports consensual adult content of legal-age consenting adults on both Grok iOS and web.

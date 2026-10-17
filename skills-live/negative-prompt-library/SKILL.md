@@ -1,6 +1,9 @@
 ---
 name: negative-prompt-library
 description: Comprehensive categorized negative prompt library for photoreal portraits and iPhone selfies. Use to eliminate plastic skin, artificial hair, CG artifacts, beauty filter looks, and other realism killers. Especially strong for non-silky textured ethnic and mulatto hair/skin. Activate on negative prompts, realism negatives, avoid plastic, iPhone photo negatives, photoreal negative prompt requests.
+metadata:
+  surfaces: grok-bot, grok-chat, grok-ios, grok-web, grok-build, grok-cli
+  slash: /negative-prompt-library
 ---
 
 # Negative Prompt Library

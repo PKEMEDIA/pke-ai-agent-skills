@@ -1,6 +1,9 @@
 ---
 name: photoreal-skin-master
 description: Use for image editing on portraits, fitness mirror selfies, or creator content when maximum photoreal skin is the goal. Triggers include photoreal skin, subsurface scattering, SSS, skin texture blending, frequency separation, seamless spot or blemish removal, clean armpit hair naturally, enhance eyes with depth or catchlights, fix plastic or flat skin, raw photoreal skin, natural skin glow, avoid over-smoothed skin. Works especially well combined with mirror-selfie-corrector for Pretty Kitty and Covicea fitness content.
+metadata:
+  surfaces: grok-bot, grok-chat, grok-ios, grok-web, grok-build, grok-cli
+  slash: /photoreal-skin-master
 ---
 
 # Photoreal Skin Master Skill

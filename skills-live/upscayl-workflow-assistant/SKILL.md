@@ -1,6 +1,9 @@
 ---
 name: upscayl-workflow-assistant
 description: Activate for Upscayl batch upscaling workflows, optimized command generation, folder templates, pipeline scripts, ffmpeg integration, or custom batch automation for image processing in content production. Use on requests involving batch upscale, folder organization, CLI commands, video frame upscaling, ComfyUI handoff, or Pretty Kitty media pipelines with Upscayl.
+metadata:
+  surfaces: grok-bot, grok-chat, grok-ios, grok-web, grok-build, grok-cli
+  slash: /upscayl-workflow-assistant
 ---
 
 # Upscayl Workflow Assistant

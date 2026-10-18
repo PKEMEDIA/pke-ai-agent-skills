@@ -1,0 +1,33 @@
+=== consensus --gate ===
+engine=$PKE_ROOT/scripts/consensus-self-heal.mjs
+root=$PKE_ROOT
+{
+  "ok": true,
+  "mode": "gate",
+  "stampDir": "$PKE_ROOT/artifacts/heal-stamps",
+  "cooldown": {
+    "softMs": 60000,
+    "destructiveMs": 120000,
+    "failedMs": 30000
+  },
+  "majority": 3,
+  "phases": [
+    "PROBE",
+    "PROPOSE",
+    "VOTE",
+    "LEASE",
+    "COMMIT",
+    "VERIFY",
+    "RELEASE"
+  ],
+  "idempotency": [
+    "pre-commit cooldown stamp",
+    "pre-commit already-healthy probe",
+    "post-verify success stamp",
+    "failed short cooldown",
+    "force bypass"
+  ]
+}
+gate_ms=133
+CONSENSUS_ENGINE=HEALTHY
+consensus: gate=133ms suite=0ms total=133ms status=HEALTHY

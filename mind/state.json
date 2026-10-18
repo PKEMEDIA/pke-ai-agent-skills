@@ -4,8 +4,8 @@
   "tier": "free",
   "mode": "super-mind-autonomous-local",
   "created": "2026-07-30T04:11:00Z",
-  "cycles": 16,
-  "last_cycle": "20260801T142855Z",
+  "cycles": 17,
+  "last_cycle": "20261018T114013Z",
   "scores": {
     "health": 10,
     "skill_integrity": 10,
@@ -42,6 +42,11 @@
       "key": "finalize-deploy-terminal-mac",
       "detail": "Finalize + deploy Super Mind Mac terminal pack; push main",
       "at": "20260801T144004Z"
+    },
+    {
+      "key": "orchestrator-synthetic-intellect-block",
+      "detail": "added section to SKILL.md",
+      "at": "20261018T114013Z"
     }
   ],
   "failure_counts": {},
@@ -60,16 +65,15 @@
     "credit-aware routing: offline/local first"
   ],
   "last_observations": [
-    "ecosystem_inject=20260801T144508Z",
-    "core_validate=16/16",
-    "deploy=FINALIZE_TERMINAL_MAC",
-    "super_mind=LIVE_L5",
-    "skills_pass=84",
-    "ci_validate=PASS_84",
-    "heal=HEALTHY",
-    "overall=9.83",
-    "imagine_calls=0",
-    "soft_miss_face_refs=3_optional"
+    "skills_pass=8 skills_fail=0",
+    "app=n/a_skill_pack_repo",
+    "assets=complete_pack",
+    "recent_heal_issues=37",
+    "heal_signal:ACTION: app-restart-FAILED",
+    "heal_signal:MISS $PKE_ROOT/public/pke/IMG_4440.jpg",
+    "heal_signal:MISS $PKE_ROOT/public/pke/IMG_4441.jpg",
+    "heal_signal:MISS $PKE_ROOT/public/pke/IMG_4450.jpg",
+    "heal_signal:- app-restart-FAILED"
   ],
   "deploy": {
     "at": "20260801T144004Z",

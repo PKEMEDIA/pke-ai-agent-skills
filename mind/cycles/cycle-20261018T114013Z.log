@@ -1,0 +1,36 @@
+=== PKE SYNTHETIC INTELLECT CYCLE 20261018T114013Z ===
+tier=free mode=autonomous-local push=0
+rule=no-imagine no-video no-supergrok-burn
+=== PKE SELF-HEAL 20261018T114013Z ===
+root=$PKE_ROOT push=0 force=0 validate=$PKE_ROOT/skill-creator/scripts/validate-skill.sh
+consensus_gate=ok (via consensus-gate.sh)
+run_gate=first-pass
+$PKE_ROOT/startup.sh: 3: cd: can't cd to /Users/a1707/PKE/pke-ai-agent-skills
+ACTION: app-restart-FAILED
+MISS $PKE_ROOT/public/pke/IMG_4440.jpg
+MISS $PKE_ROOT/public/pke/IMG_4441.jpg
+MISS $PKE_ROOT/public/pke/IMG_4450.jpg
+ACTION: asset-misses:3
+github=skip (pass --push)
+=== SUMMARY ===
+skills 8/8
+fails_before_fix=0 fails_remaining=4
+skipped_idempotent=0
+actions=2
+ - app-restart-FAILED
+ - asset-misses:3
+log_file=$PKE_ROOT/artifacts/heal-logs/heal-20261018T114013Z.log
+stamp_dir=$PKE_ROOT/artifacts/heal-stamps
+STATUS=DEGRADED
+heal=DEGRADED (continuing learn on local signals)
+=== post-learn validate ===
+OK pke-face-lock
+OK pke-official-black-mask
+OK skill-orchestrator
+OK pke-synthetic-intellect
+OK pke-face-lock
+OK pke-official-black-mask
+OK skill-orchestrator
+OK pke-synthetic-intellect
+STATUS=CYCLE_COMPLETE free_tier=1 imagine=0
+log=$PKE_ROOT/mind/cycles/cycle-20261018T114013Z.log

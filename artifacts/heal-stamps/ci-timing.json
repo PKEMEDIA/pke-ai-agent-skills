@@ -1,0 +1,12 @@
+{
+  "stamp": "2026-10-18T11:40:14Z",
+  "status": "HEALTHY",
+  "gate_ms": 133,
+  "suite_ms": 0,
+  "total_ms": 133,
+  "gate_ok": true,
+  "suite_ok": true,
+  "suite_skipped": true,
+  "engine": "$PKE_ROOT/scripts/consensus-self-heal.mjs",
+  "mode": "gate-only"
+}

@@ -1,0 +1,9 @@
+{
+  "target": "app:8080",
+  "action": "restart",
+  "status": "failed",
+  "result": "still-down",
+  "completedAt": 1792323616,
+  "cooldownUntil": 1792323646,
+  "holderId": "pke-self-heal"
+}

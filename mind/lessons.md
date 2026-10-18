@@ -92,3 +92,16 @@ Living document. Updated by learn cycles. Free-tier safe (local only).
 - obs: heal_signal:MISS /Users/a1707/PKE/pke-ai-agent-skills/public/pke/IMG_4441.jpg
 - obs: heal_signal:MISS /Users/a1707/PKE/pke-ai-agent-skills/public/pke/IMG_4450.jpg
 - improve: none (stable)
+
+### Cycle 17 — 20261018T114013Z
+- scores: {"health": 10, "skill_integrity": 10, "prompt_efficiency": 10, "brand_lock_strength": 9, "autonomy": 10, "github_automation": 10, "ci_speed": 10, "super_mind": 10, "overall": 9.83}
+- obs: skills_pass=8 skills_fail=0
+- obs: app=n/a_skill_pack_repo
+- obs: assets=complete_pack
+- obs: recent_heal_issues=37
+- obs: heal_signal:ACTION: app-restart-FAILED
+- obs: heal_signal:MISS $PKE_ROOT/public/pke/IMG_4440.jpg
+- obs: heal_signal:MISS $PKE_ROOT/public/pke/IMG_4441.jpg
+- obs: heal_signal:MISS $PKE_ROOT/public/pke/IMG_4450.jpg
+- obs: heal_signal:- app-restart-FAILED
+- improve: orchestrator-synthetic-intellect-block — added section to SKILL.md

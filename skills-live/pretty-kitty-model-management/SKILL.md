@@ -1,6 +1,11 @@
 ---
 name: pretty-kitty-model-management
 description: Manage Pretty Kitty Entertainment model portfolios, contracts from standards, earnings, Google Forms, X trends from PKEMEDIA, plus batch media ingestion, video analysis, and compilation/film creation workflows. Use for talent onboarding, agreement customization, content production, repurposing, and compliance record keeping.
+metadata:
+  short-description: Talent portfolios, 2257 gates, template contract substitution
+  argument-hint: "[model name or onboarding task]"
+  surfaces: grok-bot, grok-chat, grok-ios, grok-web, grok-build, grok-cli
+  slash: /pretty-kitty-model-management
 ---
 
 # Pretty Kitty Model Management

@@ -2,6 +2,15 @@
 
 Lean current log. Full prior cycles live in `performance-metrics-archive.md`. Do not load the archive unless auditing history.
 
+## 2026-10-19 02:26 AM EDT (UTC 06:26) — Daily re-orchestration (box run, facts only)
+- **Recall**: main @ 4940528. Run on Grok Bot box with `$PKE_ROOT` = repo clone (Mac offline).
+- **Validate**: `ci-validate-skills.sh` PASS=88 FAIL=0. skills-live 54/54 OK. Grok Bot library 37/37 OK. `skill-orchestrator/scripts/bulk-validate.sh` did not run a tree: "ERROR: validate-skill.sh not found" (hard-coded legacy roots only). WASM and spicy suites not run.
+- **Longest bodies**: skills-live covicea-comfyui-consistency 163, skill-test-suite 158, covicea-distraction-image-defaults 158; library covicea-comfyui-consistency 163. Repo-wide agents/multiplayer-p2p 491 (third-party agents/ pack, left as-is). No skills-live or library skill over 350; no refactor.
+- **Sync**: Grok Bot copies of skill-orchestrator, skill-test-suite, skill-creator, paralegal-assistant were stale and redeployed from skills-live. pretty-kitty-model-management, covicea-brand-assistant, pk-svwo-v1-0 repo copies gained metadata.slash/surfaces from the Grok Bot copies; pk-svwo Location path made portable. All 7 now identical repo and Grok Bot. Cross-links OK: PKMM → brand → paralegal; creator → orchestrator → test-suite; pk-svwo ↔ orchestrator.
+- **iOS export**: synthetic 3s testsrc+sine, H.264 Constrained Baseline, yuv420p, AAC LC, faststart; moov@32 before mdat@3962, 88392 bytes.
+- **Learn/heal**: learn cycle=18 overall=9.83, imagine_calls=0. self-heal --force STATUS=DEGRADED (app-restart-FAILED: no app on 127.0.0.1:8080 on box; asset-misses:3 public/pke/IMG_4440/4441/4450.jpg).
+- **Locks**: Face Lock and Black Mask LOCKED. Imagine=0. No installs.
+
 ## 2026-10-09 06:14 AM EDT (UTC 10:14) — Meta triangle health loop
 - **Recall**: PKEMEDIA/pke-ai-agent-skills main @ 29597d12 (2026-10-08T10:15:30Z, stamp commit). skill-creator and skill-orchestrator identical in package root and skills-live. paralegal-assistant skills-live only (root 404).
 - **validate-skill.sh**: skills-live 3/3 OK. Server mounts 3/3 OK. No frontmatter FAIL. No path FAIL. No see-also dupes. No repo edit required.

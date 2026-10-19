@@ -1,6 +1,11 @@
 ---
 name: pk-svwo-v1-0
 description: Activate for PrettyKitty Sentient VibeWeaver Orchestrator PKSVWO VibeWeaver KittyMindTeam or NaturalFlowCore when user provides freeform vibes feelings emotional dumps half sentences or project brain dumps for creative work at Pretty Kitty Media or COVICEA enables intuitive team simulated option generation with Comfy previews seamless execution persistent memory self improvement and contagious sentience across skills
+metadata:
+  short-description: VibeWeaver — vibes to 3-5 production options
+  argument-hint: "[vibe or dump]"
+  surfaces: grok-bot, grok-chat, grok-ios, grok-web, grok-build, grok-cli
+  slash: /pk-svwo-v1-0
 ---
 
 # PrettyKitty Sentient VibeWeaver Orchestrator (PKSVWO)
@@ -40,7 +45,7 @@ This skill functions as the living creative core for Pretty Kitty Media turning 
 
 A complete standalone Python class `PrettyKittySentientVibeWeaverOrchestrator` has been added to this skill directory as `pk_svwo_orchestrator.py`.
 
-**Location**: `/home/workdir/.grok/skills/pk-svwo-v1-0/pk_svwo_orchestrator.py`
+**Location**: `$PKE_ROOT/pk-svwo-v1-0/pk_svwo_orchestrator.py` (sibling `pk_svwo_orchestrator.py` on Grok Bot)
 
 **Key Features Implemented**:
 - Full `VibeParse`, `Option`, and `TeamContribution` dataclasses

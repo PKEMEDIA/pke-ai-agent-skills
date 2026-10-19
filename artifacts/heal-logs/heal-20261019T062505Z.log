@@ -1,0 +1,20 @@
+=== PKE SELF-HEAL 20261019T062505Z ===
+root=$PKE_ROOT push=0 force=0 validate=$PKE_ROOT/skill-creator/scripts/validate-skill.sh
+consensus_gate=ok (via consensus-gate.sh)
+run_gate decision=allow reason=window-reset passes=1 remaining=0
+ACTION: app-restart-FAILED
+MISS $PKE_ROOT/public/pke/IMG_4440.jpg
+MISS $PKE_ROOT/public/pke/IMG_4441.jpg
+MISS $PKE_ROOT/public/pke/IMG_4450.jpg
+ACTION: asset-misses:3
+github=skip (pass --push)
+=== SUMMARY ===
+skills 8/8
+fails_before_fix=0 fails_remaining=4
+skipped_idempotent=0
+actions=2
+ - app-restart-FAILED
+ - asset-misses:3
+log_file=$PKE_ROOT/artifacts/heal-logs/heal-20261019T062505Z.log
+stamp_dir=$PKE_ROOT/artifacts/heal-stamps
+STATUS=DEGRADED

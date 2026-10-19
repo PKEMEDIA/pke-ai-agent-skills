@@ -28,6 +28,6 @@ root=$PKE_ROOT
     "force bypass"
   ]
 }
-gate_ms=133
+gate_ms=128
 CONSENSUS_ENGINE=HEALTHY
-consensus: gate=133ms suite=0ms total=133ms status=HEALTHY
+consensus: gate=128ms suite=0ms total=128ms status=HEALTHY

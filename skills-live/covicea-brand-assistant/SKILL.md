@@ -1,6 +1,11 @@
 ---
 name: covicea-brand-assistant
 description: Activate for Covicea and Pretty Kitty Entertainment brand tasks including drafting emails texts social media captions layouts posts talent agent functions trend stats monitoring and content strategy to grow the personal brand as Black gay adult creator and studio owner. Trigger on brand communications content creation industry monitoring or growth queries.
+metadata:
+  short-description: Coviceá brand voice, captions, talent-agent messaging
+  argument-hint: "[draft type or brief]"
+  surfaces: grok-bot, grok-chat, grok-ios, grok-web, grok-build, grok-cli
+  slash: /covicea-brand-assistant
 ---
 
 # Covicea Brand Assistant

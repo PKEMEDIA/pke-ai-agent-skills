@@ -1,0 +1,35 @@
+{
+  "stamp": "20261019T062505Z",
+  "scores": {
+    "health": 10,
+    "skill_integrity": 10,
+    "prompt_efficiency": 10,
+    "brand_lock_strength": 9,
+    "autonomy": 10,
+    "github_automation": 10,
+    "ci_speed": 10,
+    "super_mind": 10,
+    "overall": 9.83
+  },
+  "observations": [
+    "skills_pass=8 skills_fail=0",
+    "app=n/a_skill_pack_repo",
+    "assets=complete_pack",
+    "recent_heal_issues=35",
+    "heal_signal:ACTION: app-restart-FAILED",
+    "heal_signal:MISS $PKE_ROOT/public/pke/IMG_4440.jpg",
+    "heal_signal:MISS $PKE_ROOT/public/pke/IMG_4441.jpg",
+    "heal_signal:MISS $PKE_ROOT/public/pke/IMG_4450.jpg",
+    "heal_signal:- app-restart-FAILED"
+  ],
+  "improvements": [
+    {
+      "key": "orchestrator-synthetic-intellect-block",
+      "detail": "added section to SKILL.md",
+      "at": "20261019T062505Z"
+    }
+  ],
+  "free_tier": true,
+  "imagine_calls": 0,
+  "video_calls": 0
+}

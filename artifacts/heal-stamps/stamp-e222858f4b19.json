@@ -3,7 +3,7 @@
   "action": "restart",
   "status": "failed",
   "result": "still-down",
-  "completedAt": 1792323616,
-  "cooldownUntil": 1792323646,
+  "completedAt": 1792391111,
+  "cooldownUntil": 1792391141,
   "holderId": "pke-self-heal"
 }
